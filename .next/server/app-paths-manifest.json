@@ -1,0 +1,7 @@
+{
+  "/editor/[projectId]/[jsonId]/page": "app/editor/[projectId]/[jsonId]/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/[[...route]]/route": "app/api/[[...route]]/route.js",
+  "/api/uploadthing/route": "app/api/uploadthing/route.js",
+  "/(dashboard)/page": "app/(dashboard)/page.js"
+}
