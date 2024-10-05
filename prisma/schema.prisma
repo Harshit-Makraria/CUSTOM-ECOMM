@@ -1,453 +1,156 @@
 // // This is your Prisma schema file for MongoDB
 // // Learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider = "mongodb"
-//   url      = env("DATABASE_URL")
-// }
-
-// model User {
-//   id             String          @id @default(auto()) @map("_id") @db.ObjectId
-//   name           String?
-//   email          String          @unique
-//   emailVerified  DateTime?
-//   image          String?
-//   password       String
-//   design         Design[]
-//   accounts       Account[]
-//   sessions       Session[]
-//   authenticators Authenticator[]
-//   subscriptions  Subscription[]
-// }
-
-// model Account {
-//   id                String  @id @default(auto()) @map("_id") @db.ObjectId
-//   userId            String  @db.ObjectId
-//   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   type              String
-//   provider          String
-//   providerAccountId String
-//   refresh_token     String?
-//   access_token      String?
-//   expires_at        Int?
-//   token_type        String?
-//   scope             String?
-//   id_token          String?
-//   session_state     String?
-
-//   @@index([provider, providerAccountId], name: "provider_providerAccountId_idx") // Composite index instead of composite ID
-// }
-
-// model Session {
-//   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-//   sessionToken String   @unique
-//   userId       String   @db.ObjectId
-//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   expires      DateTime
-// }
-
-// model Design {
-//   id           String      @id @default(auto()) @map("_id") @db.ObjectId
-//   name         String
-//   userId       String      @db.ObjectId
-//   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   json         CanvaJson[]
-//   height       Int
-//   width        Int
-//   thumbnailUrl String?
-//   isTemplate   Boolean?
-//   isPro        Boolean?
-//   createdAt    DateTime    @default(now())
-//   updatedAt    DateTime    @updatedAt
-// }
-
-// model CanvaJson {
-//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-//   name String     @default("Untittled")
-//   designId  String   @db.ObjectId
-//   json      String
-//   design    Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
-//     height       Int
-//   width        Int
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
-
-// model VerificationToken {
-//   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-//   identifier String
-//   token      String
-//   expires    DateTime
-
-//   @@index([identifier, token], name: "identifier_token_idx") // Create a composite index for identifier and token
-// }
-
-// model Authenticator {
-//   id                   String  @id @default(auto()) @map("_id") @db.ObjectId
-//   credentialID         String  @unique
-//   userId               String  @db.ObjectId
-//   user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   providerAccountId    String
-//   credentialPublicKey  String
-//   counter              Int
-//   credentialDeviceType String
-//   credentialBackedUp   Boolean
-//   transports           String?
-// }
-
-// model Subscription {
-//   id               String    @id @default(auto()) @map("_id") @db.ObjectId
-//   userId           String    @db.ObjectId
-//   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   subscriptionId   String
-//   customerId       String
-//   priceId          String
-//   status           String
-//   currentPeriodEnd DateTime?
-//   createdAt        DateTime  @default(now())
-//   updatedAt        DateTime  @updatedAt
-// }
-
-// This is your Prisma schema file for MongoDB
-// Learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js" // Generates a Prisma client for database interactions
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb" // Specifies the use of MongoDB as the database provider
-  url      = env("DATABASE_URL") // Database connection string from environment variables
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
-// Model representing a user in the system
 model User {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the user
-  name           String?         // Optional name of the user
-  email          String          @unique // Unique email address for the user
-  emailVerified  DateTime?       // Timestamp for when the email was verified
-  image          String?         // Optional URL for the user's profile image
-  password       String           // User's password (should be hashed)
-  designs        Design[]        // Relation to designs created by the user
-  accounts       Account[]       // Relation to user accounts (e.g., social logins)
-  sessions       Session[]       // Relation to user sessions
-  authenticators Authenticator[] // Relation to multi-factor authentication credentials
-  subscriptions  Subscription[]  // Relation to user subscriptions
-  orders         Order[]         // Relation to the orders placed by the user
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String          @unique
+  emailVerified  DateTime?
+  image          String?
+  password       String
+  designs        Design[]
+  accounts       Account[]
+  sessions       Session[]
+  authenticators Authenticator[]
+  subscriptions  Subscription[]
+  orders         Order[]
 }
 
-// Model representing a user account (e.g., social login)
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the account
-  userId            String  @db.ObjectId // Foreign key referencing the User model
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
-  type              String  // Type of account (e.g., "oauth", "email")
-  provider          String  // Provider for the account (e.g., "google", "facebook")
-  providerAccountId String  // Unique identifier for the account in the provider's system
-  refresh_token     String? // Refresh token for OAuth accounts
-  access_token      String? // Access token for OAuth accounts
-  expires_at        Int?    // Expiration timestamp for the access token
-  token_type        String? // Type of the token (e.g., "Bearer")
-  scope             String? // Permissions granted by the account
-  id_token          String? // ID token for OAuth accounts
-  session_state     String? // Session state information for OAuth accounts
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
-  @@index([provider, providerAccountId], name: "provider_providerAccountId_idx") // Index for quick lookup
+  @@index([provider, providerAccountId], name: "provider_providerAccountId_idx")
 }
 
-// Model representing a user session
 model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the session
-  sessionToken String   @unique // Unique token for the session
-  userId       String   @db.ObjectId // Foreign key referencing the User model
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
-  expires      DateTime // Expiration timestamp for the session
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
 }
 
-// Model representing a design created by a user
 model Design {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the design
-  name         String      // Name of the design
-  userId       String      @db.ObjectId // Foreign key referencing the User model
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
-  json         CanvaJson[] // Relation to CanvaJson representations of the design
-  height       Int         // Height of the design
-  width        Int         // Width of the design
-  thumbnailUrl String?     // Optional URL for the design's thumbnail image
-  isTemplate   Boolean?    // Flag indicating if the design is a template
-  isPro        Boolean?    // Flag indicating if the design is a pro version
-  createdAt    DateTime    @default(now()) // Timestamp for when the design was created
-  updatedAt    DateTime    @updatedAt // Timestamp for the last update to the design
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  userId       String      @db.ObjectId
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  json         CanvaJson[]
+  height       Int
+  width        Int
+  thumbnailUrl String?
+  isTemplate   Boolean?
+  isPro        Boolean?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
-// Model representing a CanvaJson object associated with a design
 model CanvaJson {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the CanvaJson
-  name       String   @default("Untitled") // Name of the CanvaJson
-  designId   String   @db.ObjectId // Foreign key referencing the Design model
-  json       String   // JSON representation of the design
-  design     Design   @relation(fields: [designId], references: [id], onDelete: Cascade) // Relation to Design
-  height     Int      // Height of the design represented in this JSON
-  width      Int      // Width of the design represented in this JSON
-  createdAt  DateTime @default(now()) // Timestamp for when the CanvaJson was created
-  updatedAt  DateTime @updatedAt // Timestamp for the last update to the CanvaJson
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @default("Untitled")
+  designId   String   @db.ObjectId
+  json       String
+  design     Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
+  height     Int
+  width      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
-// Model representing a verification token for email verification or password reset
 model VerificationToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the verification token
-  identifier String   // Identifier for the user (e.g., email)
-  token      String   // The verification token itself
-  expires    DateTime // Expiration timestamp for the token
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String
+  expires    DateTime
 
-  @@index([identifier, token], name: "identifier_token_idx") // Index for quick lookup
+  @@index([identifier, token], name: "identifier_token_idx")
 }
 
-// Model representing a multi-factor authentication credential
 model Authenticator {
-  id                   String  @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the authenticator
-  credentialID         String  @unique // Unique identifier for the credential
-  userId               String  @db.ObjectId // Foreign key referencing the User model
-  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
-  providerAccountId    String  // Identifier for the account associated with this credential
-  credentialPublicKey  String  // Public key for the credential
-  counter              Int     // Counter for the credential
-  credentialDeviceType String  // Type of device used for the credential
-  credentialBackedUp   Boolean // Flag indicating if the credential is backed up
-  transports           String? // Possible transports for the credential (e.g., "usb", "ble")
+  id                   String  @id @default(auto()) @map("_id") @db.ObjectId
+  credentialID         String  @unique
+  userId               String  @db.ObjectId
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
 }
 
-// Model representing a subscription associated with a user
 model Subscription {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the subscription
-  userId           String    @db.ObjectId // Foreign key referencing the User model
-  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
-  subscriptionId   String    // Unique identifier for the subscription
-  customerId       String    // Identifier for the customer in the subscription service
-  priceId          String    // Identifier for the price of the subscription
-  status           String    // Status of the subscription (e.g., "active", "canceled")
-  currentPeriodEnd DateTime? // End date of the current subscription period
-  createdAt        DateTime  @default(now()) // Timestamp for when the subscription was created
-  updatedAt        DateTime  @updatedAt // Timestamp for the last update to the subscription
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String    @db.ObjectId
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptionId   String
+  customerId       String
+  priceId          String
+  status           String
+  currentPeriodEnd DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
-// Model representing a product that can be ordered
 model Product {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the product
-  name          String    // Name of the product
-  description   String    // Description of the product
-  basePrice     Float     // Base price of the product
-  category      String    // Category of the product
-  imageUrl      String?   // Optional URL for the product's image
-  customizable  Boolean   @default(false) // Flag indicating if the product is customizable
-  options       Option[]  // Relation to the available options for the product
-  
-  stock         Int       @default(0) // Available stock for the product
-  createdAt     DateTime  @default(now()) // Timestamp for when the product was created
-  updatedAt     DateTime  @updatedAt // Timestamp for the last update to the product
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  description   String
+  basePrice     Float
+  category      String
+  imageUrl      String?
+  customizable  Boolean   @default(false)
+  options       Option[]
+  stock         Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
-// Model representing an option available for a product
 model Option {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the option
-  name      String   // Name of the option (e.g., Paper Type, Size)
-  values    String[] // Available values for this option (e.g., 'Glossy', 'Matte')
-  productId String   @db.ObjectId // Foreign key referencing the Product model
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // Relation to Product
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  values    String[]
+  productId String   @db.ObjectId
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
-// Model representing an order placed by a user
 model Order {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the order
-  userId      String     @db.ObjectId // Foreign key referencing the User model
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
-  items       OrderItem[] // Relation to the items included in the order
-  totalAmount Float      // Total amount for the order
-  status      String     // Status of the order (e.g., Pending, Processing, Shipped, Delivered)
-  createdAt   DateTime   @default(now()) // Timestamp for when the order was created
-  updatedAt   DateTime   @updatedAt // Timestamp for the last update to the order
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String     @db.ObjectId
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       OrderItem[]
+  totalAmount Float
+  status      String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
-// Model representing an item in an order
 model OrderItem {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the order item
-  orderId     String   @db.ObjectId // Foreign key referencing the Order model
-  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade) // Relation to Order
-  productId   String   @db.ObjectId // Foreign key referencing the Product model
-  quantity    Int      // Quantity of the product ordered
-  price       Float    // Price of the product at the time of the order
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId     String   @db.ObjectId
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String   @db.ObjectId
+  quantity    Int
+  price       Float
 }
-
-
-
-
-
-// generator client {
-//   provider = "prisma-client-js" // Generates a Prisma client to interface with the database.
-// }
-
-// datasource db {
-//   provider = "mongodb" // Specifies MongoDB as the database provider.
-//   url      = env("DATABASE_URL") // Connection string for the database, retrieved from environment variables.
-// }
-
-// // Model representing a user in the application.
-// model User {
-//   id             String          @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the user.
-//   name           String?         // Optional name of the user.
-//   email          String          @unique // User's unique email address for login.
-//   emailVerified  DateTime?       // Timestamp indicating when the email was verified.
-//   image          String?         // Optional URL for the user's profile image.
-//   password       String           // Hashed password for user authentication.
-//   designs        Design[]        // Designs created by the user.
-//   accounts       Account[]       // Accounts linked to the user (e.g., social media).
-//   sessions       Session[]       // Active sessions for the user.
-//   authenticators Authenticator[] // Multi-factor authentication credentials for added security.
-//   subscriptions  Subscription[]  // Active subscriptions linked to the user.
-//   orders         Order[]         // Orders placed by the user.
-// }
-
-// // Model representing user accounts (e.g., social logins).
-// model Account {
-//   id                String  @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the account.
-//   userId            String  @db.ObjectId // ID of the user associated with the account.
-//   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade) // Link to the User model.
-//   type              String  // Type of account (e.g., "oauth", "email").
-//   provider          String  // Name of the account provider (e.g., "google", "facebook").
-//   providerAccountId String  // Unique ID for the account in the provider's system.
-//   refresh_token     String? // Refresh token for OAuth accounts.
-//   access_token      String? // Access token for OAuth accounts.
-//   expires_at        Int?    // Expiration timestamp for the access token.
-//   token_type        String? // Type of the token (e.g., "Bearer").
-//   scope             String? // Permissions granted by the account.
-//   id_token          String? // ID token for OAuth accounts.
-//   session_state     String? // Session state information for OAuth accounts.
-
-//   @@index([provider, providerAccountId], name: "provider_providerAccountId_idx") // Index for fast lookups by provider and account ID.
-// }
-
-// // Model representing a user session.
-// model Session {
-//   id           String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the session.
-//   sessionToken String   @unique // Unique token for the session.
-//   userId       String   @db.ObjectId // ID of the user associated with the session.
-//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Link to the User model.
-//   expires      DateTime // Timestamp for when the session expires.
-// }
-
-// // Model representing a design created by a user.
-// model Design {
-//   id           String      @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the design.
-//   name         String      // Name given to the design by the user.
-//   userId       String      @db.ObjectId // ID of the user who created the design.
-//   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade) // Link to the User model.
-//   json         CanvaJson[] // JSON representations of the design.
-//   height       Int         // Height of the design in pixels.
-//   width        Int         // Width of the design in pixels.
-//   thumbnailUrl String?     // Optional URL for the design's thumbnail image.
-//   isTemplate   Boolean?    // Indicates if the design is a template (true/false).
-//   isPro        Boolean?    // Indicates if the design is a pro version (true/false).
-//   createdAt    DateTime    @default(now()) // Timestamp for when the design was created.
-//   updatedAt    DateTime    @updatedAt // Timestamp for when the design was last updated.
-// }
-
-// // Model representing a CanvaJson object associated with a design.
-// model CanvaJson {
-//   id         String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the CanvaJson.
-//   name       String   @default("Untitled") // Name of the CanvaJson, defaults to "Untitled".
-//   designId   String   @db.ObjectId // ID of the design this JSON belongs to.
-//   json       String   // JSON representation of the design.
-//   design     Design   @relation(fields: [designId], references: [id], onDelete: Cascade) // Link to the Design model.
-//   height     Int      // Height of the design represented in this JSON.
-//   width      Int      // Width of the design represented in this JSON.
-//   createdAt  DateTime @default(now()) // Timestamp for when the CanvaJson was created.
-//   updatedAt  DateTime @updatedAt // Timestamp for when the CanvaJson was last updated.
-// }
-
-// // Model representing a verification token for email verification or password resets.
-// model VerificationToken {
-//   id         String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the verification token.
-//   identifier String   // Identifier for the user (e.g., email).
-//   token      String   // The verification token itself.
-//   expires    DateTime // Timestamp for when the token expires.
-
-//   @@index([identifier, token], name: "identifier_token_idx") // Index for quick lookups by identifier and token.
-// }
-
-// // Model representing a multi-factor authentication credential.
-// model Authenticator {
-//   id                   String  @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the authenticator.
-//   credentialID         String  @unique // Unique identifier for the credential.
-//   userId               String  @db.ObjectId // ID of the user associated with this credential.
-//   user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade) // Link to the User model.
-//   providerAccountId    String  // ID for the account associated with this credential.
-//   credentialPublicKey  String  // Public key for the credential.
-//   counter              Int     // Counter for the credential (used in MFA).
-//   credentialDeviceType String  // Type of device used for the credential (e.g., "mobile", "hardware").
-//   credentialBackedUp   Boolean // Indicates if the credential is backed up (true/false).
-//   transports           String? // Possible transports for the credential (e.g., "usb", "ble").
-// }
-
-// // Model representing a subscription associated with a user.
-// model Subscription {
-//   id               String    @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the subscription.
-//   userId           String    @db.ObjectId // ID of the user associated with the subscription.
-//   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade) // Link to the User model.
-//   subscriptionId   String    // Unique identifier for the subscription.
-//   customerId       String    // Identifier for the customer in the subscription service.
-//   priceId          String    // Identifier for the price of the subscription.
-//   status           String    // Current status of the subscription (e.g., "active", "canceled").
-//   currentPeriodEnd DateTime? // Timestamp for the end of the current subscription period.
-//   createdAt        DateTime  @default(now()) // Timestamp for when the subscription was created.
-//   updatedAt        DateTime  @updatedAt // Timestamp for when the subscription was last updated.
-// }
-
-// // Model representing a product that can be ordered.
-// model Product {
-//   id            String    @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the product.
-//   name          String    // Name of the product.
-//   description   String    // Description of the product.
-//   basePrice     Float     // Base price of the product.
-//   category      String    // Category to which the product belongs.
-//   imageUrl      String?   // Optional URL for the product's image.
-//   customizable  Boolean   @default(false) // Indicates if the product is customizable (true/false).
-//   options       Option[]  // Available options for the product (e.g., sizes, colors).
-//   stock         Int       @default(0) // Quantity of the product available in stock.
-//   createdAt     DateTime  @default(now()) // Timestamp for when the product was created.
-//   updatedAt     DateTime  @updatedAt // Timestamp for when the product was last updated.
-// }
-
-// // Model representing an option available for a product.
-// model Option {
-//   id        String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the option.
-//   name      String   // Name of the option (e.g., "Paper Type").
-//   values    String[] // Possible values for the option (e.g., ["Glossy", "Matte"]).
-//   productId String   @db.ObjectId // ID of the product associated with this option.
-//   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // Link to the Product model.
-// }
-
-// // Model representing an order placed by a user.
-// model Order {
-//   id          String     @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the order.
-//   userId      String     @db.ObjectId // ID of the user who placed the order.
-//   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade) // Link to the User model.
-//   status      String     // Current status of the order (e.g., "pending", "completed").
-//   totalAmount Float      // Total amount for the order.
-//   createdAt   DateTime   @default(now()) // Timestamp for when the order was created.
-//   updatedAt   DateTime   @updatedAt // Timestamp for the last update to the order.
-// }
-
-// // Model representing an item in an order.
-// model OrderItem {
-//   id          String     @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the order item.
-//   orderId     String     @db.ObjectId // Foreign key referencing the Order model.
-//   order       Order      @relation(fields: [orderId], references: [id], onDelete: Cascade) // Relation to the Order model.
-//   productId   String     @db.ObjectId // Foreign key referencing the Product model.
-//   product     Product    @relation(fields: [productId], references: [id], onDelete: Cascade) // Relation to the Product model.
-//   quantity    Int        // Quantity of the product ordered.
-//   price       Float      // Price of the product at the time of the order.
-// }
