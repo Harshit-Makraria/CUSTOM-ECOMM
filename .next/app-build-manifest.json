@@ -1,26 +1,15 @@
 {
   "pages": {
-    "/(dashboard)/page": [
+    "/(admin)/userform/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/page.js"
-    ],
-    "/(dashboard)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(dashboard)/layout.css",
-      "static/chunks/app/(dashboard)/layout.js"
+      "static/chunks/app/(admin)/userform/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-    ],
-    "/editor/[projectId]/[jsonId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/editor/[projectId]/[jsonId]/page.js"
     ]
   }
 }
