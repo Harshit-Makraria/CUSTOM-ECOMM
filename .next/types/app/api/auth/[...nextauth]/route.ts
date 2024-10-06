@@ -1,4 +1,4 @@
-// File: H:\WeppDev\rhb-canva\src\app\api\auth\[...nextauth]\route.ts
+// File: C:\Users\ASUS\Desktop\RHBcanva\image-ai-master\src\app\api\auth\[...nextauth]\route.ts
 import * as entry from '../../../../../../src/app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 
