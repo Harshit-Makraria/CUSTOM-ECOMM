@@ -39,13 +39,9 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
       )
     },
     cell: ({ row }) => {
-      const price = parseFloat(row.getValue("price") || "0");
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "INR"
-      }).format(price);
+    
 
-      return <div>{formatted}</div>
+      return <div>{(row.getValue('role') as  []).filter(role => role != 'EMPLOYEE').join(',')}</div>
     }
   },
   {
@@ -62,15 +58,41 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
       )
     },
     cell: ({ row }) => {
-      const isPublished = row.getValue("isPublished") || false;
+      const status= row.getValue("status") || false;
 
       return (
-        <Badge className={cn(
-          "bg-slate-500 text-white",
-          isPublished && "bg-sky-700 text-white"
+        <div className={cn(
+          "bg-slate-500 text-white w-max rounded px-2 ",
+          status && "bg-sky-700 text-white"
         )}>
-          {isPublished ? "Published" : "Draft"}
-        </Badge>
+         {row.getValue('status')}
+        </div>
+      )
+    }
+  },
+  {
+    accessorKey: "departmentName",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Department Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+     
+
+      return (
+        <div className={cn(
+          " text-black capitalize font-medium w-max rounded px-2 "
+          
+        )}>
+         {row.getValue('departmentName')}
+        </div>
       )
     }
   },
@@ -88,7 +110,7 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/teacher/courses/${id}`}>
+            <Link href={`/admin/user-edit/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit

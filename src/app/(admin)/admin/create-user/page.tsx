@@ -17,7 +17,7 @@ import { useGetTokens } from "@/features/verification/api/use-get-tokens";
    <>
 
    <CreateUserForm />
-{ data &&   <DataTable columns={verificationColumns} data={data.data} filterKey={'email'} />}
+{ data &&   <DataTable columns={verificationColumns} data={data.data!} filterKey={'email'} />}
    </>
   );
 };

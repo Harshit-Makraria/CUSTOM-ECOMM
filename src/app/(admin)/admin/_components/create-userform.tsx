@@ -21,27 +21,28 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useCreateToken } from '@/features/verification/api/use-create-token';
+import { toast } from 'sonner';
  
 export default function CreateUserForm() {
 
     const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
 
   const params = useSearchParams();
   const error = params.get("error");
 
-  const onCredentialSignIn = (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-  
+  const {mutate } = useCreateToken();
 
-    signIn("credentials", {
-      email: email,
-      password: password,
-      callbackUrl: "/create-user",
-    });
+  function onSend(){
+     mutate({
+      departmentId:"wefjnkcjnewnrnoncewnoi",
+      departmentName:"bhopal",
+      email,
+      role:["CREATE_PRODUCT" , "EMPLOYEE"]
+    }) 
 
-  };
+  }
 
   return (
     
@@ -56,7 +57,7 @@ export default function CreateUserForm() {
         </div>
       )}
       <CardContent className="space-y-5 px-0 pb-0 ">
-        <form onSubmit={onCredentialSignIn} className="space-y-2.5">
+        <form onSubmit={onSend} className="space-y-2.5">
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
