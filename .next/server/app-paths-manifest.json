@@ -1,6 +1,6 @@
 {
-  "/editor/[projectId]/[jsonId]/page": "app/editor/[projectId]/[jsonId]/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/[[...route]]/route": "app/api/[[...route]]/route.js",
-  "/(dashboard)/page": "app/(dashboard)/page.js"
+  "/(dashboard)/page": "app/(dashboard)/page.js",
+  "/(admin)/admin/create-user/page": "app/(admin)/admin/create-user/page.js",
+  "/(auth)/sign-in/page": "app/(auth)/sign-in/page.js",
+  "/(auth)/sign-up/page": "app/(auth)/sign-up/page.js"
 }

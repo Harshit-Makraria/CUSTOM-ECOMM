@@ -17,7 +17,7 @@ export const Logo = () => {
           <Image src="/logo.svg" alt="Image AI" fill />
         </div>
         <h1 className={cn(font.className, "text-xl font-bold")}>
-          Rayband
+          Raybrand
         </h1>
       </div>
     </Link>
