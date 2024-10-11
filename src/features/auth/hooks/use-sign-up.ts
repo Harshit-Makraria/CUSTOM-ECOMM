@@ -16,16 +16,19 @@ export const useSignUp = () => {
     mutationFn: async (json) => {
  
       const response = await client.api.users.$post({ json });
-   console.log("first")
+      
       if (!response.ok) {
-        throw new Error("Something went wrong");
+        // change this in future- display the message from backend 
+        throw new Error("Email already exist");
       }
 
       return await response.json();
     },
     onSuccess: () => {
       toast.success("User created");
-    }
+    },
+
+    
   });
 
   return mutation;

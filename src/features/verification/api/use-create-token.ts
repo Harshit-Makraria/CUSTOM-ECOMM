@@ -30,6 +30,7 @@ export const useCreateToken = () => {
       queryClient.invalidateQueries({ queryKey: ["tokens"] });
     },
     onError: () => {
+      
       toast.error("Failed to create token");
     }
   });

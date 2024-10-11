@@ -25,25 +25,25 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
       )
     },
   },
-  {
-    accessorKey: "role",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Roles
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => {
+  // {
+  //   accessorKey: "role",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         Roles
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     )
+  //   },
+  //   cell: ({ row }) => {
     
 
-      return <div>{(row.getValue('role') as  []).filter(role => role != 'EMPLOYEE').join(',')}</div>
-    }
-  },
+  //     return <div>{(row.getValue('role') as  []).filter(role => role != 'EMPLOYEE').join(',')}</div>
+  //   }
+  // },
   {
     accessorKey: "status",
     header: ({ column }) => {

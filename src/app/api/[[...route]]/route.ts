@@ -7,7 +7,7 @@ import users from "./users";
 import images from "./images";
 import projects from "./projects";
 import verification from "./verification";
-
+import department from  './department'
 import authConfig from "@/auth.config";
 
 // Revert to "edge" if planning on running on the edge
@@ -28,7 +28,8 @@ const route = app.route("/users", users)
 .route("/images", images)
 .route("/projects", projects)
 .route("/ai", ai)
-.route("/verificationToken", verification);
+.route("/verificationToken", verification)
+.route("/departments", department);
 
  
 

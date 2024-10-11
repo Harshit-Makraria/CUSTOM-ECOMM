@@ -22,13 +22,22 @@ enum VerificationStatus {
   ACCEPTED
 }
 
-model Department {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  departmentName String
-  address        String
-  user           User[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name String
+  role Role[]
+
+  user PostToUser[]
+}
+
+model PostToUser {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  postId String @db.ObjectId
+  userId String @db.ObjectId
+
+  Post Post @relation(fields: [postId], references: [id])
+  User User @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -45,10 +54,25 @@ model User {
   subscriptions  Subscription[]
   orders         Order[]
 
+  post PostToUser[]
+
   role Role?
+
+  additionalRole Role[]
 
   departmentId String?     @db.ObjectId
   department   Department? @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+}
+
+model Department {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  departmentName String
+  address        String
+  user           User[]
+  city           String
+  pincode        String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Account {
@@ -108,7 +132,7 @@ model VerificationToken {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   email          String
-  role           Role[]
+  post           String[]
   departmentId   String
   departmentName String
   status         VerificationStatus @default(PENDING)

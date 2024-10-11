@@ -1,16 +1,18 @@
-import { optional, z } from "zod";
+import { optional, string, z } from "zod";
 import { Hono } from "hono";
 import { eq, and, desc, asc } from "drizzle-orm";
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 import db from "@/db/prisma";
-import { Role } from "@prisma/client";
+import { Post } from "@prisma/client";
+import sendEmail from "../_utils/nodemailer/send-email";
+import { error } from "console";
 
 const verificationSchema = z.object({
   departmentId: z.string(),
   email: z.string(), // Add specific fields in your JSON if needed
   departmentName:z.string(),
-  role: z.array(z.nativeEnum(Role)).optional(),
+  post: z.array(z.string())
 });
 const app = new Hono()
 
@@ -70,7 +72,9 @@ const app = new Hono()
     async (c) => {
       
       const { id } = c.req.valid("param");
+ 
 
+      
  
       const data = await db.verificationToken.findUnique({
         where: {
@@ -86,7 +90,7 @@ const app = new Hono()
 
 
 
-      return c.json({ data });
+      return c.json( data );
     }
   )
 
@@ -100,28 +104,33 @@ const app = new Hono()
         departmentId: true,
         email: true,
         departmentName:true,
-        role: true,
+        post: true,
       })
     ),
 
     async (c) => {
       const auth = c.get("authUser");
-      const { departmentId, email, departmentName, role } = c.req.valid("json");
+      const { departmentId, email, departmentName, post } = c.req.valid("json");
 
       if (!auth.token?.id) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 
+      // const isEmailSent =  await sendEmail(email)
       
-
-
+    
+ 
+      //  if(!isEmailSent) {
+      //    return c.json({error :"Internal Server Error"}, 402)
+      //  }
+ 
       // Insert the new project
       const data = await db.verificationToken.create({
         data: {
           departmentId,
           email,
           expires : new Date(),
-          role:role??['EMPLOYEE'],
+          post,
           status: "PENDING",
           departmentName
         },

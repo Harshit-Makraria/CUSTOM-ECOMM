@@ -19,8 +19,8 @@ export const useGetTokens = () => {
         throw new Error("Failed to fetch tokens");
       }
 
-      const data  = await response.json();
-      return {...data};
+      const {data}  = await response.json();
+      return data;
     },
   });
 

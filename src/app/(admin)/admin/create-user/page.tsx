@@ -1,24 +1,31 @@
-"use client";
+
  
-import CreateUserForm from "../_components/create-userform";
+ 
 import { verificationColumns } from "./_components/column";
 import { DataTable } from "./_components/data-table";
 import { useGetTokens } from "@/features/verification/api/use-get-tokens";
+import DisplayVerificationToken from "./_components/display-verifaction-table";
+import CreateUserForm from "./_components/create-userform";
+import Userform from "./_components/userForm";
 
 
  
 
 
- const Userform = () => {
+ const page = () => {
    
-  const {data} = useGetTokens();
+ 
 
   return (
    <>
+ 
+  
+  
+   <Userform />
 
-   <CreateUserForm />
-{ data &&   <DataTable columns={verificationColumns} data={data.data!} filterKey={'email'} />}
+   <DisplayVerificationToken/>
    </>
   );
 };
-export default Userform;
+
+export default page;
