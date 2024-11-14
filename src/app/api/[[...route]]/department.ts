@@ -105,7 +105,7 @@ const app = new Hono()
       const {  pincode, departmentName, address , city } = c.req.valid("json");
 
       if (!auth.token?.id) {
-        return c.json({ error: "Unauthorized" }, 401);
+        return c.json({ error: "Unauthorized"}, 401);
       }
        
 

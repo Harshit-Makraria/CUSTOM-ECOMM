@@ -19,19 +19,21 @@ export const useCreateToken = () => {
       const response = await client.api.verificationToken.$post({ json });
 
       if (!response.ok) {
-        throw new Error("Something went wrong");
+        const {error} = await response.json() as {error :string}
+        throw new Error(error);
       }
 
       return await response.json();
     },
     onSuccess: () => {
-      toast.success("Token send");
 
+      toast.success("Token send");
+      
       queryClient.invalidateQueries({ queryKey: ["tokens"] });
     },
-    onError: () => {
-      
-      toast.error("Failed to create token");
+    onError: (error :Error) => {
+  
+      toast.error(error.message);
     }
   });
 

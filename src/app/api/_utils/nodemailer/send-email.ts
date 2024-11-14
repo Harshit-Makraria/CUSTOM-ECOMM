@@ -1,32 +1,27 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
  
-import { createTransport } from "nodemailer";
+import { Resend } from 'resend';
 
-const sendEmail = async (email:string): Promise<Boolean> => {
-  try {
-    const transporter = createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false, // Use `true` for port 465, `false` for all other ports
-      auth: {
-        user: "lexuslearning@gmail.com",
-        pass: "kjomripfdygvfube",
-      },
-    });
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-       await transporter.sendMail({
-       from: 'Lexus " <lexuslearning@gmail.com>', // sender address
-      to: `${email}`, // list of receivers
-      subject: "Cridential", // Subject line
+export default async function sendEmail(email:string){
 
-      html: `<b>Username :${email} </b>
-              
-         `, // html body
-    });
-    return true;
-  } catch (error) {
-    console.log(error)
-    return false;
-  }
+ try {
+   const { data, error } = await resend.emails.send({
+     from: 'Lexus <lexuslearning@gmail.com>', // sender address
+     to: `${email}`, // list of receivers
+     subject: "Cridential", // Subject line
+ 
+     html: `<b>Username :${email} </b>`
+   });
+ console.log({data , error})
+   return true
+ 
+ } catch (error) {
+  return false
+ }
+  
 };
 
-export  default sendEmail
+
+ 

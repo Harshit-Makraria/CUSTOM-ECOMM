@@ -32,6 +32,8 @@ const EmployeeSignUpCard = ({ searchParams }: { searchParams: { tokenId: string 
 
   const { data } = useGetToken(tokenId);
 
+  console.log(data)
+
   if (!data) {
     return (
       <>
@@ -49,7 +51,7 @@ const EmployeeSignUpCard = ({ searchParams }: { searchParams: { tokenId: string 
         email: data.email,
         password,
         post: data.post,
-        departmentId:data.departmentId
+        departmentIds:data.departmentIds
       },
       {
         onSuccess: () => {
@@ -80,7 +82,7 @@ const EmployeeSignUpCard = ({ searchParams }: { searchParams: { tokenId: string 
           <Input
             disabled={true}
             value={data.email}
-            className="text-black"
+            className="text-black disabled:text-black placeholder:text-black"
             placeholder="Email"
             type="email"
 

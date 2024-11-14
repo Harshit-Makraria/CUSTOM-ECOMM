@@ -26,12 +26,12 @@ export const useDepartmentToken = () => {
     },
     onSuccess: () => {
 
-      toast.success("department created");
+      toast.success("Department created");
 
-      queryClient.invalidateQueries({ queryKey: ["tokens"] });
+      queryClient.invalidateQueries({ queryKey: ["departments"] });
     },
     onError: () => {
-      toast.error("Failed to create department");
+      toast.error("Failed to create Department");
     }
   });
 

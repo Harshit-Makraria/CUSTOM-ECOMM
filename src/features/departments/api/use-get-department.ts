@@ -11,7 +11,7 @@ export type ResponseType = InferResponseType<
 export const useGetDepartment = () => {
   const query = useQuery({
     
-    queryKey: ["department"],
+    queryKey: ["departments"],
     queryFn: async () => {
       const response = await client.api.departments.$get();
 

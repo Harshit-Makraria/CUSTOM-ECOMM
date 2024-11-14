@@ -1,14 +1,18 @@
-"use client"
+"use client";
 
-import { VerificationToken } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, Badge, MoreHorizontal, Pencil } from "lucide-react"
+import { VerificationToken } from "@prisma/client";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, Badge, MoreHorizontal, Pencil } from "lucide-react";
 import Link from "next/link";
- 
- 
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const verificationColumns: ColumnDef<VerificationToken>[] = [
   {
@@ -22,7 +26,7 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
           Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   // {
@@ -39,7 +43,6 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
   //     )
   //   },
   //   cell: ({ row }) => {
-    
 
   //     return <div>{(row.getValue('role') as  []).filter(role => role != 'EMPLOYEE').join(',')}</div>
   //   }
@@ -55,46 +58,47 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
           Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
-      const status= row.getValue("status") || false;
+      const status = row.getValue("status") || false;
 
       return (
-        <div className={cn(
-          "bg-slate-500 text-white w-max rounded px-2 ",
-          status && "bg-sky-700 text-white"
-        )}>
-         {row.getValue('status')}
+        <div
+          className={cn(
+            "bg-slate-500 text-white w-max rounded px-2 ",
+            status && "bg-sky-700 text-white"
+          )}
+        >
+          {row.getValue("status")}
         </div>
-      )
-    }
+      );
+    },
   },
   {
-    accessorKey: "departmentName",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Department Name
+          Created At
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
-     
-
       return (
-        <div className={cn(
-          " text-black capitalize font-medium w-max rounded px-2 "
-          
-        )}>
-         {row.getValue('departmentName')}
+        <div
+          className={cn(
+            " text-black capitalize font-medium w-max rounded px-2 "
+          )}
+        >
+          {new Date(row.getValue("createdAt")).toDateString()}
         </div>
-      )
-    }
+      );
+    },
   },
   {
     id: "actions",
@@ -118,7 +122,7 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
             </Link>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
-    }
-  }
-]
+      );
+    },
+  },
+];

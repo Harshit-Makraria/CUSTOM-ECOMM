@@ -2,7 +2,7 @@ import { ResponseType } from "@/features/projects/api/use-get-project";
 import { CanvaJson } from "@prisma/client";
 import React, { useCallback, useMemo } from "react";
 
-export default function getJsonData(jsonArray: ResponseType["data"]['json'], jsonId: string) {
+export default function UseGetJsonData(jsonArray: ResponseType["data"]['json'], jsonId: string) {
   const jsonData = useMemo(()=>{
     let tempJsonData = jsonArray[0];
   jsonArray.map((el) => {
@@ -11,7 +11,7 @@ export default function getJsonData(jsonArray: ResponseType["data"]['json'], jso
     }
   });
   return tempJsonData;
-  } , [])
+  } , [jsonArray , jsonId])
 
   return jsonData
   

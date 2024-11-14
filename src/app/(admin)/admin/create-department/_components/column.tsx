@@ -111,7 +111,7 @@ export const departmentColumns: ColumnDef<Department>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/admin/user-edit/${id}`}>
+            <Link href={`/admin/department-edit/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit

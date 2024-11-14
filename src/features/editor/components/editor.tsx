@@ -28,7 +28,8 @@ import { TemplateSidebar } from "@/features/editor/components/template-sidebar";
 import { RemoveBgSidebar } from "@/features/editor/components/remove-bg-sidebar";
 import { SettingsSidebar } from "@/features/editor/components/settings-sidebar";
 import { CanvasSidebar } from "./canvas-sidebar";
-import getJsonData from "../utils/get-json-data";
+ 
+import UseGetJsonData from "../utils/get-json-data";
  
 
 interface EditorProps {
@@ -40,7 +41,7 @@ export const Editor = ({ initialData, jsonId }: EditorProps) => {
   const { mutate } = useUpdateProject(initialData.data.id, jsonId);
    
 
-  const jsonData =getJsonData(initialData.data.json , jsonId)
+  const jsonData =UseGetJsonData(initialData.data.json , jsonId)
    
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

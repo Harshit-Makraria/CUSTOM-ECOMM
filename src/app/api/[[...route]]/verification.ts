@@ -7,12 +7,13 @@ import db from "@/db/prisma";
 import { Post } from "@prisma/client";
 import sendEmail from "../_utils/nodemailer/send-email";
 import { error } from "console";
+ 
 
 const verificationSchema = z.object({
-  departmentId: z.string(),
+  departmentIds:z.array(z.string()),
   email: z.string(), // Add specific fields in your JSON if needed
-  departmentName:z.string(),
-  post: z.array(z.string())
+ 
+  post:  z.array(z.string())
 });
 const app = new Hono()
 
@@ -67,13 +68,13 @@ const app = new Hono()
 
   .get(
     "/:id",
-    verifyAuth(),
+    // verifyAuth(),
     zValidator("param", z.object({ id: z.string() })),
     async (c) => {
       
       const { id } = c.req.valid("param");
  
-
+ 
       
  
       const data = await db.verificationToken.findUnique({
@@ -83,6 +84,7 @@ const app = new Hono()
         },
        
       });
+    
 
       if (!data) {
         return c.json({ error: "Not found" }, 404);
@@ -100,17 +102,12 @@ const app = new Hono()
     zValidator(
       "json",
 
-      verificationSchema.pick({
-        departmentId: true,
-        email: true,
-        departmentName:true,
-        post: true,
-      })
+      verificationSchema.partial()
     ),
 
     async (c) => {
       const auth = c.get("authUser");
-      const { departmentId, email, departmentName, post } = c.req.valid("json");
+      const { departmentIds, email , post } = c.req.valid("json");
 
       if (!auth.token?.id) {
         return c.json({ error: "Unauthorized" }, 401);
@@ -118,21 +115,36 @@ const app = new Hono()
 
       // const isEmailSent =  await sendEmail(email)
       
+      const tokenExist = await db.verificationToken.findFirst({
+        where :{
+          email
+        }
+      })
+
+      const userExist = await db.user.findFirst({
+        where :{
+          email
+        }
+      })
+      
+       if(userExist || tokenExist) {
+         return c.json({error :"Already Created"}, 402)
+       }
+
+     const isEmailSent =   await sendEmail(email!)
+   
+     if(!isEmailSent) {
+      return  c.json({error:"Email cannot be sent"} , 500)
+     }
     
- 
-      //  if(!isEmailSent) {
-      //    return c.json({error :"Internal Server Error"}, 402)
-      //  }
- 
-      // Insert the new project
       const data = await db.verificationToken.create({
         data: {
-          departmentId,
-          email,
+          departmentIds,
+          email:email!,
           expires : new Date(),
           post,
           status: "PENDING",
-          departmentName
+     
         },
       });
 

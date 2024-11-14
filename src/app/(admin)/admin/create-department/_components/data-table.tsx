@@ -23,7 +23,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[],
+  data: TData[] | any,
   filterKey:keyof TData,
   isLoading:boolean
 }
@@ -53,7 +53,7 @@ export function DataTable<TData, TValue>({
   })
 
   const pathname = usePathname()
-   const toShow =pathname.includes('/course')
+ 
 
   return (
     <div>
@@ -67,12 +67,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-      { toShow &&  <Link href="/course/create">
-          <Button>
-            <PlusCircle className="h-4 w-4 mr-2" />
-            New course
-          </Button>
-        </Link>}
+    
       </div>
       <div className="rounded-md border">
         <Table>

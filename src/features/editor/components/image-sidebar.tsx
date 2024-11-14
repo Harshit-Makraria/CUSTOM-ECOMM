@@ -22,7 +22,8 @@ interface ImageSidebarProps {
   onChangeActiveTool: (tool: ActiveTool) => void;
 };
 
-export const ImageSidebar = memo ( ({
+export const ImageSidebar = memo( 
+  ({
   editor,
   activeTool,
   onChangeActiveTool,
@@ -106,4 +107,7 @@ export const ImageSidebar = memo ( ({
       <ToolSidebarClose onClick={onClose} />
     </aside>
   );
-} );
+}   );
+
+
+ImageSidebar.displayName ="ImageSiderBar"

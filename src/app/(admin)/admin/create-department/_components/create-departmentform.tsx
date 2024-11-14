@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { TriangleAlert } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
@@ -24,8 +24,8 @@ export default function CreateDepartmentForm() {
 
   const { mutate } = useDepartmentToken();
 
-  function onSend() {
-    
+  function onSubmit( e :FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     mutate({
       departmentName,
       address,
@@ -54,7 +54,7 @@ export default function CreateDepartmentForm() {
           </div>
         )}
         <CardContent className="space-y-5 px-0 pb-0">
-          <form onSubmit={onSend} className="space-y-2.5">
+          <form onSubmit={onSubmit} className="space-y-2.5">
             <Input
               value={departmentName}
               onChange={(e) => setDepartmentName(e.target.value)}
