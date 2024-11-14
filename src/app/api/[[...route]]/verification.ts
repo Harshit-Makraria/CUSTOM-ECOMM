@@ -10,7 +10,7 @@ import { error } from "console";
  
 
 const verificationSchema = z.object({
-  departmentIds:z.array(z.string()),
+  branchIds:z.array(z.string()),
   email: z.string(), // Add specific fields in your JSON if needed
  
   post:  z.array(z.string())
@@ -107,7 +107,7 @@ const app = new Hono()
 
     async (c) => {
       const auth = c.get("authUser");
-      const { departmentIds, email , post } = c.req.valid("json");
+      const { branchIds, email , post } = c.req.valid("json");
 
       if (!auth.token?.id) {
         return c.json({ error: "Unauthorized" }, 401);
@@ -131,15 +131,15 @@ const app = new Hono()
          return c.json({error :"Already Created"}, 402)
        }
 
-     const isEmailSent =   await sendEmail(email!)
+     const isEmailSent =  await sendEmail(email!)
    
-     if(!isEmailSent) {
-      return  c.json({error:"Email cannot be sent"} , 500)
-     }
+    //  if(!isEmailSent) {
+    //   return  c.json({error:"Email cannot be sent"} , 500)
+    //  }
     
       const data = await db.verificationToken.create({
         data: {
-          departmentIds,
+          branchIds,
           email:email!,
           expires : new Date(),
           post,

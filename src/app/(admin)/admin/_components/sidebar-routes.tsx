@@ -41,10 +41,10 @@ export const SidebarRoutes = () => {
           isActive={pathname === "/admin/create-product"}
         />
           <SidebarItem
-          href="/admin/create-department"
+          href="/admin/create-branch"
           icon={Home}
-          label="Create Department"
-          isActive={pathname === "/admin/create-department"}
+          label="Create Branch"
+          isActive={pathname === "/admin/create-branch"}
         />
       </ul>
       <div className="px-3">

@@ -31,7 +31,7 @@ export const TemplateSidebar = ({
 
   
 
-  const { shouldBlock, triggerPaywall } = usePaywall();
+  // const { shouldBlock, triggerPaywall } = usePaywall();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",

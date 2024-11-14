@@ -8,7 +8,7 @@ import { Account, Post } from "@prisma/client";
 
 const accountSchema = z.object({
   userId: z.string(),
-  departmentId: z.string(),
+  branchId: z.string(),
 });
 const app = new Hono()
 
@@ -50,7 +50,7 @@ const app = new Hono()
           userId: auth.user?.id,
         },
         select: {
-          department: true,
+          branch: true,
           post: {
             select: {
               Post: true,
@@ -98,14 +98,14 @@ const app = new Hono()
       "json",
 
       accountSchema.pick({
-        departmentId: true,
+        branchId: true,
         userId: true,
       })
     ),
 
     async (c) => {
       const auth = c.get("authUser");
-      const { userId, departmentId } = c.req.valid("json");
+      const { userId, branchId } = c.req.valid("json");
 
       if (!auth.token?.id) {
         return c.json({ error: "Unauthorized" }, 401);
@@ -121,7 +121,7 @@ const app = new Hono()
       const data = await db.account.create({
         data: {
           userId,
-          departmentId,
+          branchId,
         },
       });
 

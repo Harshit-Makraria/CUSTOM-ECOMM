@@ -119,7 +119,7 @@ export default {
     async authorized({ request, auth }) {
       //if a non-employee come to a admin path it will redirect you to the home page
       // but an employee can go  to a home route
-      console.log(auth)
+  
       if (
         auth?.user.role == null &&
         request.nextUrl.pathname.startsWith("/admin")

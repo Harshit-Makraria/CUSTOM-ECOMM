@@ -2,7 +2,7 @@
 
 import { VerificationToken } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Badge, MoreHorizontal, Pencil } from "lucide-react";
+import { ArrowUpDown, Badge, MoreHorizontal, Pencil , Copy } from "lucide-react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 export const verificationColumns: ColumnDef<VerificationToken>[] = [
   {
@@ -104,7 +105,6 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
     id: "actions",
     cell: ({ row }) => {
       const { id } = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -120,7 +120,18 @@ export const verificationColumns: ColumnDef<VerificationToken>[] = [
                 Edit
               </DropdownMenuItem>
             </Link>
+            <div className="cursor-pointer" onClick={ async ()=>{
+           navigator.clipboard.writeText(`http://localhost:3000/employee/sign-up?tokenId=${id}`).then(_=>{
+            toast.success("Copied!")
+           })
+            }}>
+              <DropdownMenuItem>
+                <Copy className="h-4 w-4 mr-2" />
+                Copy url
+              </DropdownMenuItem>
+            </div>
           </DropdownMenuContent>
+          
         </DropdownMenu>
       );
     },

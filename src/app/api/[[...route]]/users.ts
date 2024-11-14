@@ -13,7 +13,7 @@ const EmployeeUserSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   password: z.string().min(3).max(20),
-  departmentIds: z.array(z.string()),
+  branchIds: z.array(z.string()),
   post: z.array(z.string()),
 });
 
@@ -62,7 +62,7 @@ const app = new Hono()
     
     zValidator("json", EmployeeUserSchema.partial()),
     async (c) => {
-      const { name, email, password, departmentIds, post } =
+      const { name, email, password, branchIds, post } =
         c.req.valid("json");
 
       const hashedPassword = await bcrypt.hash(password!, 12);
@@ -88,11 +88,11 @@ const app = new Hono()
 
       var activeAccountId = null;
 
-      if (departmentIds != undefined) {
-        for (let departmentId of departmentIds) {
+      if (branchIds != undefined) {
+        for (let branchId of branchIds) {
           const account = await db.account.create({
             data: {
-              departmentId,
+              branchId,
               userId: user.id,
             },
           });
@@ -137,6 +137,15 @@ const app = new Hono()
         },
       });
 
+      await db.verificationToken.update({
+        where :{
+          email
+        } , 
+        data :{
+          status :"ACCEPTED"
+        }
+      })
+
       return c.json(null, 200);
     }
   )
@@ -156,7 +165,7 @@ const app = new Hono()
       include : {
         activeAccount :{
           select :{
-            department:true,
+            branch:true,
             post:{
               select:{
          Post:true
@@ -173,7 +182,7 @@ const app = new Hono()
         
       },
       select: {
-        department: true,
+        branch: true,
         post: {
           select: {
             Post: true,

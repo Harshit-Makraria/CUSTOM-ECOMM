@@ -18,21 +18,21 @@ import { Post } from "@prisma/client";
 import { useEmployeeDetail } from "../_utils/employee-provider";
 
 const Item = ({
-  department,
+  branch,
   posts,
   isActive = false,
 }: {
-  department: any | null;
+  branch: any | null;
   posts: Post[];
   isActive?: boolean;
 }) => {
   return (
     <DropdownMenuItem className={`${isActive && "bg-muted"}`}>
       <div className="flex flex-col gap-3">
-        {department && (
+        {branch && (
           <div className=" flex justify-between gap-1">
-            <span className="text-black font-semibold">{department.city}</span>
-            <span>{department.address}</span>
+            <span className="text-black font-semibold">{branch.city}</span>
+            <span>{branch.address}</span>
           </div>
         )}
         <div>
@@ -69,7 +69,7 @@ export default function AccountButton() {
               <DropdownMenuSeparator />
 
               <Item
-                department={activeAccount.department}
+                branch={activeAccount.branch}
                 posts={activeAccount.post!}
                 isActive={true}
               />
@@ -80,9 +80,9 @@ export default function AccountButton() {
           <DropdownMenuLabel className="mt-1"># Department's</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
-          {data?.map(({ department, post }) => {
+          {data?.map(({ branch, post }) => {
             return (
-              <Item key={department?.id} department={department} posts={post} />
+              <Item key={branch?.id} branch={branch} posts={post} />
             );
           })}
         </DropdownMenuContent>

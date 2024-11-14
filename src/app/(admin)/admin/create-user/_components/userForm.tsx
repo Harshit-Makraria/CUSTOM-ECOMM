@@ -7,13 +7,13 @@ import CreateUserForm from "./create-userform";
 
  const Userform = async () => {
     const posts = await db.post.findMany();
-    const departments = await db.department.findMany();
+    const branchs = await db.branch.findMany();
 
 
   return (
    <>
  
-   <CreateUserForm posts={posts} departments={departments} />
+   <CreateUserForm posts={posts} branchs={branchs} />
 
    </>
   );

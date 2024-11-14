@@ -18,14 +18,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCreateToken } from "@/features/verification/api/use-create-token";
-import { Department, Post } from "@prisma/client";
+import { Branch, Post } from "@prisma/client";
 
 export default function CreateUserForm({
   posts,
-  departments,
+  branchs,
 }: {
   posts: Post[];
-  departments: Department[];
+  branchs: Branch[];
 }) {
   const [email, setEmail] = useState("");
 
@@ -34,7 +34,7 @@ export default function CreateUserForm({
   const { mutate  } = useCreateToken();
 
   const [post, setPost] = useState<string[]>([]);
-  const [departmentIds, setDepartmentsIds] = useState<string[]>([]);
+  const [branchIds, setDepartmentsIds] = useState<string[]>([]);
   const handelSetPost = async (data: string) => {
     setPost(pre=>[data]);
   };
@@ -45,7 +45,7 @@ export default function CreateUserForm({
   function onSend(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     mutate({
-      departmentIds: departmentIds.length == 0 ? undefined : departmentIds,
+      branchIds: branchIds.length == 0 ? undefined : branchIds,
       email,
       post: post.length == 0 ? undefined : post,
     });
@@ -92,7 +92,7 @@ export default function CreateUserForm({
                   <SelectValue placeholder="Department" />
                 </SelectTrigger>
                 <SelectContent className="space-y-1">
-                  {departments.map((departments) => {
+                  {branchs.map((departments) => {
                     return (
                       <React.Fragment key={departments.id}>
                         <SelectItem
@@ -103,7 +103,7 @@ export default function CreateUserForm({
                             className="flex  w-full gap-10
                      "
                           >
-                            <span>{departments.departmentName}</span>
+                            <span>{departments.name}</span>
                           </div>
                           <div>{departments.address}</div>
                         </SelectItem>
