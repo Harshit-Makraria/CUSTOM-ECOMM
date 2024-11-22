@@ -10,7 +10,7 @@ import verification from "./verification";
 import branch from  './branch'
 import account from './account'
 import authConfig from "@/auth.config";
-
+import product from "./product";
 // Revert to "edge" if planning on running on the edge
 export const runtime = "nodejs";
 
@@ -28,6 +28,7 @@ app.use("*", initAuthConfig(getAuthConfig));
 const route = app.route("/users", users)
 .route("/images", images)
 .route("/projects", projects)
+.route("/product", product)
 .route("/ai", ai)
 .route("/verificationToken", verification)
 .route("/branch", branch)

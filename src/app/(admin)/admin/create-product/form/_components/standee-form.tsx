@@ -1,0 +1,200 @@
+"use client"
+import { useState, ChangeEvent, FormEvent } from "react";
+import type { OurFileRouter } from "@/app/api/uploadthing/core";
+import { UploadButton } from "@uploadthing/react";
+const StandeeForm: React.FC = () => {
+  const [file, setFile] = useState<File | null>(null);
+  const [formData, setFormData] = useState({
+    name: "Standee ",
+    h1: "Event prep just got easier.",
+    description: [
+      "Available in two sizes:",
+      "- 2.5 feet x 6 feet (77 cm x 185 cm)",
+      "- 2 feet x 5 feet (60.96 cm x 157.8 cm)",
+    ],
+     description1: [
+      "Perfect for conferences and exhibitions.",
+      "Professional looking, lightweight, sturdy and water-resistant.",
+      "Standees are also known as Retractable banners, Roller banners, or Pop-up banners."],
+    size:"",
+    eyelets: false,
+    price: "1750",
+    CashOnDelivery: false,
+  });
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+    const checked = (e.target as HTMLInputElement).checked;
+    setFormData((prevData) => ({ ...prevData, [name]: type === "checkbox" ? checked : value }));
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log("Form Data:", formData);
+    console.log("Uploaded File:", file);
+  };
+  const handleInputChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSize = event.target.value;
+
+    // Define pricing for sizes
+    const sizePricing: Record<string, number> = {
+      "2 feet * 5 feet": 1750,
+      "2.5 feet * 6 feet": 2300,
+    };
+
+    // Update the form data with selected size and price
+    setFormData({
+      name: "Flex ",
+      h1: "Promote your brand with durable, lightweight Flex",
+      description: [
+        "Select your own custom size from the size drop down and design your banner or choose one of the 9 standard sizes available!",
+        "Pre-designed Banner templates available for occasions like Birthday, Promotional Events etc.",
+        "Vertical or horizontal designed banner layouts available (both Indoor & outdoor options).",
+      ],
+       description1: [
+        "Sharp, full-colour printing.",
+        "Durable material (Vinyl Flex).",
+        "Hang your Flex easily with optional metal eyelets (strongly recommended – they make it a lot easier!)."
+       ],  
+      size: selectedSize,
+      price: sizePricing[selectedSize]?.toString() || "Custom pricing available",
+      
+    CashOnDelivery: false,
+    eyelets: false,
+    });
+  };
+  
+
+  return (
+<div className="font-bold" >
+      <form
+        onSubmit={handleSubmit}
+        className=" shadow-md rounded-lg p-6 w-full max-w-lg"
+      >
+      
+        {/* Upload Container */}
+        <div className="p-4 bg-gray-100 rounded-md shadow-md">
+      <h2 className="text-lg font-bold mb-2">Upload Your File</h2>
+      <UploadButton<OurFileRouter, "imageUploader">
+        endpoint="imageUploader" // Match the key from `ourFileRouter`
+        onClientUploadComplete={(res) => {
+          console.log("Upload Complete:", res); // `res` contains file URLs
+          alert("File uploaded successfully!");
+        }}
+        onUploadError={(error) => {
+          console.error("Upload Error:", error);
+          alert("Upload failed!");
+        }}
+      />
+     </div>
+
+        {/* Input Fields */}
+        <div className="mb-4">
+      Name:
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            placeholder="Name"
+            className="w-full border font-normal border-gray-300 rounded-md p-2 mt-4 text-black "
+          />
+        </div>
+
+        <div className="mb-2">
+          Title:
+          <textarea
+            id="h1"
+            name="h1"
+            value={formData.h1}
+            onChange={handleInputChange}
+            placeholder="h1"
+            className="w-full border font-normal border-gray-300 rounded-md p-2"
+          />
+        </div>
+        <div className="mb-2 h-auto">
+          Description:
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            placeholder="Description"
+            className="w-full border font-normal min-h-40 border-gray-300 rounded-md p-2"
+          />
+        </div>
+        
+        <div className="mb-2">
+          <textarea
+            id="description1"
+            name="description1"
+            value={formData.description1}
+            onChange={handleInputChange}
+            placeholder="Description"
+            className="w-full border font-normal min-h-40 border-gray-300 rounded-md p-2"
+          />
+        </div>
+        
+        <div className="mb-4">
+     <select
+    id="size"
+    name="size"
+    value={formData.size}
+    onChange={handleInputChange2}
+    className="w-full border border-gray-300 rounded-md p-2 mt-1"
+  >
+    <option value="" disabled>Select Size</option>
+    <option value="2 feet * 5 feet">2 feet * 5 feet</option>
+    <option value="2.5 feet * 6 feet">2.5 feet * 6 feet</option>
+ 
+     </select>
+    </div>
+        <div className="mb-4 font-bold">
+         Price per unit
+          <input
+            type="text"
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleInputChange}
+            placeholder="Price per unit"
+            className="w-full border  border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
+        <div className="mb-4">
+       <label htmlFor="CashOnDelivery" className="flex items-center space-x-2">
+       <input
+      type="checkbox"
+      id="CashOnDelivery"
+      name="CashOnDelivery"
+      checked={formData.CashOnDelivery}
+      onChange={handleInputChange}
+      className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+    />
+    <span className="text-sm text-gray-700">Cash on Delivery</span>
+  </label>
+  </div>
+
+
+
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
+        >
+          Submit
+        </button>
+      </form>
+</div>
+  );
+};
+
+export default StandeeForm;

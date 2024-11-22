@@ -20,7 +20,12 @@ import { SidebarItem } from "./sidebar-item";
 export const SidebarRoutes = () => {
   const mutation = useCheckout();
   const billingMutation = useBilling();
-  const { shouldBlock, isLoading, triggerPaywall } = usePaywall();
+  const { shouldBlock, isLoading, triggerPaywall } = usePaywall() as {
+    shouldBlock: boolean;
+    isLoading: boolean;
+    triggerPaywall: () => void;
+  };
+  
 
   const pathname = usePathname();
 

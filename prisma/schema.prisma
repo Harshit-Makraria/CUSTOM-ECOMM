@@ -128,6 +128,7 @@ model Design {
   userId       String      @db.ObjectId
   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   json         CanvaJson[]
+  product      Product?
   height       Int
   width        Int
   thumbnailUrl String?
@@ -179,14 +180,31 @@ model Product {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   description  String
-  basePrice    Float
-  category     String
+  price    Float
+  size         String
+  quantity     Float
+  eyelets       String?
+  Shape        String?
+  Material     String?
+  designId    String? @unique  @db.ObjectId
+  design       Design?    @relation(fields: [designId], references: [id], onDelete: Cascade)
+   
+  categoryId   String   @db.ObjectId
+  category     Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   imageUrl     String?
+   userId      String   @db.ObjectId
   customizable Boolean  @default(false)
   options      Option[]
   stock        Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+model Category{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  product   Product[]  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Option {

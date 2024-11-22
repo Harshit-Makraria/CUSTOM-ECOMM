@@ -1,10 +1,6 @@
 {
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/[[...route]]/route": "app/api/[[...route]]/route.js",
-  "/editor/[projectId]/[jsonId]/page": "app/editor/[projectId]/[jsonId]/page.js",
+  "/api/uploadthing/route": "app/api/uploadthing/route.js",
   "/(dashboard)/page": "app/(dashboard)/page.js",
-  "/(admin)/admin/page": "app/(admin)/admin/page.js",
-  "/(admin)/admin/create-user/page": "app/(admin)/admin/create-user/page.js",
-  "/(admin)/admin/create-branch/page": "app/(admin)/admin/create-branch/page.js",
-  "/(auth)/employee/sign-up/page": "app/(auth)/employee/sign-up/page.js"
+  "/(admin)/admin/create-product/form/[productname]/page": "app/(admin)/admin/create-product/form/[productname]/page.js",
+  "/(admin)/admin/create-product/page": "app/(admin)/admin/create-product/page.js"
 }

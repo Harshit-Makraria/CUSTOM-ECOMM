@@ -1,14 +1,14 @@
 {
   "pages": {
-    "/(auth)/employee/sign-up/page": [
+    "/(dashboard)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/employee/sign-up/page.js"
+      "static/chunks/app/(dashboard)/page.js"
     ],
-    "/(auth)/layout": [
+    "/(dashboard)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/layout.js"
+      "static/chunks/app/(dashboard)/layout.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -32,40 +32,15 @@
       "static/css/app/(admin)/admin/layout.css",
       "static/chunks/app/(admin)/admin/layout.js"
     ],
-    "/(admin)/admin/create-branch/page": [
+    "/(admin)/admin/create-product/form/[productname]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/admin/create-branch/page.js"
+      "static/chunks/app/(admin)/admin/create-product/form/[productname]/page.js"
     ],
-    "/(admin)/admin/create-user/page": [
+    "/(admin)/admin/create-product/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/admin/create-user/page.js"
-    ],
-    "/(dashboard)/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/page.js"
-    ],
-    "/(dashboard)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/layout.js"
-    ],
-    "/(auth)/sign-in/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/sign-in/page.js"
-    ],
-    "/(auth)/sign-up/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/sign-up/page.js"
-    ],
-    "/editor/[projectId]/[jsonId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/editor/[projectId]/[jsonId]/page.js"
+      "static/chunks/app/(admin)/admin/create-product/page.js"
     ]
   }
 }

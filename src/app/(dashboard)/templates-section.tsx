@@ -30,7 +30,8 @@ export const TemplatesSection = () => {
     mutation.mutate(
       {
         name: `${template.name} project`,
-        json: template.json,
+        json: JSON.stringify(template.json),
+
         width: template.width,
         height: template.height,
       },
