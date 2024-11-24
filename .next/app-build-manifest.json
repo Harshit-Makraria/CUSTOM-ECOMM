@@ -1,14 +1,10 @@
 {
   "pages": {
-    "/(dashboard)/page": [
+    "/(dashboard)/(landing)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/page.js"
-    ],
-    "/(dashboard)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/layout.js"
+      "static/css/app/(dashboard)/(landing)/page.css",
+      "static/chunks/app/(dashboard)/(landing)/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -21,6 +17,21 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
+    ],
+    "/(dashboard)/edit/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(dashboard)/edit/page.js"
+    ],
+    "/(dashboard)/edit/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(dashboard)/edit/layout.js"
+    ],
     "/(admin)/admin/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -29,18 +40,22 @@
     "/(admin)/admin/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(admin)/admin/layout.css",
       "static/chunks/app/(admin)/admin/layout.js"
     ],
-    "/(admin)/admin/create-product/form/[productname]/page": [
+    "/(admin)/admin/create-user/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/admin/create-product/form/[productname]/page.js"
+      "static/chunks/app/(admin)/admin/create-user/page.js"
     ],
     "/(admin)/admin/create-product/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/admin/create-product/page.js"
+    ],
+    "/(admin)/admin/create-product/form/[productname]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/admin/create-product/form/[productname]/page.js"
     ]
   }
 }

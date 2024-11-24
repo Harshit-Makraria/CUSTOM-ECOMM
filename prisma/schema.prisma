@@ -180,8 +180,8 @@ model Product {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   description  String
-  price    Float
-  size         String
+  price    Float[]
+  size         String[]
   quantity     Float
   eyelets       String?
   Shape        String?

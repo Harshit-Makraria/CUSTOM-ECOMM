@@ -1,5 +1,5 @@
  
-import { Logo } from "@/app/(dashboard)/logo";
+import { Logo } from "@/features/editor/components/logo";// Ensure this path is correct or update it to the correct path
 import { SidebarRoutes } from "./sidebar-routes";
 
 export const Sidebar = () => {
