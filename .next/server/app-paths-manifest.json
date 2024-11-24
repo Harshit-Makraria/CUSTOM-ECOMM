@@ -1,7 +1,0 @@
-{
-  "/api/[[...route]]/route": "app/api/[[...route]]/route.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/(admin)/admin/create-product/[categeoryId]/page": "app/(admin)/admin/create-product/[categeoryId]/page.js",
-  "/(admin)/admin/create-product/form/[productname]/page": "app/(admin)/admin/create-product/form/[productname]/page.js",
-  "/(admin)/admin/create-product/page": "app/(admin)/admin/create-product/page.js"
-}
