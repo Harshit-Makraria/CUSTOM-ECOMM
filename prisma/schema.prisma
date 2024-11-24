@@ -189,8 +189,8 @@ model Product {
   designId    String? @unique  @db.ObjectId
   design       Design?    @relation(fields: [designId], references: [id], onDelete: Cascade)
    
-  categoryId   String   @db.ObjectId
-  category     Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId   String?   @db.ObjectId
+  category     Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   imageUrl     String?
    userId      String   @db.ObjectId
   customizable Boolean  @default(false)

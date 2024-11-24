@@ -1,9 +1,13 @@
-"use client"
+"use client";
 import { useState, ChangeEvent, FormEvent } from "react";
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import { UploadButton } from "@uploadthing/react";
-const BannerForm: React.FC = () => {
+import { useCreateproduct } from "@/features/product/api/use-create-product";
+import { useParams } from "next/navigation";
+const BannerForm = ({categoryId} :{categoryId:string}) => {
   const [file, setFile] = useState<File | null>(null);
+  const { productname } = useParams();
+  const mutation = useCreateproduct();
   const [formData, setFormData] = useState({
     name: "Banner ",
     h1: "Promote your brand with durable, lightweight Banner",
@@ -12,17 +16,19 @@ const BannerForm: React.FC = () => {
       "Pre-designed Banner templates available for occasions like Birthday, Promotional Events etc.",
       "Vertical or horizontal designed banner layouts available (both Indoor & outdoor options).",
     ],
-     description1: [
+    description1: [
       "Sharp, full-colour printing.",
       "Durable material (Vinyl Banner).",
-      "Hang your Banner easily with optional metal eyelets (strongly recommended – they make it a lot easier!)."
-    
-     ],
-    size:"",
+      "Hang your Banner easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
+    ],
+    size: "",
     eyelets: false,
     price: "",
     CashOnDelivery: false,
   });
+
+
+
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -30,16 +36,32 @@ const BannerForm: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target as
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | HTMLSelectElement;
     const checked = (e.target as HTMLInputElement).checked;
-    setFormData((prevData) => ({ ...prevData, [name]: type === "checkbox" ? checked : value }));
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  const handleInputChange1 = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+  const handleInputChange1 = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target as
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | HTMLSelectElement;
     const checked = (e.target as HTMLInputElement).checked;
-    setFormData((prevData) => ({ ...prevData, [name]: type === "checkbox" ? checked : value }));
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
   const handleInputChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSize = event.target.value;
@@ -62,50 +84,58 @@ const BannerForm: React.FC = () => {
         "Pre-designed Banner templates available for occasions like Birthday, Promotional Events etc.",
         "Vertical or horizontal designed banner layouts available (both Indoor & outdoor options).",
       ],
-       description1: [
+      description1: [
         "Sharp, full-colour printing.",
         "Durable material (Vinyl Banner).",
-        "Hang your Banner easily with optional metal eyelets (strongly recommended – they make it a lot easier!)."
-       ],  
+        "Hang your Banner easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
+      ],
       size: selectedSize,
-      price: sizePricing[selectedSize]?.toString() || "Custom pricing available",
-      
-    CashOnDelivery: false,
-    eyelets: false,
+      price:
+        sizePricing[selectedSize]?.toString() || "Custom pricing available",
+
+      CashOnDelivery: false,
+      eyelets: false,
     });
   };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    mutation.mutate({
+      name: productname as string,
+      description: formData.description.join(""),
+      imageUrl: "",
+      price: [466],
+    });
+
     console.log("Form Data:", formData);
     console.log("Uploaded File:", file);
   };
 
   return (
-<div className="font-bold" >
+    <div className="font-bold">
+      <h1>{categoryId}</h1>
       <form
         onSubmit={handleSubmit}
         className=" shadow-md rounded-lg p-6 w-full max-w-lg"
       >
-      
         {/* Upload Container */}
         <div className="p-4 bg-gray-100 rounded-md shadow-md">
-      <h2 className="text-lg font-bold mb-2">Upload Your File</h2>
-      <UploadButton<OurFileRouter, "imageUploader">
-        endpoint="imageUploader" // Match the key from `ourFileRouter`
-        onClientUploadComplete={(res) => {
-          console.log("Upload Complete:", res); // `res` contains file URLs
-          alert("File uploaded successfully!");
-        }}
-        onUploadError={(error) => {
-          console.error("Upload Error:", error);
-          alert("Upload failed!");
-        }}
-      />
-     </div>
+          <h2 className="text-lg font-bold mb-2">Upload Your File</h2>
+          <UploadButton<OurFileRouter, "imageUploader">
+            endpoint="imageUploader" // Match the key from `ourFileRouter`
+            onClientUploadComplete={(res) => {
+              console.log("Upload Complete:", res); // `res` contains file URLs
+              alert("File uploaded successfully!");
+            }}
+            onUploadError={(error) => {
+              console.error("Upload Error:", error);
+              alert("Upload failed!");
+            }}
+          />
+        </div>
 
         {/* Input Fields */}
         <div className="mb-4">
-      Name:
+          Name:
           <input
             type="text"
             id="name"
@@ -139,7 +169,7 @@ const BannerForm: React.FC = () => {
             className="w-full border min-h-40 border-gray-300 font-normal rounded-md p-2"
           />
         </div>
-        
+
         <div className="mb-2">
           <textarea
             id="description1"
@@ -150,26 +180,28 @@ const BannerForm: React.FC = () => {
             className="w-full border min-h-40 border-gray-300 font-normal rounded-md p-2"
           />
         </div>
-        
-  <div className="mb-4 font-bold">
-    Size:
-              <select
-                id="size"
-                name="size"
-                value={formData.size}
-                onChange={handleInputChange2}
-                className="w-full border border-gray-300 font-normal rounded-md p-2 mt-1"
-              >
-                     <option value="" disabled>Select Size</option>
-                     <option value="52*91 cm">52*91 cm</option>
-                     <option value="76*122 cm">76*122 cm</option>
-                     <option value="76*183 cm">76*183 cm</option>
-                     <option value="76*244 cm">76*244 cm</option>
-                     <option value="122*244 cm">122*244 cm</option>
-                  </select>
-                </div>
+
         <div className="mb-4 font-bold">
-         Price per unit
+          Size:
+          <select
+            id="size"
+            name="size"
+            value={formData.size}
+            onChange={handleInputChange2}
+            className="w-full border border-gray-300 font-normal rounded-md p-2 mt-1"
+          >
+            <option value="" disabled>
+              Select Size
+            </option>
+            <option value="52*91 cm">52*91 cm</option>
+            <option value="76*122 cm">76*122 cm</option>
+            <option value="76*183 cm">76*183 cm</option>
+            <option value="76*244 cm">76*244 cm</option>
+            <option value="122*244 cm">122*244 cm</option>
+          </select>
+        </div>
+        <div className="mb-4 font-bold">
+          Price per unit
           <input
             type="text"
             id="price"
@@ -181,33 +213,38 @@ const BannerForm: React.FC = () => {
           />
         </div>
         <div className="mb-4">
-       <label htmlFor="CashOnDelivery" className="Banner items-center space-x-2">
-       <input
-      type="checkbox"
-      id="CashOnDelivery"
-      name="CashOnDelivery"
-      checked={formData.CashOnDelivery}
-      onChange={handleInputChange}
-      className="h-4 w-4 text-blue-600 border-gray-300 rounded"
-    />
-    <span className="text-sm text-gray-700">Cash on Delivery</span>
-  </label>
-  </div>
+          <label
+            htmlFor="CashOnDelivery"
+            className="Banner items-center space-x-2"
+          >
+            <input
+              type="checkbox"
+              id="CashOnDelivery"
+              name="CashOnDelivery"
+              checked={formData.CashOnDelivery}
+              onChange={handleInputChange}
+              className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+            />
+            <span className="text-sm text-gray-700">Cash on Delivery</span>
+          </label>
+        </div>
 
-
-                <div className="mb-4">
-       <label htmlFor="CashOnDelivery" className="Banner items-center space-x-2">
-       <input
-      type="checkbox"
-      id="eyelets"
-      name="eyelets"
-      checked={formData.eyelets}
-      onChange={handleInputChange1}
-      className="h-4 w-4 text-blue-600 border-gray-300 rounded"
-    />
-    <span className="text-sm text-gray-700">Eyelets</span>
-  </label>
-  </div>
+        <div className="mb-4">
+          <label
+            htmlFor="CashOnDelivery"
+            className="Banner items-center space-x-2"
+          >
+            <input
+              type="checkbox"
+              id="eyelets"
+              name="eyelets"
+              checked={formData.eyelets}
+              onChange={handleInputChange1}
+              className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+            />
+            <span className="text-sm text-gray-700">Eyelets</span>
+          </label>
+        </div>
 
         {/* Submit Button */}
         <button
@@ -217,7 +254,7 @@ const BannerForm: React.FC = () => {
           Submit
         </button>
       </form>
-        </div>
+    </div>
   );
 };
 

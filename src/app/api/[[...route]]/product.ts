@@ -7,10 +7,9 @@ import db from "@/db/prisma";
 const productInsertSchema = z.object({
   name: z.string(),
   description: z.string(),
-  price: z.number(),
-  imageUrl: z.string().url(), // Assuming products have an image URL
-  category: z.string(),
-  userId: z.string(), // Add userId to the schema
+  price: z.array(z.number()),
+  imageUrl: z.string(), // Assuming products have an image URL
+ 
 });
 
 const app = new Hono()
@@ -63,44 +62,46 @@ const app = new Hono()
       return c.json({ data: { id } });
     }
   )
-  .post(
-    "/:id/duplicate",
-    verifyAuth(),
-    zValidator("param", z.object({ id: z.string() })),
-    async (c) => {
-      const auth = c.get("authUser");
-      const { id } = c.req.valid("param");
+  // .post(
+  //   "/:id/duplicate",
+  //   verifyAuth(),
+  //   zValidator("param", z.object({ id: z.string() })),
+  //   async (c) => {
+  //     const auth = c.get("authUser");
+  //     const { id } = c.req.valid("param");
 
-      if (!auth.token?.id) {
-        return c.json({ error: "Unauthorized" }, 401);
-      }
+  //     if (!auth.token?.id) {
+  //       return c.json({ error: "Unauthorized" }, 401);
+  //     }
 
-      // Retrieve the product to be duplicated
-      const product = await db.product.findUnique({
-        where: { id: id },
-      });
+  //     // Retrieve the product to be duplicated
+  //     const product = await db.product.findUnique({
+  //       where: { id: id },
+  //     });
 
-      if (!product) {
-        return c.json({ error: "Not found" }, 404);
-      }
+  //     if (!product) {
+  //       return c.json({ error: "Not found" }, 404);
+  //     }
 
-      const { name, description, price, imageUrl, category, userId } = product;
+  //     const { name, description, price, imageUrl, category, userId } = product;
 
-      // Insert the duplicated product
-      const data = await db.product.create({
-        data: {
-          name,
-          description,
-          price,
-          imageUrl,
-          category,
-          userId,
-        },
-      });
+  //     // Insert the duplicated product
+  //     const data = await db.product.create({
+  //       data: {
+  //         name,
+  //         description,
+  //         price,
+  //         imageUrl,
+  //         category,
+  //         userId:auth.user?.id!,
+  //         quantity:45
 
-      return c.json({ data });
-    }
-  )
+  //       },
+  //     });
+
+  //     return c.json({ data });
+  //   }
+  // )
   .get(
     "/:id",
     verifyAuth(),
@@ -163,22 +164,45 @@ const app = new Hono()
     verifyAuth(),
     zValidator("json", productInsertSchema),
     async (c) => {
-      const auth = c.get("authUser");
-      const { name, description, price, imageUrl, category , userId } = c.req.valid("json");
+      const auth =  c.get("authUser");
+
+
+      const { name, description, price, imageUrl } = c.req.valid("json");
+      
 
       if (!auth.token?.id) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 
+      const desing = await db.design.create({
+        data :{
+          height:120,
+          name:"untiteled",
+          width:400,
+          userId:auth.token?.id!,
+          json :{
+            create :{
+              height:120,
+              width:400,
+              name:"canva1",
+              json:''
+            }
+          }
+
+        }
+      })
+
       // Insert the new product
       const data = await db.product.create({
         data: {
+         designId:desing.id,
+
           name,
           description,
            price,
           imageUrl,
-          category,
-          userId,
+           quantity:41,
+          userId:auth.token?.id!,
         },
       });
 

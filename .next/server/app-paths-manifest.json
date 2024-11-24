@@ -1,11 +1,7 @@
 {
-  "/(dashboard)/(landing)/page": "app/(dashboard)/(landing)/page.js",
   "/api/[[...route]]/route": "app/api/[[...route]]/route.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/(dashboard)/edit/page": "app/(dashboard)/edit/page.js",
-  "/(admin)/admin/create-user/page": "app/(admin)/admin/create-user/page.js",
-  "/(admin)/admin/create-product/page": "app/(admin)/admin/create-product/page.js",
+  "/(admin)/admin/create-product/[categeoryId]/page": "app/(admin)/admin/create-product/[categeoryId]/page.js",
   "/(admin)/admin/create-product/form/[productname]/page": "app/(admin)/admin/create-product/form/[productname]/page.js",
-  "/(admin)/admin/page": "app/(admin)/admin/page.js"
+  "/(admin)/admin/create-product/page": "app/(admin)/admin/create-product/page.js"
 }
