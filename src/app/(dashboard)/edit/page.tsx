@@ -7,7 +7,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col p-5 mx-auto pb-10">
       <Banner />
-      <TemplatesSection />
+      {/* <TemplatesSection /> */}
       <ProjectsSection />
     </div>
   );

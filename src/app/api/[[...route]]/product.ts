@@ -9,7 +9,7 @@ const productInsertSchema = z.object({
   description: z.string(),
   price: z.array(z.number()),
   imageUrl: z.string(), // Assuming products have an image URL
- 
+  categoryId:z.string()
 });
 
 const app = new Hono()
@@ -167,7 +167,7 @@ const app = new Hono()
       const auth =  c.get("authUser");
 
 
-      const { name, description, price, imageUrl } = c.req.valid("json");
+      const { name, description, price, imageUrl , categoryId } = c.req.valid("json");
       
 
       if (!auth.token?.id) {
@@ -196,7 +196,7 @@ const app = new Hono()
       const data = await db.product.create({
         data: {
          designId:desing.id,
-
+          categoryId,
           name,
           description,
            price,

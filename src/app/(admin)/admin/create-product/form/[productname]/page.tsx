@@ -9,16 +9,16 @@ const formMapping: Record<string, React.ComponentType<{categoryId:string}>> = {
   flex: FlexForm,
 };
 
-export default function Page({ params , searchParams }: { params: { productname: string } ,searchParams: {catgeoryId:string} }) {
+export default function Page({ params , searchParams }: { params: { productname: string } ,searchParams: {categoryId:string} }) {
   const { productname } = params;
-  const {catgeoryId} = searchParams
-
+  const {categoryId} = searchParams
+  console.log(categoryId)
   const FormComponent = formMapping[productname.toLowerCase()] || null;
 
   return (
     <div>
       {FormComponent ? (
-        <FormComponent categoryId={catgeoryId} />
+        <FormComponent categoryId={categoryId} />
       ) : (
         <p>Sorry, no form available for this product.</p>
       )}

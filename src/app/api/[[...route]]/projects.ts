@@ -12,6 +12,7 @@ const projectInsertSchema = z.object({
   json: z.string(),  // Add specific fields in your JSON if needed
   width: z.number(),
   height: z.number(),
+  imageUrl: z.string().optional(),
 });
 const app = new Hono()
   .get(
@@ -276,13 +277,14 @@ const app = new Hono()
         json: true,
         width: true,
         height: true,
+        imageUrl:true
       })
       
     ),
     
     async (c) => {
       const auth = c.get('authUser');
-      const { name, json, height, width } = c.req.valid('json');
+      const { name, json, height, width , imageUrl  } = c.req.valid('json');
   
       if (!auth.token?.id) {
         return c.json({ error: 'Unauthorized' }, 401);
@@ -300,7 +302,9 @@ const app = new Hono()
             {
               json,
               height,
-              width
+              width,
+              imageUrl
+              
             }
           ]
         }

@@ -5,6 +5,8 @@ import { UploadButton } from "@uploadthing/react";
 import { useCreateproduct } from "@/features/product/api/use-create-product";
 import { useParams } from "next/navigation";
 const BannerForm = ({categoryId} :{categoryId:string}) => {
+
+  console.log(categoryId)
   const [file, setFile] = useState<File | null>(null);
   const { productname } = useParams();
   const mutation = useCreateproduct();
@@ -100,6 +102,7 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
+      categoryId,
       name: productname as string,
       description: formData.description.join(""),
       imageUrl: "",

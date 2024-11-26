@@ -69,14 +69,16 @@ const buildEditor = ({
     };
   };
 
+
+
   const savePng = () => {
     const options = generateSaveOptions();
 
     canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
     const dataUrl = canvas.toDataURL(options);
+    downloadFile(dataUrl, "png");
+    autoZoom();
    return dataUrl
-    // downloadFile(dataUrl, "png");
-    // autoZoom();
   };
 
   const saveSvg = () => {
@@ -117,7 +119,7 @@ const buildEditor = ({
     });
   };
 
-  const getWorkspace = () => {
+   const getWorkspace = () => {
     return canvas
     .getObjects()
     .find((object) => object.name === "clip");
