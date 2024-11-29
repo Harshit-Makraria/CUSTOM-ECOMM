@@ -9,7 +9,8 @@ const productInsertSchema = z.object({
   description: z.string(),
   price: z.array(z.number()),
   imageUrl: z.string(), // Assuming products have an image URL
-  categoryId:z.string()
+  categoryId:z.string(),
+  canvaNo : z.number(),
 });
 
 const app = new Hono()
@@ -167,7 +168,7 @@ const app = new Hono()
       const auth =  c.get("authUser");
 
 
-      const { name, description, price, imageUrl , categoryId } = c.req.valid("json");
+      const { name, description, price, imageUrl , categoryId , canvaNo } = c.req.valid("json");
       
 
       if (!auth.token?.id) {
@@ -188,7 +189,6 @@ const app = new Hono()
               json:''
             }
           }
-
         }
       })
 

@@ -183,6 +183,8 @@ model Product {
   description  String
   price    Float[]
   size         String[]
+  height        String
+  width          String
   quantity     Float
   eyelets       String?
   Shape        String?

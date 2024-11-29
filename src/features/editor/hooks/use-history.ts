@@ -9,7 +9,7 @@ interface UseHistoryProps {
     json: string;
     height: number;
     width: number;
-    imageUrl: string;
+    
   }) => void;
 };
 
@@ -44,32 +44,11 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
     const width = workspace?.width || 0;
 
 
-  const data =  (()=>{
-    
+   
 
-    if(canvas.getActiveObjects().length > 0){
-      
-      
-      const { width, height, left, top } = canvas?.getObjects()?.find((object) => object.name === "clip") as fabric.Rect
-  
-      return {
-        name: "Image",
-        format: "png",
-        quality: 1,
-        width,
-        height,
-        left: left,
-        top:top,
-      };
-    }
+ 
 
-    return  {}
-  
-  }
-
-)()
-
-    saveCallback?.({ json, height, width , imageUrl : canvas.toDataURL(data) });
+    saveCallback?.({ json, height, width });
   }, 
   [
     canvas,

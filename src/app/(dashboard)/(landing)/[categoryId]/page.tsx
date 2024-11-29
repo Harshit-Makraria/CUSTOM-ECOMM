@@ -10,7 +10,7 @@ export default async function page({
   const { categoryId } = params;
    
 
-
+    console.log(params);
   const category = await db.category.findUnique({
     where:{
       id:categoryId
@@ -29,13 +29,13 @@ export default async function page({
 
 
 
-  const href = `/admin/create-product/form/${category?.name}/?categoryId=${categoryId}`;
+  const href = `/${category?.name}/?categoryId=${categoryId}`;
  
   return (
     <>
-    <div className="flex  ">
-      <h1 className="text-3xl font-bold font-sans">Current Templates</h1>
-       <button
+    <div className="flex p-6   ">
+      <h1 className="text-[40px] font-bold font-sans px-20">Current Templates</h1>
+       {/* <button
       className="flex  items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 focus:ring-2 focus:ring-gray-400 focus:outline-none ml-[60%] mb-10"
     >
       <svg
@@ -55,9 +55,9 @@ export default async function page({
      <Link href={href}>
       create banner
      </Link>
-     </button>
+     </button> */}
      </div>
-     <div className="grid grid-cols-3  px-2"> 
+     <div className="grid grid-cols-4  px-20"> 
       {category?.product.map((el) => {
         return (
           <div className="bg-orange-50 mx-4 my-2 border border-gray-300 rounded-[20px]">
@@ -67,9 +67,9 @@ export default async function page({
             
             
           </div>
-          <div className="text-center hover:bg-orange-200 border hover:border-black border-gray-300  rounded-xl py-1 transition-all duration-1000 cursor-pointer bg-orange-50 ">
+          {/* <div className="text-center hover:bg-orange-200 border hover:border-black border-gray-300  rounded-xl py-1 transition-all duration-1000 cursor-pointer bg-orange-50 ">
           <Link href={`/editor/${el.designId}/${el.design?.json[0].id}` }>Edit Designs</Link>
-          </div>
+          </div> */}
           </div>
         );
       })}

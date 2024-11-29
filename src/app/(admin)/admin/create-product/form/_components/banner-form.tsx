@@ -10,6 +10,7 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
   const [file, setFile] = useState<File | null>(null);
   const { productname } = useParams();
   const mutation = useCreateproduct();
+  const [imageUrl, setImageUrl] = useState("");
   const [formData, setFormData] = useState({
     name: "Banner ",
     h1: "Promote your brand with durable, lightweight Banner",
@@ -102,10 +103,11 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
+      canvaNo: 1,
       categoryId,
       name: productname as string,
       description: formData.description.join(""),
-      imageUrl: "",
+      imageUrl:imageUrl??"",
       price: [466],
     });
 
@@ -126,8 +128,9 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
           <UploadButton<OurFileRouter, "imageUploader">
             endpoint="imageUploader" // Match the key from `ourFileRouter`
             onClientUploadComplete={(res) => {
+              setImageUrl(res[0].url);
               console.log("Upload Complete:", res); // `res` contains file URLs
-              alert("File uploaded successfully!");
+             
             }}
             onUploadError={(error) => {
               console.error("Upload Error:", error);

@@ -22,7 +22,7 @@ export default async function page() {
      
         <div className="flex flex-wrap gap-10 justify-center">
         {categorys.map((item) => (
-        <Link key={item.id} href={`/admin/create-product/${item.id}`} className="w-80 h-72 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center mt-10">
+        <Link key={item.id} href={`/admin/create-product/${item.id} `} className="w-80 h-72 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center mt-10">
           <img
             src={'/bg.jpg'}
             alt={item.name}

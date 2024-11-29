@@ -1,8 +1,8 @@
 import React from 'react'
-import Navbar from './navbar'
-import SwiperSlider from './s2'
-import RectSlider from './slider'
-import Hero from './hero'
+import Navbar from './_components/navbar'
+import SwiperSlider from './_components/s2'
+import RectSlider from './_components/slider'
+import Hero from './_components/hero'
 const page = () => {
 
   const categories = [
