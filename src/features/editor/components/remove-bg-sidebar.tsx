@@ -24,7 +24,7 @@ export const RemoveBgSidebar = ({
   activeTool,
   onChangeActiveTool,
 }: RemoveBgSidebarProps) => {
-  const { shouldBlock, triggerPaywall } = usePaywall();
+  // const { shouldBlock, triggerPaywall } = usePaywall();
   const mutation = useRemoveBg();
 
   const selectedObject = editor?.selectedObjects[0];

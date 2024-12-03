@@ -42,6 +42,7 @@ export default async function page({
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
+        
         strokeWidth={1.5}
         stroke="currentColor"
         className="w-5 h-5"
@@ -53,14 +54,14 @@ export default async function page({
         />
       </svg>
      <Link href={href}>
-      create banner
+      create {category?.name}
      </Link>
      </button>
      </div>
      <div className="grid grid-cols-3  px-2"> 
-      {category?.product.map((el) => {
+      {category?.product.map((el,key) => {
         return (
-          <div className="bg-orange-50 mx-4 my-2 border border-gray-300 rounded-[20px]">
+          <div  key={el.designId || key} className="bg-orange-50 mx-4 my-2 border border-gray-300 rounded-[20px]">
           <div className="  p-10  ">
             
             <img  src={el.imageUrl!} alt={el.design?.json[0].name??""} className="w-[30vw] h-[20vh]" />

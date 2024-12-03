@@ -27,7 +27,7 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
     size: "",
     eyelets: false,
     price: "",
-    CashOnDelivery: false,
+    cod: "",
   });
 
 
@@ -96,20 +96,25 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
       price:
         sizePricing[selectedSize]?.toString() || "Custom pricing available",
 
-      CashOnDelivery: false,
+       cod: "",
       eyelets: false,
     });
   };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
-      canvaNo: 1,
-      categoryId,
-      name: productname as string,
-      description: formData.description.join(""),
-      imageUrl:imageUrl??"",
-      price: formData.price.split(',').map(Number),
-    });
+          canvaNo: 1,
+          categoryId,
+          name: productname as string,
+          description: formData.description.join(""),
+          imageUrl: imageUrl ?? "",
+          price: formData.price.split(',').map(Number),
+          cod: formData.cod,
+          size: [formData.size],
+          eyelets: formData.eyelets ? "Yes" : "No",
+          width: parseInt(formData.size.split('*')[0]),
+          height: parseInt(formData.size.split('*')[1]),
+        });
 
     console.log("Form Data:", formData);
     console.log("Uploaded File:", file);
@@ -220,14 +225,14 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
         </div>
         <div className="mb-4">
           <label
-            htmlFor="CashOnDelivery"
+            htmlFor="cod"
             className="Standee items-center space-x-2"
           >
             <input
               type="checkbox"
-              id="CashOnDelivery"
-              name="CashOnDelivery"
-              checked={formData.CashOnDelivery}
+              id="cod"
+              name="cod"
+              checked={formData.cod}
               onChange={handleInputChange}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
@@ -237,7 +242,7 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
 
         <div className="mb-4">
           <label
-            htmlFor="CashOnDelivery"
+            htmlFor="eyelets"
             className="Standee items-center space-x-2"
           >
             <input

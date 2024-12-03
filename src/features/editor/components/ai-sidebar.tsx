@@ -24,7 +24,7 @@ export const AiSidebar = ({
   activeTool,
   onChangeActiveTool,
 }: AiSidebarProps) => {
-  const { shouldBlock, triggerPaywall } = usePaywall();
+  // const { shouldBlock, triggerPaywall } = usePaywall();
   const mutation = useGenerateImage();
 
   const [value, setValue] = useState("");

@@ -55,7 +55,7 @@ export default function AccountButton() {
         <DropdownMenuTrigger asChild className="cursor-pointer">
           <Button variant="outline" asChild>
             <div className="flex justify-between gap-3 text-black">
-              <span className="font-semibold">Account's</span>
+              <span className="font-semibold">Account&quot;s</span>
 
               <CaretSortIcon fontSize={20} />
             </div>
@@ -77,7 +77,7 @@ export default function AccountButton() {
           )}
           <DropdownMenuSeparator />
 
-          <DropdownMenuLabel className="mt-1"># Department's</DropdownMenuLabel>
+          <DropdownMenuLabel className="mt-1"># Department&quot;s</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
           {data?.map(({ branch, post }) => {

@@ -41,22 +41,22 @@ model PostToAccount {
 }
 
 model User {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String          @unique
-  emailVerified  DateTime?
-  image          String?
-  password       String
-  designs        Design[]
-  accounts       Account[]       @relation("userAccounts") // Relationship for all accounts
-  sessions       Session[]
-  authenticators Authenticator[]
-  subscriptions  Subscription[]
-  orders         Order[]
-  role           Role?
-
-  activeAccountId String?  @db.ObjectId
-  activeAccount   Account? @relation("activeAccountRelation", fields: [activeAccountId], references: [id], onDelete: NoAction, onUpdate: NoAction) // Set to NoAction to prevent cyclic issue
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  email           String          @unique
+  emailVerified   DateTime?
+  image           String?
+  password        String
+  designs         Design[]
+  accounts        Account[]       @relation("userAccounts") // Relationship for all accounts
+  sessions        Session[]
+  authenticators  Authenticator[]
+  subscriptions   Subscription[]
+  orders          Order[]
+  role            Role?
+  cart            Cart[]
+  activeAccountId String?         @db.ObjectId
+  activeAccount   Account?        @relation("activeAccountRelation", fields: [activeAccountId], references: [id], onDelete: NoAction, onUpdate: NoAction) // Set to NoAction to prevent cyclic issue
 }
 
 model Account {
@@ -88,7 +88,7 @@ model Account {
 model VerificationToken {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  email     String @unique
+  email     String   @unique
   post      String[]
   branchIds String[]
 
@@ -131,6 +131,7 @@ model Design {
   product      Product?
   height       Int
   width        Int
+  cart         Cart[]
   thumbnailUrl String?
   isTemplate   Boolean?
   isPro        Boolean?
@@ -178,36 +179,39 @@ model Subscription {
 }
 
 model Product {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   description  String
-  price    Float[]
+  price        Float[]
   size         String[]
-  height        String
-  width          String
+  cod          String?
+  height       Float?
+  width        Float?
   quantity     Float
-  eyelets       String?
+  eyelets      String?
   Shape        String?
   Material     String?
-  designId    String? @unique  @db.ObjectId
+  designId     String?    @unique @db.ObjectId
   design       Design?    @relation(fields: [designId], references: [id], onDelete: Cascade)
-   
-  categoryId   String?   @db.ObjectId
-  category     Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  quantitys    Quantity[]
+  categoryId   String?    @db.ObjectId
+  category     Category?  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   imageUrl     String?
-   userId      String   @db.ObjectId
-  customizable Boolean  @default(false)
+  userId       String     @db.ObjectId
+  customizable Boolean    @default(false)
   options      Option[]
-  stock        Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  stock        Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
-model Category{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  product   Product[]  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+model Category {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  imageUrl  String
+  product   Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Option {
@@ -236,4 +240,25 @@ model OrderItem {
   productId String @db.ObjectId
   quantity  Int
   price     Float
+}
+
+model Cart {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  designId  String   @db.ObjectId
+  design    Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quantity  String?
+  productId String?  @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Quantity {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  quantity  Float
+  price     Float
+  productId String   @db.ObjectId
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }

@@ -24,7 +24,9 @@ declare module "next-auth" {
   interface Session {
     user: {
       /** The user's name. */
+      name: string | null;
       role: Role | null;
+      image: string | null;
     };
   }
 }

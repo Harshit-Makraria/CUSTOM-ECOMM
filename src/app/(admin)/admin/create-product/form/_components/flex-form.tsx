@@ -24,10 +24,12 @@ const FlexForm = ({ categoryId }: { categoryId: string }) => {
       "Durable material (Vinyl Flex).",
       "Hang your Flex easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
     ],
+    height: "",
+    width: "",
     size: "",
     eyelets: false,
     price: "",
-    CashOnDelivery: false,
+    cod: false,
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -68,13 +70,18 @@ const FlexForm = ({ categoryId }: { categoryId: string }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
-      canvaNo: 2,
-      categoryId,
-      name: productname as string,
-      description: formData.description.join(""),
-      imageUrl: imageUrl ?? "",
-      price: [parseFloat(formData.price)],
-    });
+          canvaNo: 2,
+          categoryId,
+          name: productname as string,
+          description: formData.description.join(""),
+          imageUrl: imageUrl ?? "",
+          price: [parseFloat(formData.price)],
+          height: parseFloat(formData.height),
+          width: parseFloat(formData.width),
+          size: [formData.size],
+          eyelets: formData.eyelets ? "Yes" : "No",
+          cod: formData.cod ? "Yes" : "No",
+        });
 
     console.log("Form Data:", formData);
     console.log("Uploaded File:", file);
@@ -159,6 +166,31 @@ const FlexForm = ({ categoryId }: { categoryId: string }) => {
           </select>
         </div>
         <div className="mb-4 font-bold">
+          Height
+          <input
+            type="text"
+            id="height"
+            name="height"
+            value={formData.height}
+            onChange={handleInputChange}
+            placeholder="Height"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
+        <div className="mb-4 font-bold">
+          Width
+          <input
+            type="text"
+            id="width"
+            name="width"
+            value={formData.width}
+            onChange={handleInputChange}
+            placeholder="Width"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
+        
+        <div className="mb-4 font-bold">
           Price per unit:
           <input
             type="text"
@@ -174,9 +206,9 @@ const FlexForm = ({ categoryId }: { categoryId: string }) => {
           <label className="flex items-center space-x-2">
             <input
               type="checkbox"
-              id="CashOnDelivery"
-              name="CashOnDelivery"
-              checked={formData.CashOnDelivery}
+              id="cod"
+              name="cod"
+              checked={formData.cod}
               onChange={handleInputChange}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />

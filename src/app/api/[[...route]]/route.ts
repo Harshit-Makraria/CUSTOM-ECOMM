@@ -6,6 +6,7 @@ import ai from "./ai";
 import users from "./users";
 import images from "./images";
 import projects from "./projects";
+import cart from "./cart";
 import verification from "./verification";
 import branch from  './branch'
 import account from './account'
@@ -27,6 +28,7 @@ app.use("*", initAuthConfig(getAuthConfig));
 
 const route = app.route("/users", users)
 .route("/images", images)
+.route("/cart", cart)
 .route("/projects", projects)
 .route("/product", product)
 .route("/ai", ai)

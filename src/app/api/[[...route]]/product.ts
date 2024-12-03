@@ -11,6 +11,12 @@ const productInsertSchema = z.object({
   imageUrl: z.string(), // Assuming products have an image URL
   categoryId:z.string(),
   canvaNo : z.number(),
+  size: z.array(z.string()),
+  width: z.number(),
+  height: z.number(),
+  eyelets:z.string(),
+  cod:z.string(),
+
 });
 
 const app = new Hono()
@@ -150,7 +156,7 @@ const app = new Hono()
 
       const data = await db.product.update({
         where: { id: id },
-        data: { ...values, updatedAt: new Date() },
+        data: { ...values, updatedAt: new Date(), categoryId: values.categoryId ?? undefined },
       });
 
       if (!data) {
@@ -168,7 +174,7 @@ const app = new Hono()
       const auth =  c.get("authUser");
 
 
-      const { name, description, price, imageUrl , categoryId , canvaNo } = c.req.valid("json");
+      const { name, description, price, imageUrl , categoryId , canvaNo, height, width, eyelets, cod } = c.req.valid("json");
       
 
       if (!auth.token?.id) {
@@ -177,14 +183,14 @@ const app = new Hono()
 
       const desing = await db.design.create({
         data :{
-          height:120,
-          name:"untiteled",
-          width:400,
+          height,
+          name:"untitled",
+          width,
           userId:auth.token?.id!,
           json :{
             create :{
-              height:120,
-              width:400,
+              height,
+              width,
               name:"canva1",
               json:''
             }
@@ -201,6 +207,10 @@ const app = new Hono()
           description,
            price,
           imageUrl,
+          height,
+          width,
+          eyelets,
+          cod,
            quantity:41,
           userId:auth.token?.id!,
         },

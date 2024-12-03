@@ -1,4 +1,4 @@
-import { Logo } from "./logo";
+import { Logo } from "@/features/editor/components/logo";
 import { SidebarRoutes } from "./sidebar-routes";
 
 export const Sidebar = () => {

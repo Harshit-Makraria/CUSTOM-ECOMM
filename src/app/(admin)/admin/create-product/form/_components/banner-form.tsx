@@ -26,8 +26,10 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
     ],
     size: "",
     eyelets: false,
+    height: "",
+    width: "",
     price: "",
-    CashOnDelivery: false,
+    cod: false,
   });
 
 
@@ -95,9 +97,10 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
       size: selectedSize,
       price:
         sizePricing[selectedSize]?.toString() || "Custom pricing available",
-
-      CashOnDelivery: false,
-      eyelets: false,
+         height: formData.height,
+         width: formData.width,
+      cod: formData.cod,
+      eyelets: formData.eyelets,
     });
   };
   const handleSubmit = (e: FormEvent) => {
@@ -108,7 +111,24 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
       name: productname as string,
       description: formData.description.join(""),
       imageUrl:imageUrl??"",
-      price: [466],
+      size: [formData.size],
+      price: [parseInt(formData.price)],
+      height: parseInt(formData.height),
+      width: parseInt(formData.width),
+      eyelets: formData.eyelets ? "Yes" : "No",
+      cod: formData.cod ? "Yes" : "No",
+    } as {
+      canvaNo: number;
+      categoryId: string;
+      name: string;
+      description: string;
+      imageUrl: string;
+      size: string[];
+      price: number[];
+      height: number;
+      width: number;
+      eyelets: string;
+      cod: string;
     });
 
     console.log("Form Data:", formData);
@@ -206,6 +226,31 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
             <option value="122*244 cm">122*244 cm</option>
           </select>
         </div>
+        
+        <div className="mb-4 font-bold">
+          Height
+          <input
+            type="text"
+            id="height"
+            name="height"
+            value={formData.height}
+            onChange={handleInputChange}
+            placeholder="Height"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
+        <div className="mb-4 font-bold">
+          Width
+          <input
+            type="text"
+            id="width"
+            name="width"
+            value={formData.width}
+            onChange={handleInputChange}
+            placeholder="Width"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
         <div className="mb-4 font-bold">
           Price per unit
           <input
@@ -220,14 +265,14 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
         </div>
         <div className="mb-4">
           <label
-            htmlFor="CashOnDelivery"
+            htmlFor="cod"
             className="Banner items-center space-x-2"
           >
             <input
               type="checkbox"
-              id="CashOnDelivery"
-              name="CashOnDelivery"
-              checked={formData.CashOnDelivery}
+              id="cod"
+              name="cod"
+              checked={formData.cod}
               onChange={handleInputChange}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
@@ -237,7 +282,7 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
 
         <div className="mb-4">
           <label
-            htmlFor="CashOnDelivery"
+            htmlFor="eyelets"
             className="Banner items-center space-x-2"
           >
             <input

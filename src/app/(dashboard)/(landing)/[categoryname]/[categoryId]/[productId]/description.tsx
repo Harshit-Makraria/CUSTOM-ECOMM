@@ -29,9 +29,9 @@ const CustomBannersPage = () => {
         return (
     <div className="flex gap-10 w-[100%]">
         <div className=" w-1/2">
-            <h1 className="text-2xl font-bold">Customised Banners – when you want to broadcast your message out loud!</h1>
+            <h1 className="text-2xl font-bold">Customised Banners  when you want to broadcast your message out loud!</h1>
             <p>
-              Grab customers’ attention quickly before they move on to the next shiny big
+              Grab customer&quot;s attention quickly before they move on to the next shiny big
               thing, with vinyl banner printing. Custom Banners are the best way to catch
               the eyeballs of the passers-by. When placed strategically, it helps you get
               more attention and results in more footfalls.
@@ -40,13 +40,13 @@ const CustomBannersPage = () => {
               Personalise your Flex banner online, by choosing from different sizes and
               themes that are best suited for your business, occasions and location.
               These weatherproof and durable banners will help you display your logo and
-              message for a long-lasting period, indoor as well as outdoor. It’s easy to
+              message for a long-lasting period, indoor as well as outdoor. It&quot;s easy to
               install, easy to store and at prices that will make your pocket smile.
             </p>
             <p>
               To start creating your banner online, explore our gallery of fully
               customisable design templates, including industry and event-specific
-              options. Once you’ve found your favorite design, make it yours by adding
+              options. Once you&quot;ve found your favorite design, make it yours by adding
               your custom details and choosing the options that work best for you. If you
               have a design ready, use our design upload option, and we will take care of
               the rest like printing and shipping your order. Your banner will arrive
@@ -79,7 +79,7 @@ const CustomBannersPage = () => {
           <div className=" w-1/2">
             <img
               className="w-full object-cover h-[90%] rounded-lg shadow-md"
-              src="/Banner1.png"
+            
               alt="Selected Banner"/>
           </div>
         </div>
@@ -122,7 +122,7 @@ const CustomBannersPage = () => {
  
           {/* Instruction */}
           <p className="mt-4 text-gray-600">
-            To avoid white edges, extend your design to the full bleed size – but keep text and images within the safety
+            To avoid white edges, extend your design to the full bleed size  but keep text and images within the safety
             area.
           </p>
  
@@ -142,13 +142,13 @@ const CustomBannersPage = () => {
           {/* Specs */}
           <ul className="mt-8 text-gray-700 space-y-2">
             <li>
-              <strong>Full Bleed Size:</strong> 19.92" x 19.92" (506 x 506 mm)
+              <strong>Full Bleed Size:</strong> 19.92 x 19.92 (506 x 506 mm)
             </li>
             <li>
-              <strong>Document Trim Size:</strong> 19.69" x 19.69" (500 x 500 mm)
+              <strong>Document Trim Size:</strong> 19.69 x 19.69 (500 x 500 mm)
             </li>
             <li>
-              <strong>Safety Area:</strong> 19.45" x 19.45" (494 x 494 mm)
+              <strong>Safety Area:</strong> 19.45 x 19.45 (494 x 494 mm)
             </li>
           </ul>
         </div>
@@ -188,7 +188,7 @@ const CustomBannersPage = () => {
               <div className="flex flex-col items-center w-[calc(50%-1rem)] sm:w-[240px]">
                 <div className="w-full aspect-square bg-gray-200 rounded-lg overflow-hidden">
                   <img
-                    src="/Banner.png"
+                    src="/bg.jpg"
                     alt="None"
                     className="w-full h-full object-cover"
                   />

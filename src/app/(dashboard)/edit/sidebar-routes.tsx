@@ -9,8 +9,8 @@ import {
 import { usePathname } from "next/navigation";
 
 import { usePaywall } from "@/features/subscriptions/hooks/use-paywall";
-import { useCheckout } from "@/features/subscriptions/api/use-checkout";
-import { useBilling } from "@/features/subscriptions/api/use-billing";
+// import { useCheckout } from "@/features/subscriptions/api/use-checkout";
+// import { useBilling } from "@/features/subscriptions/api/use-billing";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -18,8 +18,8 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarItem } from "./sidebar-item";
 
 export const SidebarRoutes = () => {
-  const mutation = useCheckout();
-  const billingMutation = useBilling();
+  // const mutation = useCheckout();
+  // const billingMutation = useBilling();
   const { shouldBlock, isLoading, triggerPaywall } = usePaywall() as {
     shouldBlock: boolean;
     isLoading: boolean;
@@ -35,7 +35,7 @@ export const SidebarRoutes = () => {
       return;
     }
 
-    billingMutation.mutate();
+    // billingMutation.mutate();
   };
 
   return (

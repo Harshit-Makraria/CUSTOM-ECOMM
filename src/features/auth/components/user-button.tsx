@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 // import { usePaywall } from "@/features/subscriptions/hooks/use-paywall";
-import { useBilling } from "@/features/subscriptions/api/use-billing";
+// import { useBilling } from "@/features/subscriptions/api/use-billing";
 
 export const UserButton = () => {
   const session = useSession();

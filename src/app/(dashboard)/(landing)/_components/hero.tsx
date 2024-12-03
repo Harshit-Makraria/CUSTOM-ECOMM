@@ -18,14 +18,15 @@ export default async function hero() {
         <h1 className="text-3xl font-semibold text-center mt-5">Top Product</h1>
      
         <div className="flex flex-wrap gap-10 justify-center">
-        {categorys.map((item) => (
-        <Link key={item.id} href={`/${item.id} `} className="w-80 h-72 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center mt-10">
+        {categorys.map((item)  => (
+          
+        <Link key={item.id} href={`/${item.name}/${item.id} `} className="w-80 h-72 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center mt-10">
           <img
-            src={'/Banner.jpeg'}
+            src={item.imageUrl}
             className="w-full h-[80%] object-cover rounded-t-lg"
           />
           <p className="w-full text-center text-lg font-semibold text-gray-800 p-4">
-            banner
+            {item.name}
           </p>
         </Link>
       ))}
