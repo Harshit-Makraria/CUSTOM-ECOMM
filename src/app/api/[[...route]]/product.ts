@@ -14,8 +14,9 @@ const productInsertSchema = z.object({
   size: z.array(z.string()),
   width: z.number(),
   height: z.number(),
-  eyelets:z.string(),
+  eyelets:z.string().optional(),
   cod:z.string(),
+  min_quantity:z.number(),
 
 });
 
@@ -174,7 +175,7 @@ const app = new Hono()
       const auth =  c.get("authUser");
 
 
-      const { name, description, price, imageUrl , categoryId , canvaNo, height, width, eyelets, cod } = c.req.valid("json");
+      const { name, description, price, imageUrl , categoryId , canvaNo, height, width, eyelets, cod, size,min_quantity} = c.req.valid("json");
       
 
       if (!auth.token?.id) {
@@ -211,7 +212,9 @@ const app = new Hono()
           width,
           eyelets,
           cod,
-           quantity:41,
+          size,
+          min_quantity,
+           quantity:1,
           userId:auth.token?.id!,
         },
       });

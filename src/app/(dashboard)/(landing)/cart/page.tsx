@@ -61,7 +61,7 @@ const CartPage: React.FC = () => {
           {data&&data.map((item) =>
           {
            return <>
-            <Link href={`/editor/${item.design.id}/${item.design.json[0].id}`}>
+            <Link className="" href={`/editor/${item.design.id}/${item.design.json[0].id}`}>
             { item.designId}
             </Link>
            </>

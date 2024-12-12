@@ -3,8 +3,10 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import { UploadButton } from "@uploadthing/react";
 import { useCreateproduct } from "@/features/product/api/use-create-product";
-import { useParams } from "next/navigation";
-const BannerForm = ({categoryId} :{categoryId:string}) => {
+import { useParams, useRouter } from "next/navigation";
+
+const BannerForm = ({ categoryId }: { categoryId: string }) => {
+  const router = useRouter();
 
   console.log(categoryId)
   const [file, setFile] = useState<File | null>(null);
@@ -30,6 +32,7 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
     width: "",
     price: "",
     cod: false,
+    min_quantity: "",
   });
 
 
@@ -69,20 +72,11 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
     }));
   };
   const handleInputChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSize = event.target.value;
-
-    // Define pricing for sizes
-    const sizePricing: Record<string, number> = {
-      "52*91 cm": 200,
-      "76*122 cm": 300,
-      "76*183 cm": 400,
-      "76*244 cm": 500,
-      "122*244 cm": 600,
-    };
+  
 
     // Update the form data with selected size and price
     setFormData({
-      name: "Banner ",
+      name: "Banner",
       h1: "Promote your brand with durable, lightweight Banner",
       description: [
         "Select your own custom size from the size drop down and design your banner or choose one of the 9 standard sizes available!",
@@ -94,14 +88,15 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
         "Durable material (Vinyl Banner).",
         "Hang your Banner easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
       ],
-      size: selectedSize,
-      price:
-        sizePricing[selectedSize]?.toString() || "Custom pricing available",
-         height: formData.height,
-         width: formData.width,
+      size: `${formData.height}x${formData.width}`, // Concatenate height and width
+      price: formData.price,
+      height: formData.height,
+      width: formData.width,
       cod: formData.cod,
       eyelets: formData.eyelets,
+      min_quantity: formData.min_quantity,
     });
+    
   };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -111,10 +106,11 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
       name: productname as string,
       description: formData.description.join(""),
       imageUrl:imageUrl??"",
-      size: [formData.size],
+      size: [`${formData.height}x${formData.width}`],
       price: [parseInt(formData.price)],
       height: parseInt(formData.height),
       width: parseInt(formData.width),
+      min_quantity: parseInt(formData.min_quantity),
       eyelets: formData.eyelets ? "Yes" : "No",
       cod: formData.cod ? "Yes" : "No",
     } as {
@@ -127,6 +123,7 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
       price: number[];
       height: number;
       width: number;
+      min_quantity: number;
       eyelets: string;
       cod: string;
     });
@@ -135,6 +132,13 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
     console.log("Uploaded File:", file);
   };
 
+  const teleport = () => {
+    setTimeout(() => {
+      window.location.href = `/admin/create-product/${categoryId}`;
+    }, 1000);
+      // router.push(`/admin/create-product/${categoryId}`);
+    
+  };
   return (
     <div className="font-bold">
       <h1>{categoryId}</h1>
@@ -206,26 +210,8 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
             className="w-full border min-h-40 border-gray-300 font-normal rounded-md p-2"
           />
         </div>
+      
 
-        <div className="mb-4 font-bold">
-          Size:
-          <select
-            id="size"
-            name="size"
-            value={formData.size}
-            onChange={handleInputChange2}
-            className="w-full border border-gray-300 font-normal rounded-md p-2 mt-1"
-          >
-            <option value="" disabled>
-              Select Size
-            </option>
-            <option value="52*91 cm">52*91 cm</option>
-            <option value="76*122 cm">76*122 cm</option>
-            <option value="76*183 cm">76*183 cm</option>
-            <option value="76*244 cm">76*244 cm</option>
-            <option value="122*244 cm">122*244 cm</option>
-          </select>
-        </div>
         
         <div className="mb-4 font-bold">
           Height
@@ -252,6 +238,16 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
           />
         </div>
         <div className="mb-4 font-bold">
+          Size:
+          <input
+            type="text"
+            id="size"
+            name="size" value={formData.height && formData.width ? `${formData.height}x${formData.width}` : ""} // Concatenate height and width
+            readOnly // Make the input read-only
+            className="w-full border border-gray-800 font-normal bg-gray-200 rounded-md p-2 mt-1"
+          />
+        </div>
+        <div className="mb-4 font-bold">
           Price per unit
           <input
             type="text"
@@ -260,6 +256,19 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
             value={formData.price}
             onChange={handleInputChange}
             placeholder="Price per unit"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
+        
+        <div className="mb-4 font-bold">
+          Minimum Quantity
+          <input
+            type="text"
+            id="min_quantity"
+            name="min_quantity"
+            value={formData.min_quantity}
+            onChange={handleInputChange}
+            placeholder="Minimum Quantity"
             className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
           />
         </div>
@@ -298,7 +307,7 @@ const BannerForm = ({categoryId} :{categoryId:string}) => {
         </div>
 
         {/* Submit Button */}
-        <button
+        <button onClick={teleport} 
           type="submit"
           className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
         >

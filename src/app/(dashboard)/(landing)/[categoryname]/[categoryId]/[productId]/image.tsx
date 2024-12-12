@@ -110,7 +110,10 @@ const handleEdit = () =>{
                 recommended – they make it a lot easier!)
               </li>
             </ul>
-            <p className="mb-4">Cash on Delivery available</p>
+
+<p className="mb-4">
+  {product.cod ? "Cash on Delivery available" : "Cash on Delivery unavailable"}
+</p>
             <ul className="mb-4 text-sm font-bold list-disc ml-6">
               <li>Price below is MRP (inclusive of all taxes)</li>
             </ul>
@@ -159,22 +162,23 @@ const handleEdit = () =>{
 
             {/* Quantity Pricing */}
             <div className={`w-full`}>
-              <ul className="space-y-4 mt-4">
-                {[230, 460, 690, 920, 1150].map((price, index) => (
-                  <li
-                    key={index}
-                    className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center"
-                  >
-                    <div className="font-bold text-lg">{index + 1}</div>
-                    <div className="text-lg flex items-end">
-                      ₹{price}.00{" "}
-                      <div className="text-sm text-gray-400 ml-2">
-                        ₹ {price / (index + 1)}/unit
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            <ul className="space-y-4 mt-4 overflow-y-hidden">
+  {[1, 2, 3, 4, 5,10,25,50].map((unit, index) => (
+    <li
+      key={index}
+      className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center"
+    >
+      <div className="font-bold text-lg">{unit}</div>
+      <div className="text-lg flex items-end">
+        ₹{product.price * unit}.00{" "}
+        <div className="text-sm text-gray-400 ml-2">
+          ₹{product.price * unit} / unit
+        </div>
+      </div>
+    </li>
+  ))}
+</ul>
+
             </div>
             <div className="w-full flex-col rounded-xl p-4 flex justify-start items-start">
               <span>1 starting at ₹230.00</span>

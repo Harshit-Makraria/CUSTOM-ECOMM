@@ -185,9 +185,10 @@ model Product {
   price        Float[]
   size         String[]
   cod          String?
-  height       Float?
+  height       Float? 
   width        Float?
   quantity     Float
+  min_quantity     Float?
   eyelets      String?
   Shape        String?
   Material     String?
@@ -261,4 +262,14 @@ model Quantity {
   productId String   @db.ObjectId
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+}
+
+model ShippingRateCalculation {
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  pickup_postcode    String    
+  delivery_postcode  String    
+  weight             Float     
+  declared_value     Float     
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }

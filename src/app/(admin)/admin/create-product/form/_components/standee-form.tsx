@@ -25,7 +25,9 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
       "Hang your Standee easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
     ],
     size: "",
-    eyelets: false,
+    height: "",
+    width: "",
+   min_quantity: "",
     price: "",
     cod: "",
   });
@@ -67,16 +69,7 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
     }));
   };
   const handleInputChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSize = event.target.value;
-
-    // Define pricing for sizes
-    const sizePricing: Record<string, number> = {
-      "52*91 cm": 200,
-      "76*122 cm": 300,
-      "76*183 cm": 400,
-      "76*244 cm": 500,
-      "122*244 cm": 600,
-    };
+    
 
     // Update the form data with selected size and price
     setFormData({
@@ -92,32 +85,53 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
         "Durable material (Vinyl Standee).",
         "Hang your Standee easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
       ],
-      size: selectedSize,
-      price:
-        sizePricing[selectedSize]?.toString() || "Custom pricing available",
-
+      size: `${formData.height}x${formData.width}`,      
+      price: formData.price,
+        height:formData.height,
+        width: formData.width,
+       
+   min_quantity: formData.min_quantity,
        cod: "",
-      eyelets: false,
     });
   };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate({
-          canvaNo: 1,
-          categoryId,
-          name: productname as string,
-          description: formData.description.join(""),
-          imageUrl: imageUrl ?? "",
-          price: formData.price.split(',').map(Number),
-          cod: formData.cod,
-          size: [formData.size],
-          eyelets: formData.eyelets ? "Yes" : "No",
-          width: parseInt(formData.size.split('*')[0]),
-          height: parseInt(formData.size.split('*')[1]),
-        });
+      canvaNo: 1,
+      categoryId,
+      name: productname as string,
+      description: formData.description.join(""),
+      imageUrl:imageUrl??"",
+      size: [`${formData.height}x${formData.width}`],
+      price: [parseInt(formData.price)],
+      height: parseInt(formData.height),
+      width: parseInt(formData.width),
+      cod: formData.cod ? "Yes" : "No",
+      min_quantity: parseInt(formData.min_quantity),
+    } as {
+      canvaNo: number;
+      categoryId: string;
+      name: string;
+      description: string;
+      imageUrl: string;
+      size: string[];
+      price: number[];
+      height: number;
+      width: number;
+      min_quantity: number;
+      cod: string;
+    });
 
     console.log("Form Data:", formData);
     console.log("Uploaded File:", file);
+  };
+  
+  const teleport = () => {
+    setTimeout(() => {
+      window.location.href = `/admin/create-product/${categoryId}`;
+    }, 1000);
+      // router.push(`/admin/create-product/${categoryId}`);
+    
   };
 
   return (
@@ -191,25 +205,42 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
             className="w-full border min-h-40 border-gray-300 font-normal rounded-md p-2"
           />
         </div>
-
+        
+        
+        <div className="mb-4 font-bold">
+          Height
+          <input
+            type="text"
+            id="height"
+            name="height"
+            value={formData.height}
+            onChange={handleInputChange}
+            placeholder="Price per unit"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
+        <div className="mb-4 font-bold">
+        Width
+          <input
+            type="text"
+            id="width"
+            name="width"
+            value={formData.width}
+            onChange={handleInputChange}
+            placeholder="Price per unit"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
+        
         <div className="mb-4 font-bold">
           Size:
-          <select
+          <input
+            type="text"
             id="size"
-            name="size"
-            value={formData.size}
-            onChange={handleInputChange2}
-            className="w-full border border-gray-300 font-normal rounded-md p-2 mt-1"
-          >
-            <option value="" disabled>
-              Select Size
-            </option>
-            <option value="52*91 cm">52*91 cm</option>
-            <option value="76*122 cm">76*122 cm</option>
-            <option value="76*183 cm">76*183 cm</option>
-            <option value="76*244 cm">76*244 cm</option>
-            <option value="122*244 cm">122*244 cm</option>
-          </select>
+            name="size" value={formData.height && formData.width ? `${formData.height}x${formData.width}` : ""} // Concatenate height and width
+            readOnly // Make the input read-only
+            className="w-full border border-gray-800 font-normal bg-gray-200 rounded-md p-2 mt-1"
+          />
         </div>
         <div className="mb-4 font-bold">
           Price per unit
@@ -223,6 +254,19 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
             className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
           />
         </div>
+        
+        <div className="mb-4 font-bold">
+          Minimum Quantity
+          <input
+            type="text"
+            id="min_quantity"
+            name="min_quantity"
+            value={formData.min_quantity}
+            onChange={handleInputChange}
+            placeholder="Minimum Quantity"
+            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
+          />
+        </div>
         <div className="mb-4">
           <label
             htmlFor="cod"
@@ -232,33 +276,15 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
               type="checkbox"
               id="cod"
               name="cod"
-              checked={formData.cod=="true"}
+              checked={formData.cod}
               onChange={handleInputChange}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
             <span className="text-sm text-gray-700">Cash on Delivery</span>
           </label>
         </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="eyelets"
-            className="Standee items-center space-x-2"
-          >
-            <input
-              type="checkbox"
-              id="eyelets"
-              name="eyelets"
-              checked={formData.eyelets}
-              onChange={handleInputChange1}
-              className="h-4 w-4 text-blue-600 border-gray-300 rounded"
-            />
-            <span className="text-sm text-gray-700">Eyelets</span>
-          </label>
-        </div>
-
-        {/* Submit Button */}
-        <button
+         {/* Submit Button */}
+        <button onClick={teleport}
           type="submit"
           className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
         >
