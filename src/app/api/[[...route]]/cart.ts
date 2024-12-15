@@ -34,8 +34,12 @@ const cart = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
+      const productId = c.req.query("productId");
+
       const data = await db.cart.findMany({
-        where: { userId: auth.token?.id! },
+        where: { userId: auth.token?.id!,
+          productId: productId,
+         },
         include :{
             design : {
                 include :{
@@ -106,13 +110,17 @@ const cart = new Hono()
         const cartcheck = await db.cart.findFirst({
             where :{
             productId,
+            quantity: "1",
+            
             userId : auth.token.id!
             },
 
             include :{
                 design :{
                     include :{
-                        json:true
+                        json:true,
+                        product:true
+                        
                     }
 
                 }
@@ -147,7 +155,7 @@ const cart = new Hono()
       const dumy = await db.design.create({
         data :{
           height:design.height,
-          name:"untitled",
+          name:design.name,
           width:design.width,
           userId:auth.token?.id!,
           json :{

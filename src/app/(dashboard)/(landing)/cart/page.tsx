@@ -50,6 +50,7 @@ const CartPage: React.FC = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+  console.log(data)
 
   return (
     <div className="p-8">
@@ -57,13 +58,16 @@ const CartPage: React.FC = () => {
       {cartItems.length === 0 ? (
         <p className="text-lg">Your cart is empty.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {data&&data.map((item) =>
           {
            return <>
+           <div className="grid grid-cols-3 p-2">
             <Link className="" href={`/editor/${item.design.id}/${item.design.json[0].id}`}>
-            { item.designId}
+            
+            <img src={item.design.json[0].imageUrl || '' } alt={ item.designId} />
             </Link>
+            </div>
            </>
           }
         
@@ -73,9 +77,9 @@ const CartPage: React.FC = () => {
           <div className="text-right">
             <h2 className="text-xl font-bold">Total: ${total.toFixed(2)}</h2>
           </div>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          <Link href="/cart/checkout" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
             Proceed to Checkout
-          </button>
+          </Link>
         </div>
       )}
     </div>

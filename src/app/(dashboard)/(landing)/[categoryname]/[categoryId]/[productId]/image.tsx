@@ -21,7 +21,7 @@ export default  function BannerPage({
    const {mutate} = useCreatecart();
 
 
-  const [selectedImage, setSelectedImage] = useState<string | undefined>(product.imageUrl || "/default-image.png");
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(product.imageUrl);
 const thumbnails = [product.imageUrl || "/default-image.png", "/Banner.jpeg", "/car_sale.png", "/Flex.webp"];
 
 
@@ -32,7 +32,7 @@ const handleEdit = () =>{
  
     designId: product.design.id,
     productId: product.id,
-    
+    imageUrl: product.imageUrl,
 
   },
   
