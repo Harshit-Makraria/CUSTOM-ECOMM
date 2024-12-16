@@ -119,7 +119,7 @@ export const FONT_SIZE = 32;
 export const FONT_WEIGHT = 400;
 
 export const CIRCLE_OPTIONS = {
-  radius: 225,
+  radius: 30,
   left: 100,
   top: 100,
   fill: FILL_COLOR,

@@ -13,6 +13,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface ShapeSidebarProps {
   editor: Editor | undefined;
   activeTool: ActiveTool;
+  defaultHeight: number;
+  defaultWidth: number;
   onChangeActiveTool: (tool: ActiveTool) => void;
 };
 
@@ -20,6 +22,8 @@ export const ShapeSidebar = ({
   editor,
   activeTool,
   onChangeActiveTool,
+  defaultHeight,
+  defaultWidth,
 }: ShapeSidebarProps) => {
   const onClose = () => {
     onChangeActiveTool("select");

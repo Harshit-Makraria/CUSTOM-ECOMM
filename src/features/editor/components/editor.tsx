@@ -125,6 +125,8 @@ export const Editor = ({ initialData, jsonId }: EditorProps) => {
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
+          defaultHeight={jsonData.height}
+          defaultWidth={jsonData.width}
         />
         <FillColorSidebar
           editor={editor}
@@ -150,6 +152,8 @@ export const Editor = ({ initialData, jsonId }: EditorProps) => {
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
+          defaultHeight={jsonData.height}
+          defaultWidth={jsonData.width}
         />
         <FontSidebar
           editor={editor}

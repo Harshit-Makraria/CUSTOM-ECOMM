@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 interface TextSidebarProps {
   editor: Editor | undefined;
   activeTool: ActiveTool;
+  defaultHeight: number;
+  defaultWidth: number;
   onChangeActiveTool: (tool: ActiveTool) => void;
 };
 
@@ -19,11 +21,23 @@ export const TextSidebar = ({
   editor,
   activeTool,
   onChangeActiveTool,
+  defaultHeight,
+  defaultWidth,
 }: TextSidebarProps) => {
   const onClose = () => {
     onChangeActiveTool("select");
   };
+  const calculateFontSize = (baseSize: number) => {
+    return Math.round((defaultHeight + defaultWidth) / 1000 * baseSize);
+  };
 
+  const calculateFontWeight = (baseWeight: number) => {
+    return Math.min(Math.max(Math.round((defaultHeight + defaultWidth) / 100 * baseWeight), 100), 900);
+  };
+
+console.log("TextSidebar")
+console.log(defaultHeight)
+console.log(defaultWidth)
   return (
     <aside
       className={cn(
@@ -48,8 +62,8 @@ export const TextSidebar = ({
             variant="secondary"
             size="lg"
             onClick={() => editor?.addText("Heading", {
-              fontSize: 80,
-              fontWeight: 700,
+              fontSize: calculateFontSize(80),
+                fontWeight: calculateFontWeight(700),
             })}
           >
             <span className="text-3xl font-bold">
@@ -61,8 +75,8 @@ export const TextSidebar = ({
             variant="secondary"
             size="lg"
             onClick={() => editor?.addText("Subheading", {
-              fontSize: 44,
-              fontWeight: 600,
+              fontSize: calculateFontSize(44),
+                fontWeight: calculateFontWeight(600),
             })}
           >
             <span className="text-xl font-semibold">
@@ -74,7 +88,7 @@ export const TextSidebar = ({
             variant="secondary"
             size="lg"
             onClick={() => editor?.addText("Paragraph", {
-              fontSize: 32,
+              fontSize: calculateFontSize(32),
             })}
           >
             Paragraph
