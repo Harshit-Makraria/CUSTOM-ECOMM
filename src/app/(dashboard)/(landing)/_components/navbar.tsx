@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
                   d="M3.75 5.25h16.5M3.75 9h16.5m-16.5 3.75h16.5m-16.5 3.75h16.5m-16.5 3.75h16.5"
                 />
               </svg>
-              <span>My Projects</span>
+              <Link href={`/orders`} >My Orders</Link>
             </div>
           </Link>
          

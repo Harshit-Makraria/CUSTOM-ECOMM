@@ -23,10 +23,10 @@ export const SidebarRoutes = () => {
      
       <ul className="flex flex-col gap-y-1 px-3">
         <SidebarItem
-          href="/admin/portal"
+          href="/admin/orders"
           icon={Home}
-          label="portal"
-          isActive={pathname === "/admin/portal"}
+          label="Orders"
+          isActive={pathname === "/admin/orders"}
         />
          <SidebarItem
           href="/admin/create-user"

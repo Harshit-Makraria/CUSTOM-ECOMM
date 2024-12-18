@@ -98,7 +98,7 @@ const cart = new Hono()
       const auth =  c.get("authUser");
 
 
-      const { name, description, price, imageUrl , categoryId , canvaNo, height, width, eyelets, cod , designId , productId } = c.req.valid("json");
+      const values = c.req.valid("json");
       
 
       if (!auth.token?.id) {
@@ -109,8 +109,8 @@ const cart = new Hono()
 
         const cartcheck = await db.cart.findFirst({
             where :{
-            productId,
-            quantity: "1",
+            productId:values.productId,
+      
             
             userId : auth.token.id!
             },
@@ -138,7 +138,7 @@ const cart = new Hono()
 
       const  design = await db.design.findFirst({
         where: {    
-             id:designId
+             id:values.designId
         },
         include :{
             json :true
@@ -161,7 +161,7 @@ const cart = new Hono()
           json :{
             create :canvaJson.map((item:any)=>{
                 return{
-                     
+                    
                     json:item.json,
                     height:item.height,
                     width:item.width,
@@ -179,8 +179,10 @@ const cart = new Hono()
       // Insert the new product
       const data = await db.cart.create({
         data: {
-        designId:dumy.id,
-        userId:auth.token?.id!,
+          userId:auth.token?.id!,
+          ...values,
+          // 👇 ye wali line ko upper mt lana overwrite ho jaygi
+          designId:dumy.id,
   
         },
       });

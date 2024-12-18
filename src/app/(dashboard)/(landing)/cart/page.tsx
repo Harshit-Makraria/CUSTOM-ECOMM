@@ -62,10 +62,10 @@ const CartPage: React.FC = () => {
           {data&&data.map((item) =>
           {
            return <>
-           <div className="grid grid-cols-3 p-2">
+           <div className=" flex w-max bg-black p-2">
             <Link className="" href={`/editor/${item.design.id}/${item.design.json[0].id}`}>
             
-            <img src={item.design.json[0].imageUrl || '' } alt={ item.designId} />
+            <img className="max-w-[400px]" src={item.design.json[0].imageUrl || '' } alt={ item.designId} />
             </Link>
             </div>
            </>

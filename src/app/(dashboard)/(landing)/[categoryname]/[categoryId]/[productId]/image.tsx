@@ -10,49 +10,47 @@ import Link from "next/link";
 import { useCreatecart } from "@/features/cart/api/use-create-cart";
 import { toast } from "sonner";
 
-export default  function BannerPage({
+export default function BannerPage({
   categoryId,
-  product ,
+  product,
 }: {
   categoryId?: string;
   product: any;
 }) {
- 
-   const {mutate} = useCreatecart();
+  const { mutate } = useCreatecart();
 
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(
+    product.imageUrl
+  );
+  const thumbnails = [
+    product.imageUrl || "/default-image.png",
+    "/Banner.jpeg",
+    "/car_sale.png",
+    "/Flex.webp",
+  ];
 
-  const [selectedImage, setSelectedImage] = useState<string | undefined>(product.imageUrl);
-const thumbnails = [product.imageUrl || "/default-image.png", "/Banner.jpeg", "/car_sale.png", "/Flex.webp"];
+  const handleEdit = () => {
+    mutate(
+      {
+        designId: product.design.id,
+        productId: product.id,
+        imageUrl: product.imageUrl,
+        categoryId,
+      },
 
-
-const handleEdit = () =>{
-
-
-  mutate({
- 
-    designId: product.design.id,
-    productId: product.id,
-    imageUrl: product.imageUrl,
-
-  },
-  
- { onSuccess: (data) => {
- 
-   window.location.href = `/editor/${data.designId}/${data.jsonId}`;
- }}
-
-
- )
-
-
-}
+      {
+        onSuccess: (data) => {
+          window.location.href = `/editor/${data.designId}/${data.jsonId}`;
+        },
+      }
+    );
+  };
   return (
     <>
       <div className="">
         {/* Breadcrumb Navigation */}
         <div className="absolute top-0 left-0 w-full bg-white z-10 p-4 border-b shadow-sm">
-          <span>Home</span> {" "}
-          / <span>{product.name.toUpperCase()}</span>
+          <span>Home</span> / <span>{product.name.toUpperCase()}</span>
         </div>
         <div className="flex pt-16">
           {/* Image Section */}
@@ -86,7 +84,9 @@ const handleEdit = () =>{
 
           {/* Details Section */}
           <div className="w-2/5 ml-auto h-full p-8 ">
-            <h1 className="text-2xl font-bold mb-4">{(product.name).toLocaleUpperCase()}</h1>
+            <h1 className="text-2xl font-bold mb-4">
+              {product.name.toLocaleUpperCase()}
+            </h1>
             <p className="mb-4 text-gray-600">
               Promote your brand with durable, lightweight banners
             </p>
@@ -111,9 +111,11 @@ const handleEdit = () =>{
               </li>
             </ul>
 
-<p className="mb-4">
-  {product.cod ? "Cash on Delivery available" : "Cash on Delivery unavailable"}
-</p>
+            <p className="mb-4">
+              {product.cod
+                ? "Cash on Delivery available"
+                : "Cash on Delivery unavailable"}
+            </p>
             <ul className="mb-4 text-sm font-bold list-disc ml-6">
               <li>Price below is MRP (inclusive of all taxes)</li>
             </ul>
@@ -141,12 +143,12 @@ const handleEdit = () =>{
                   Size
                 </label>
                 <select id="size" name="size" className="border rounded-md p-2">
-    {product.size.map((size: any, index: any) => (
-      <option key={index} value={size}>
-      {size.replace("x", " cm x ")}
-      </option>
-    ))}
-  </select>
+                  {product.size.map((size: any, index: any) => (
+                    <option key={index} value={size}>
+                      {size.replace("x", " cm x ")}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center">
                 <label htmlFor="eyelets" className="block mb-2 text-gray-600">
@@ -162,29 +164,31 @@ const handleEdit = () =>{
 
             {/* Quantity Pricing */}
             <div className={`w-full`}>
-            <ul className="space-y-4 mt-4 overflow-y-hidden">
-  {[1, 2, 3, 4, 5,10,25,50].map((unit, index) => (
-    <li
-      key={index}
-      className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center"
-    >
-      <div className="font-bold text-lg">{unit}</div>
-      <div className="text-lg flex items-end">
-        ₹{product.price * unit}.00{" "}
-        <div className="text-sm text-gray-400 ml-2">
-          ₹{product.price * unit} / unit
-        </div>
-      </div>
-    </li>
-  ))}
-</ul>
-
+              <ul className="space-y-4 mt-4 overflow-y-hidden">
+                {[1, 2, 3, 4, 5, 10, 25, 50].map((unit, index) => (
+                  <li
+                    key={index}
+                    className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center"
+                  >
+                    <div className="font-bold text-lg">{unit}</div>
+                    <div className="text-lg flex items-end">
+                      ₹{product.price * unit}.00{" "}
+                      <div className="text-sm text-gray-400 ml-2">
+                        ₹{product.price * unit} / unit
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="w-full flex-col rounded-xl p-4 flex justify-start items-start">
               <span>1 starting at ₹230.00</span>
               <span className="underline">FREE SHIPPING</span>
             </div>
-            <button onClick={handleEdit} className="w-full flex-col rounded-xl mt-6 bg-cyan-400 p-4 flex justify-start items-start">
+            <button
+              onClick={handleEdit}
+              className="w-full flex-col rounded-xl mt-6 bg-cyan-400 p-4 flex justify-start items-start"
+            >
               <span className="font-bold text-lg">Edit Designs</span>
               <span className="font-semibold text-base">
                 Choose one of our templates

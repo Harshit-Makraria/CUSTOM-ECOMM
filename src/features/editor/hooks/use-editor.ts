@@ -80,7 +80,15 @@ const buildEditor = ({
     autoZoom();
    return dataUrl
   };
+   const returnPng = () => {
+    const options = generateSaveOptions();
 
+    // canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    
+    const dataUrl = canvas.toDataURL(options);
+    
+   return dataUrl
+  };
   const saveSvg = () => {
     const options = generateSaveOptions();
 
@@ -142,6 +150,7 @@ const buildEditor = ({
   };
 
   return {
+    returnPng,
     savePng,
     saveJpg,
     saveSvg,

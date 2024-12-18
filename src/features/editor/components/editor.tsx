@@ -30,6 +30,7 @@ import { SettingsSidebar } from "@/features/editor/components/settings-sidebar";
 import { CanvasSidebar } from "./canvas-sidebar";
  
 import UseGetJsonData from "../utils/get-json-data";
+import { useSet } from "react-use";
  
 
 interface EditorProps {
@@ -38,19 +39,17 @@ interface EditorProps {
 }
 
 export const Editor = ({ initialData, jsonId }: EditorProps) => {
+
   const { mutate } = useUpdateProject(initialData.data.id, jsonId);
    
 
   const jsonData =UseGetJsonData(initialData.data.json , jsonId)
-   
+   const [canva , setcanva] = useState()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedSave = useCallback(
-    debounce((values: { json: string; height: number; width: number }) => {
-      mutate(values);
-    }, 500),
-    [mutate]
-  );
+  const debouncedSave =  debounce((values: { json: string; height: number; width: number }) => {
+      mutate({...values , imageUrl:editor?.returnPng()??""});
+    }, 500)
 
   const [activeTool, setActiveTool] = useState<ActiveTool>("select");
 
@@ -95,6 +94,8 @@ export const Editor = ({ initialData, jsonId }: EditorProps) => {
       controlsAboveOverlay: true,
       preserveObjectStacking: true,
     });
+
+    setcanva(canvas)
 
     init({
       initialCanvas: canvas,

@@ -133,6 +133,7 @@ model Design {
   width        Int
   cart         Cart[]
   thumbnailUrl String?
+  order         Order?
   isTemplate   Boolean?
   isPro        Boolean?
   createdAt    DateTime    @default(now())
@@ -185,10 +186,10 @@ model Product {
   price        Float[]
   size         String[]
   cod          String?
-  height       Float? 
+  height       Float?
   width        Float?
   quantity     Float
-  min_quantity     Float?
+  min_quantity Float?
   eyelets      String?
   Shape        String?
   Material     String?
@@ -242,41 +243,44 @@ model Option {
 //   quantity  Int
 //   price     Float
 // }
-
-
-model Order {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String      @db.ObjectId
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  orderItems      OrderItem[]  
-  totalAmount     Float        
-  status          String  
+model Cart {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
   designId  String   @db.ObjectId
-  quantity  String
-  productId String  @db.ObjectId
-  paymentStatus   PaymentStatus? 
-  paymentMethod   PaymentMethod? 
-  shippingAddress Address?   
-  billingAddress  Address?     
-  trackingNumber  String?    
-  notes           String? 
-  createdAt       DateTime     @default(now()) 
-  updatedAt       DateTime     @updatedAt 
-}  
-
-model OrderItem {
-  id              String      @id @default(auto()) @map("_id") @db.ObjectId
-  orderId         String      @db.ObjectId
-  order           Order       @relation(fields: [orderId], references: [id]) // Relation to Order
-  productId       String      // ID of the product
-  productName     String      // Name of the product
-  quantity        Int         // Quantity of the product
-  unitPrice       Float?       // Price per unit
-  totalPrice      Float       // Total price for this item (calculated)
+  categoryId String?   @db.ObjectId
+  design    Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quantity  String?
+  productId String?  @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Order {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  orderId      String?     @unique
+  userId          String         @db.ObjectId
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalAmount     Float?
+  status          String?
+  designId        String        @db.ObjectId @unique
+  design          Design @relation(fields: [designId] , references: [id])
+  quantity        String?
+  categoryId      String?   @db.ObjectId
+  productId       String?        @db.ObjectId
+  productName     String? // Name of the product
+  unitPrice       Float? // Price per unit
+  totalPrice      Float? // Total price for this item (calculated)
+  paymentStatus   PaymentStatus?
+  paymentMethod   PaymentMethod?
+  shippingAddress Address?
+  billingAddress  Address?
+  trackingNumber  String?
+  notes           String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 }
 
 enum OrderStatus {
-
   Processing
   Shipped
   outForDelivery
@@ -310,18 +314,7 @@ type Address {
   postalCode String
 }
 
-
-model Cart {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  designId  String   @db.ObjectId
-  design    Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  quantity  String?
-  productId String?  @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+ 
 
 model Quantity {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -333,11 +326,11 @@ model Quantity {
 }
 
 model ShippingRateCalculation {
-  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  pickup_postcode    String    
-  delivery_postcode  String    
-  weight             Float     
-  declared_value     Float     
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  pickup_postcode   String
+  delivery_postcode String
+  weight            Float
+  declared_value    Float
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
