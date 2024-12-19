@@ -95,7 +95,7 @@ export const Editor = ({ initialData, jsonId }: EditorProps) => {
       preserveObjectStacking: true,
     });
 
-    setcanva(canvas)
+    setcanva(canvas as any)
 
     init({
       initialCanvas: canvas,

@@ -34,7 +34,7 @@ export default function BannerPage({
       {
         designId: product.design.id,
         productId: product.id,
-        imageUrl: product.imageUrl,
+       
         categoryId,
       },
 

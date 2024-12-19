@@ -4,7 +4,7 @@ import { Hono } from "hono";
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 import db from "@/db/prisma";
-import generateUniqueUUID from "../_utils/uuid";
+// import generateUniqueUUID from "../_utils/uuid";
 
 // Define the schema for OrderItem
 const orderItemSchema = z.object({
@@ -49,11 +49,11 @@ const app = new Hono()
       const data = await db.order.createMany({
         data: carts.map((cart) => {
           const { id, ...cartdata } = cart;
-          const orderId = generateUniqueUUID()
+          // const orderId = generateUniqueUUID()
           return {
             ...cartdata,
             userId: auth.token!.id!,
-            orderId,
+            // orderId,
             createdAt: new Date(),
             updatedAt: new Date(),
           };

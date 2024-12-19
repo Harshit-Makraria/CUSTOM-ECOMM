@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { useSearchParams, useParams, useRouter } from "next/navigation";
+import { useSearchParams, useParams, useRouter, redirect } from "next/navigation";
 import { useCreateOrder } from "@/features/order/use-create-order";
 import { useGetcart } from "@/features/cart/api/use-get-cart";
 import { toast } from "sonner";
@@ -33,8 +33,8 @@ export default function CreateOrder() {
     }));
   }, [productname]);
 
-  async function placeOrder() {
-    if(data) {
+   function placeOrder() {
+    if(data && data.length != 0) {
 
       mutate({
         cartIds:data.map(cart=>cart.id),
@@ -43,9 +43,12 @@ export default function CreateOrder() {
     {
       onSuccess : ()=>{
         toast.success("Order placed")
+       router.push('/orders')
       }
     });
     }
+
+   
   }
 
   console.log(data);

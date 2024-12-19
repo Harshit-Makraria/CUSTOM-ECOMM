@@ -8,7 +8,7 @@ const productInsertSchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.array(z.number()),
-  imageUrl: z.string(), // Assuming products have an image URL
+  // imageUrl: z.string(), // Assuming products have an image URL
   categoryId:z.string(),
   canvaNo : z.number(),
   size: z.array(z.string()),
@@ -19,7 +19,7 @@ const productInsertSchema = z.object({
   designId:z.string(),
   productId:z.string()
 
-});
+}) ;
 
 const cart = new Hono()
   
