@@ -20,7 +20,7 @@ export default async function hero() {
         <div className="flex flex-wrap gap-10 justify-center">
         {categorys.map((item)  => (
           
-        <Link key={item.id} href={`/${item.name}/${item.id} `} className="w-80 h-72 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center mt-10">
+        <Link key={item.id} href={`/${item.name}/${item.id}`} className="w-80 h-72 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center mt-10">
           <img
             src={item.imageUrl}
             className="w-full h-[80%] object-cover rounded-t-lg"

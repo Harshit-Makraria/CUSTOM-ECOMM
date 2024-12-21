@@ -133,7 +133,7 @@ model Design {
   width        Int
   cart         Cart[]
   thumbnailUrl String?
-  order         Order?
+  order        Order?
   isTemplate   Boolean?
   isPro        Boolean?
   createdAt    DateTime    @default(now())
@@ -244,28 +244,31 @@ model Option {
 //   price     Float
 // }
 model Cart {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  designId  String   @db.ObjectId
-  categoryId String?   @db.ObjectId
-  design    Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  quantity  String?
-  productId String?  @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  designId   String   @unique     @db.ObjectId
+  categoryId String?  @db.ObjectId
+  isConsent  Boolean  @default(false)
+  design     Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quantity   String?
+  productId  String?  @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
+
 model Order {
   id              String         @id @default(auto()) @map("_id") @db.ObjectId
-  orderId      String?     @unique
+  orderId         String?        @unique
   userId          String         @db.ObjectId
   user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   totalAmount     Float?
   status          String?
-  designId        String        @db.ObjectId @unique
-  design          Design @relation(fields: [designId] , references: [id])
+  isConsent       Boolean?
+  designId        String         @unique @db.ObjectId
+  design          Design         @relation(fields: [designId], references: [id])
   quantity        String?
-  categoryId      String?   @db.ObjectId
+  categoryId      String?        @db.ObjectId
   productId       String?        @db.ObjectId
   productName     String? // Name of the product
   unitPrice       Float? // Price per unit
@@ -313,8 +316,6 @@ type Address {
   country    String
   postalCode String
 }
-
- 
 
 model Quantity {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId

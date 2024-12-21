@@ -1,8 +1,16 @@
+'use client'
+
 import React from "react";
 import Link from "next/link";
 import DesignReviewForm from "./DesignReviewForm";
+import { useGetProject } from "@/features/projects/api/use-get-project";
 
-const DesignPreviewPage: React.FC = () => {
+const DesignPreviewPage = ({designIds} : {designIds:string}) => {
+ 
+  const {data } = useGetProject(designIds)
+
+console.log(data)
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-50">
       <div className="w-full bg-white rounded-lg shadow-md p-6">
@@ -11,7 +19,7 @@ const DesignPreviewPage: React.FC = () => {
           <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-200 p-4 rounded">
             <div className="relative w-full h-full border">
               <img
-                src="/bg.jpg"
+                src={data?.data.json[0].imageUrl??"/bg.jp"}
                 alt="Design Preview"
                 className="w-full h-full object-cover"
               />
@@ -43,7 +51,7 @@ const DesignPreviewPage: React.FC = () => {
             </div>
 
             {/* Client Component for Interactivity */}
-            <DesignReviewForm />
+            <DesignReviewForm designIds={designIds} />
           </div>
         </div>
       </div>

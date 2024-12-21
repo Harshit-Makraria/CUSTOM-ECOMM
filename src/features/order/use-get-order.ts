@@ -15,9 +15,7 @@ export const useGetOrder = () => {
     queryKey: ["order"],
     queryFn: async () => {
       const response = await client.api.order.$get({
-        query: {
-          id: "1",
-        },
+      
       });
 
       if (!response.ok) {

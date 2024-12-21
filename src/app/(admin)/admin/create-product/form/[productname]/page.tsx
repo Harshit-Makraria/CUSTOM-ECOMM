@@ -12,7 +12,7 @@ const formMapping: Record<string, React.ComponentType<{categoryId:string}>> = {
 export default function Page({ params , searchParams }: { params: { productname: string } ,searchParams: {categoryId:string} }) {
   const { productname } = params;
   const {categoryId} = searchParams
-  console.log(categoryId)
+  
   const FormComponent = formMapping[productname.toLowerCase()] || null;
 
   return (

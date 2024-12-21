@@ -5,6 +5,7 @@ import { zValidator } from "@hono/zod-validator";
 import db from "@/db/prisma";
 
 const productInsertSchema = z.object({
+  cartId:z.string(),
   name: z.string(),
   description: z.string(),
   price: z.array(z.number()),
@@ -17,7 +18,8 @@ const productInsertSchema = z.object({
   eyelets:z.string(),
   cod:z.string(),
   designId:z.string(),
-  productId:z.string()
+  productId:z.string(),
+  isConsent:z.boolean()
 
 }) ;
 
@@ -57,30 +59,41 @@ const cart = new Hono()
     }
   )
   .patch(
-    "/:id",
+   '/',
     verifyAuth(),
-    zValidator("param", z.object({ id: z.string() })),
+    
     zValidator("json", productInsertSchema.partial()),
     async (c) => {
       const auth = c.get("authUser");
-      const { id } = c.req.valid("param");
+    
       const values = c.req.valid("json");
 
       if (!auth.token?.id) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const product = await db.product.findUnique({
-        where: { id: id },
+
+
+      const cart = await db.cart.findMany({
+        where: {
+           id: values.cartId ,
+          designId:values.designId,
+          userId:auth.token.id
+         },
+         select :{
+          id:true
+         }
       });
 
-      if (!product ) {
+      if (!cart ) {
         return c.json({ error: "Not found or Unauthorized" }, 404);
       }
 
-      const data = await db.product.update({
-        where: { id: id },
-        data: { ...values, updatedAt: new Date(), categoryId: values.categoryId ?? undefined },
+      const data = await db.cart.updateMany({
+        where: { id: {
+          in:cart.map(cart=>cart.id )
+        } },
+        data: { ...values, updatedAt: new Date()},
       });
 
       if (!data) {

@@ -30,7 +30,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUpdateProject } from "@/features/projects/api/use-update-project";
-import DesignPreviewPage from "@/app/consent/page";
+import DesignPreviewPage from "@/app/_consent/page";
+import { useSearchParams } from "next/navigation";
 interface NavbarProps {
   id: string;
   editor: Editor | undefined;
@@ -49,9 +50,8 @@ export const Navbar = ({
   onChangeActiveTool,
 }: NavbarProps) => {
 
-  const { mutate } = useUpdateProject(id, jsonId);
- 
- 
+  // const { mutate } = useUpdateProject(id, jsonId);
+   
   const data = useMutationState({
     filters: {
       mutationKey: ["project", { id  , jsonId }],
@@ -59,16 +59,18 @@ export const Navbar = ({
     },
     select: (mutation) => mutation.state.status,
   });
- console.log(id)
- console.log(jsonId)
+ 
   const currentStatus = data[data.length - 1];
 
   const [showDesignPreview, setShowDesignPreview] = useState(false);
   const handleClick = () => {
+
     setShowDesignPreview(true);
+
     setTimeout(() => {
-        setShowDesignPreview(false);
-    }, 10000); // 10 seconds (10,000 milliseconds)
+      setShowDesignPreview(false)
+    }, 10000);
+  
 };
   const isError = currentStatus === "error";
   const isPending = currentStatus === "pending";
@@ -247,7 +249,7 @@ export const Navbar = ({
       </div>
     </nav>
     <div className="z-50">
-    {showDesignPreview && <DesignPreviewPage />}
+    {showDesignPreview && <DesignPreviewPage key={id} designIds={id} />}
     </div>
     </>
   );
