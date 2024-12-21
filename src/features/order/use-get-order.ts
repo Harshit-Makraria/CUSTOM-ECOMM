@@ -1,3 +1,4 @@
+
 import { InferResponseType } from "hono";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,7 +15,9 @@ export const useGetOrder = () => {
     queryKey: ["order"],
     queryFn: async () => {
       const response = await client.api.order.$get({
-      
+        query: {
+          id: "1",
+        },
       });
 
       if (!response.ok) {

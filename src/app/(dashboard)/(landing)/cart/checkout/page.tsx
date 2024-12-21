@@ -53,20 +53,20 @@ export default function CreateOrder() {
 
   console.log(data);
   return (
-    <div className="">
-      <h1 className="font-bold text-lg text-black mb-3">Create Order</h1>
+    <div className="p-5">
+      <h1 className="font-bold text-2xl text-black mb-5 ">Create Order</h1>
       <div className="flex flex-col items-start justify-start">
 
       {data &&
         data.map((item, key) => (
-          <div className="border shadow-sm rounded-md" key={item.id}>
+          <div className="border shadow-sm rounded-md bg-black  p-1" key={item.id}>
             <Image src={item.design.json[0].imageUrl!} alt="sdfs" width={400} height={400} />
-            <p>{item.userId}</p>
+            {/* <p>{item.userId}</p> */}
           </div>
         ))}
       </div>
 
-      <Button variant={"default"} className="bg-blue-500" onClick={placeOrder}> Place order </Button>
+      <Button variant={"default"} className="bg-blue-500 mt-10" onClick={placeOrder}> Place order </Button>
     </div>
   );
 }

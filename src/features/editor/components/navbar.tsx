@@ -1,5 +1,6 @@
 "use client";
-
+import Link from "next/link";
+import React, { useState } from "react";
 import { CiFileOn } from "react-icons/ci";
 import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
 import { useFilePicker } from "use-file-picker";
@@ -29,7 +30,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUpdateProject } from "@/features/projects/api/use-update-project";
-
+import DesignPreviewPage from "@/app/consent/page";
 interface NavbarProps {
   id: string;
   editor: Editor | undefined;
@@ -58,9 +59,17 @@ export const Navbar = ({
     },
     select: (mutation) => mutation.state.status,
   });
-
+ console.log(id)
+ console.log(jsonId)
   const currentStatus = data[data.length - 1];
 
+  const [showDesignPreview, setShowDesignPreview] = useState(false);
+  const handleClick = () => {
+    setShowDesignPreview(true);
+    setTimeout(() => {
+        setShowDesignPreview(false);
+    }, 10000); // 10 seconds (10,000 milliseconds)
+};
   const isError = currentStatus === "error";
   const isPending = currentStatus === "pending";
   
@@ -79,6 +88,7 @@ export const Navbar = ({
   });
 
   return (
+    <>
     <nav className="w-full flex items-center p-4 h-[68px] gap-x-8 border-b lg:pl-[34px]">
       <Logo />
       
@@ -225,9 +235,20 @@ export const Navbar = ({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          
+          <Link
+          href={'#'}
+          className="px-4 py-2 rounded-lg border hover:border-blue-800 duration-1000  font-semibold bg-blue-500 text-white"
+          onClick={handleClick}>
+          Next
+        </Link>
           <UserButton />
         </div>
       </div>
     </nav>
+    <div className="z-50">
+    {showDesignPreview && <DesignPreviewPage />}
+    </div>
+    </>
   );
 };
