@@ -28,15 +28,21 @@ export default function BannerPage({
     "/car_sale.png",
     "/Flex.webp",
   ];
-
+  const [quantity, setQuantity] = useState<string>();
+  // const [isOpen, setIsOpen] = useState(true);
+  const quantities = ['1', '2', '3', '4', '5', '10', '25', '50'];
+  const handleSelect = (unt:string) => {
+    setQuantity(unt);
+    // setIsOpen(false);
+  };
   const handleEdit = () => {
     mutate(
       {
         designId: product.design.id,
         productId: product.id,
-       
-        categoryId,
-      },
+    categoryId,
+    quantity,  
+  },
 
       {
         onSuccess: (data) => {
@@ -45,6 +51,7 @@ export default function BannerPage({
       }
     );
   };
+  console.log(quantity);
   return (
     <>
       <div className="">
@@ -150,39 +157,38 @@ export default function BannerPage({
                   ))}
                 </select>
               </div>
-              <div className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center">
-                <label htmlFor="eyelets" className="block mb-2 text-gray-600">
-                  Eyelets
-                </label>
-                <select id="eyelets" name="eyelets">
-                  <option value="none">Select...</option>
-                  <option value="yes">Eyelets</option>
-                  <option value="no">None</option>
-                </select>
-              </div>
             </div>
 
             {/* Quantity Pricing */}
-            <div className={`w-full`}>
-              <ul className="space-y-4 mt-4 overflow-y-hidden">
-                {[1, 2, 3, 4, 5, 10, 25, 50].map((unit, index) => (
-                  <li
-                    key={index}
-                    className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center"
-                  >
-                    <div className="font-bold text-lg">{unit}</div>
+            
+            <div className="w-full mt-4">
+      <label htmlFor="quantity" className="block text-gray-600 mb-2">
+        Select Quantity:
+      </label>
+      
+      {/* Dropdown menu */}
+      
+        <ul className="space-y-4 mt-4 overflow-y-hidden z-10">
+          {quantities.map((unit) => (
+            <li
+              key={unit}
+              className={`w-full border-black border-2 rounded-xl p-4 flex justify-between items-center  ${unit == quantity ? "border-black" : "border-gray-300"}`}
+              onClick={() => handleSelect(unit)}
+            >
+              <div className="font-bold text-lg">{unit}</div>
                     <div className="text-lg flex items-end">
-                      ₹{product.price * unit}.00{" "}
+                      ₹{product.price * parseInt(unit)}.00{" "}
                       <div className="text-sm text-gray-400 ml-2">
-                        ₹{product.price * unit} / unit
+                        ₹{product.price} / unit
                       </div>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="w-full flex-col rounded-xl p-4 flex justify-start items-start">
-              <span>1 starting at ₹230.00</span>
+            </li>
+          ))}
+        </ul>
+    
+    </div>
+     <div className="w-full flex-col rounded-xl p-4 flex justify-start items-start">
+              <span>1 starting at ₹{product.price}</span>
               <span className="underline">FREE SHIPPING</span>
             </div>
             <button

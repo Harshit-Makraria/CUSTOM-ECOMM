@@ -2,7 +2,13 @@
  
 import { useState } from "react";
  
-const CustomBannersPage = () => {
+export default function CustomBannersPage ({
+  categoryId,
+  product,
+}: {
+  categoryId?: string;
+  product: any;
+}) {
   const [activeTab, setActiveTab] = useState("overview");
   const faqs = [
     { question: "What is the banner material made of?", answer: "The banner is made of high-quality vinyl, suitable for outdoor and indoor use." },
@@ -79,7 +85,7 @@ const CustomBannersPage = () => {
           <div className=" w-1/2">
             <img
               className="w-full object-cover h-[90%] rounded-lg shadow-md"
-            
+              src="/banner.jpeg"
               alt="Selected Banner"/>
           </div>
         </div>
@@ -116,7 +122,12 @@ const CustomBannersPage = () => {
               id="size"
               className="mt-2 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             >
-              <option>Custom</option>
+              
+              {product.size.map((size:any, index:any) => (
+            <option key={index} value={size}>
+              {size}
+            </option>
+          ))}
             </select>
           </div>
  
@@ -264,4 +275,3 @@ const CustomBannersPage = () => {
   );
 };
  
-export default CustomBannersPage;

@@ -67,9 +67,13 @@ const DesignReviewForm = ({designIds} : {designIds: string}) => {
         >
           Continue
         </button>
-        <button className="px-4 py-2 rounded bg-gray-100 text-gray-700 border font-semibold hover:bg-gray-200">
-          Edit my design
-        </button>
+        <button
+  className="px-4 py-2 rounded bg-gray-100 text-gray-700 border font-semibold hover:bg-gray-200"
+  onClick={() => window.location.reload()}
+>
+  Edit my design
+</button>
+
       </div>
     </>
   );

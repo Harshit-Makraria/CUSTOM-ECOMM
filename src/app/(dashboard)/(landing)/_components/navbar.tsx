@@ -6,14 +6,15 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-white shadow-md">
       {/* Main Navbar */}
-      <div className="container mx-auto flex justify-between items-center px-4 lg:px-8 py-3">
+      <div className=" mx-auto flex justify-between items-center px-4 lg:px-8 font-sans py-5">
         {/* Logo Section */}
         <Link href="/" className="flex items-center space-x-2">
-          <img
-            src="/vistaprint-logo.svg" // Replace with your logo's path
-            alt="Vistaprint Logo"
-            className="h-6"
-          />
+          {/* <img
+            src="/LOGOO.png" // Replace with your logo's path
+        
+            className="w-16"
+          /> */}
+          <p className="font-bold font-sans ">CANVAS</p>
         </Link>
 
         {/* Search Bar */}
@@ -21,7 +22,7 @@ const Navbar: React.FC = () => {
           <input
             type="text"
             placeholder="Search"
-            className="w-full border border-gray-300 rounded-full py-2 px-4 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border h-10 border-gray-500 ring-2 ring-gray-100 rounded-lg py-2 px-4 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button className="absolute right-3 text-gray-500 hover:text-blue-600">
             <svg
@@ -30,7 +31,7 @@ const Navbar: React.FC = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-5"
+              className="w-5 h-5 h"
             >
               <path
                 strokeLinecap="round"
@@ -42,7 +43,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Icons Section */}
-        <div className="flex items-center space-x-6 text-sm text-gray-600">
+        <div className="flex items-center space-x-10 text-sm text-gray-600">
           <div className="flex items-center space-x-1 hover:text-blue-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +51,7 @@ const Navbar: React.FC = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-5"
+              className="w-8 h-8"
             >
               <path
                 strokeLinecap="round"
@@ -58,8 +59,11 @@ const Navbar: React.FC = () => {
                 d="M8.25 8.25h7.5m-7.5 3.75h7.5m-7.5 3.75h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
+            <div className="font-semibold text-[16px]">
             <span>Help is here</span>
-            <span className="hidden lg:inline">(02522-669393)</span>
+            <p></p>
+            <span className="hidden lg:inline text-[12px]">(02522-669393)</span>
+            </div>
           </div>
           <Link href="/projects" className="hover:text-blue-600">
             <div className="flex items-center space-x-1">
@@ -69,7 +73,7 @@ const Navbar: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-5 h-5"
+                className="w-7 h-7 "
               >
                 <path
                   strokeLinecap="round"
@@ -77,7 +81,7 @@ const Navbar: React.FC = () => {
                   d="M3.75 5.25h16.5M3.75 9h16.5m-16.5 3.75h16.5m-16.5 3.75h16.5m-16.5 3.75h16.5"
                 />
               </svg>
-              <Link href={`/orders`} >My Orders</Link>
+              <Link href={`/orders`} className="font-semibold text-[16px]" >My Orders</Link>
             </div>
           </Link>
          
@@ -89,7 +93,7 @@ const Navbar: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-5 h-5"
+                className="w-7 h-7 mt-2"
               >
                 <path
                   strokeLinecap="round"
@@ -97,7 +101,7 @@ const Navbar: React.FC = () => {
                   d="M3.375 3.375h1.5l.375 2.25M8.625 12h7.125m-7.125 0l.75 4.5m6.375-4.5l-.75 4.5m-8.625-4.5h-2.25m10.125 0h2.25m-9.375 0h7.875m-7.875 0l-.75-4.5m8.625 4.5l.75-4.5m2.25-4.5H6.75m-.375 0l-.375 2.25m.75-2.25h11.25m-.75 2.25l-.75-4.5m0 0H7.875m8.625 4.5H6.75m-3.375 0h1.5l.375 2.25m0 0h-.75m0 0h.75"
                 />
               </svg>
-              <span>Cart</span>
+              <span className="font-semibold text-[16px]">Cart</span>
             </div>
           </Link>
 
@@ -125,8 +129,8 @@ const Navbar: React.FC = () => {
 
       {/* Category Links */}
       <div className="bg-gray-50 border-t border-gray-200">
-        <div className="container mx-auto flex space-x-6 py-2 px-4 lg:px-8 text-sm text-gray-600">
-          <Link href="/" className="hover:text-blue-600">
+        <div className="font-sans font-semibold flex space-x-2 text-center py-2  lg:px-8 text-sm text-gray-600">
+          <Link href="/" className="hover:text-blue-600 ">
             View All
           </Link>
           <Link href="/visiting-cards" className="hover:text-blue-600">

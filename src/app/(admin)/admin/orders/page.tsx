@@ -1,4 +1,4 @@
-'use'
+'use client'
 
 import { useGetOrder } from '@/features/order/use-get-order'
 import { useGetproduct } from '@/features/product/api/use-get-product'

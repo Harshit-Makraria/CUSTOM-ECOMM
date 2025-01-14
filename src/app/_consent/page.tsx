@@ -19,7 +19,7 @@ console.log(data)
           <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-200 p-4 rounded">
             <div className="relative w-full h-full border">
               <img
-                src={data?.data.json[0].imageUrl??"/bg.jp"}
+                src={data?.data.json[0].imageUrl??"/bg.jpg"}
                 alt="Design Preview"
                 className="w-full h-full object-cover"
               />

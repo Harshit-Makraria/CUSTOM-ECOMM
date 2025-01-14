@@ -34,7 +34,7 @@ export const ImageSidebar = memo(
     onChangeActiveTool("select");
   };
  
-
+ console.log(data)
   return (
     <aside
       className={cn(

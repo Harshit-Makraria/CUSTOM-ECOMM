@@ -19,8 +19,8 @@ const productInsertSchema = z.object({
   cod:z.string(),
   designId:z.string(),
   productId:z.string(),
-  isConsent:z.boolean()
-
+  isConsent:z.boolean(),
+  quantity: z.string(),
 }) ;
 
 const cart = new Hono()
@@ -123,7 +123,7 @@ const cart = new Hono()
         const cartcheck = await db.cart.findFirst({
             where :{
             productId:values.productId,
-      
+             
             
             userId : auth.token.id!
             },
@@ -171,6 +171,7 @@ const cart = new Hono()
           name:design.name,
           width:design.width,
           userId:auth.token?.id!,
+          
           json :{
             create :canvaJson.map((item:any)=>{
                 return{
@@ -185,6 +186,7 @@ const cart = new Hono()
         }
         ,
         include :{
+          
             json:true
         }
       })
@@ -193,6 +195,8 @@ const cart = new Hono()
       const data = await db.cart.create({
         data: {
           userId:auth.token?.id!,
+          quantity:values.quantity,
+          isConsent:values.isConsent,
           ...values,
           // 👇 ye wali line ko upper mt lana overwrite ho jaygi
           designId:dumy.id,

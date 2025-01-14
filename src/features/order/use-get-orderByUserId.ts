@@ -1,4 +1,4 @@
- 
+ "use client"
 import { InferResponseType } from "hono";
 import { useQuery } from "@tanstack/react-query";
 

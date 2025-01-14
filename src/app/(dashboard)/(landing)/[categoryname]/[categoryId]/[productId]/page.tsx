@@ -30,7 +30,7 @@ export default async function page( {params } :{ params : {categoryId:string , p
   return (
     <>
       <BannerPage product={product!}  />
-      <CustomBannersPage />
+      <CustomBannersPage product={product!}/>
     </>
  
   );

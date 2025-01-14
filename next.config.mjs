@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ['jk0q5t4481.ufs.sh'],
 
     remotePatterns: [
       {
