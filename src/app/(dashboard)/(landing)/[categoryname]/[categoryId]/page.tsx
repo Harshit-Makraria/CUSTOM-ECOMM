@@ -1,40 +1,37 @@
 import React from "react";
 import db from "@/db/prisma";
 import Link from "next/link";
-import qs from "query-string";
+ 
 import Sidebar from "./components/sidebar";
 export default async function page({
   params,
-  searchparams,
+  searchParams,
 }: // searchparams,
 {
-  params: { categoryId: string };
-  searchparams?: { size?: string,eyelets?:string, };
+  params: { categoryId: string , categoryname:string };
+  searchParams?: { size?: string,eyelets?:string, };
 }) {
   const { categoryId } = params;
-  // const { size,eyelets } = searchparams;
+   
   const filters = {
-    size: searchparams?.size ? [searchparams.size] : undefined,
-    eyelets: searchparams?.eyelets,
+    size: searchParams?.size ? [searchParams.size] : undefined,
+    eyelets: searchParams?.eyelets,
   };
-  const products = await db.product.findMany({
+  
+  
+ 
+  const product = await db.product.findMany({
     where: {
-      categoryId: categoryId
-    }
-  });
-  const category = await db.category.findUnique({
-    where: {
-      id: categoryId,
-    },
 
-    include: {
-      product: {
-        where: {
-          ...(filters.size && { size: { hasEvery: filters.size } }),
-          ...(filters.eyelets && { eyelets: { equals: filters.eyelets } }),
-          // size: { equals: [size] },
-          // eyelets: { equals: eyelets },
-        },
+      
+      categoryId: categoryId,
+        ...(filters.size && { size: { hasEvery: filters.size } }),
+        ...(filters.eyelets && { eyelets: { equals: filters.eyelets} }),
+        // size: { equals: [size] },
+         
+       
+    },
+ 
         include: {
           design: {
             include: {
@@ -42,16 +39,18 @@ export default async function page({
             },
           },
         },
-      },
-    },
+      
+     
   });
 
+   
+
   const availableSizes = Array.from(
-    new Set(category?.product.flatMap((product) => product.size))
+    new Set( product.flatMap((product) => product.size))
   ).filter(Boolean); 
 
   const availableEyelets = Array.from(
-    new Set(category?.product.flatMap((product) => product.eyelets))
+    new Set( product.flatMap((product) => product.eyelets))
   ).filter((eyelet): eyelet is string => eyelet !== null);
 
   const currentFilters = {
@@ -59,10 +58,8 @@ export default async function page({
     eyelets: filters.eyelets,
   };
 
-
-  const href = `/${category?.name}/${categoryId}`;
-  const nm = category?.name;
-  const cid = category?.id;
+ 
+ 
   const isFilterActive = filters.size || filters.eyelets;
 
 return (
@@ -73,7 +70,7 @@ return (
     <div className="flex">
       <div className="m-5">
         <Sidebar
-          catname={category?.name!}
+          catname={params.categoryname}
           currentFilters={currentFilters}
           categoryId={categoryId}
           availableSizes={availableSizes}
@@ -81,36 +78,12 @@ return (
         />
       </div>
       <div className="grid grid-cols-3 px-8">
-        {isFilterActive ? (
-          products.filter((el) => {
-              const matchesSize = filters.size ? el.size === filters.size : true;
-              // const matchesEyelets = filters.eyelets ? el.eyelets === filters.eyelets : true;
-              
-              console.log("matchesSize", matchesSize);
-              return matchesSize;
-              
-            })
-            .map((el, key) => (
-              <Link
-                key={el.id || key}
-                href={`/${category?.name}/${categoryId}/${el.id}`}
-              >
-                <div className="bg-orange-50 mx-4 my-2 border border-gray-300 rounded-[20px]">
-                  <div className="p-10">
-                    <img
-                      src={el.imageUrl!}
-                      alt={el.designId ?? ""}
-                      className="w-[30vw] h-[20vh]"
-                    />
-                  </div>
-                </div>
-              </Link>
-            ))
-        ) : (
-          category?.product.map((el, key) => (
+      
+          
+        {  product.map((el, key) => (
             <Link
               key={el.id || key}
-              href={`/${category?.name}/${categoryId}/${el.id}`}
+              href={`/${params.categoryname}/${categoryId}/${el.id}`}
             >
               <div className="bg-orange-50 mx-4 my-2 border border-gray-300
               rounded-[20px]">
@@ -125,7 +98,7 @@ return (
                 </div>
             </Link>
           ))
-        )}
+        }
       </div>
     </div>
   </> );

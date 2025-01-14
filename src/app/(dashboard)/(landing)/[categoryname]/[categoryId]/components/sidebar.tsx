@@ -55,8 +55,10 @@
 // export default Sidebar;
 "use client";
 
+import qs from "query-string";
+
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import db from "@/db/prisma";
 export default function Sidebar({
   catname,
@@ -71,16 +73,26 @@ export default function Sidebar({
   availableSizes: string[]; // Array of sizes fetched from the database
   availableEyelets: string[]; // Array of eyelets fetched from the database
 }) {
+  const pathname = usePathname()
   const [selectedSize, setSelectedSize] = useState(currentFilters.size || "");
   const [selectedEyelet, setSelectedEyelet] = useState(currentFilters.eyelets || "");
   const router = useRouter();
 // const pro = db.product.findMany(); 
+
   const applyFilters = () => {
-    const query = new URLSearchParams({
-      ...(selectedSize && { size: selectedSize }),
-      ...(selectedEyelet && { eyelets: selectedEyelet }),
-    }).toString();
-    router.push(`/${catname}/${categoryId}?${query}`);
+   
+    
+      const url = qs.stringifyUrl({
+        url: pathname,
+        query: {
+          size: selectedSize??null,
+          eyelets: selectedEyelet??null
+        }
+      }, { skipNull: true, skipEmptyString: true,  });
+  
+      router.push(url);
+  
+    
   };
 
   return (
