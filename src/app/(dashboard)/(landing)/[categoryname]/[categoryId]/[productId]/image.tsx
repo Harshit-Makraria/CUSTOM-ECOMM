@@ -18,7 +18,6 @@ export default function BannerPage({
   product: any;
 }) {
   const { mutate } = useCreatecart();
-
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
     product.imageUrl
   );
@@ -35,13 +34,20 @@ export default function BannerPage({
     setQuantity(unt);
     // setIsOpen(false);
   };
+  console.log({
+    designId: product.design.id,
+    productId: product.id,
+    categoryId: product.categoryId,
+    quantity: quantity,
+  });
+  
   const handleEdit = () => {
     mutate(
       {
         designId: product.design.id,
         productId: product.id,
-    categoryId,
-    quantity,  
+    categoryId:product.categoryId,
+    quantity:quantity,  
   },
 
       {

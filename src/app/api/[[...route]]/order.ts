@@ -9,6 +9,7 @@ import db from "@/db/prisma";
 // Define the schema for OrderItem
 const orderItemSchema = z.object({
   cartIds: z.array(z.string()),
+  
   orderId: z.string(),
   productId: z.string(),
   productName: z.string(),

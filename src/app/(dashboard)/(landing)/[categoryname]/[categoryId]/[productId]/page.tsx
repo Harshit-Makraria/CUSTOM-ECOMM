@@ -6,7 +6,7 @@ import CustomBannersPage from "./description";
  import db from "@/db/prisma";
 export default async function page( {params } :{ params : {categoryId:string , productId:string}}) {
   // const [selectedImage, setSelectedImage] = useState("/bg.jpg");
-   const {productId} = params
+   const {productId,categoryId} = params
     const product = await db.product.findUnique({where :{
        id:productId , 
        
@@ -14,6 +14,8 @@ export default async function page( {params } :{ params : {categoryId:string , p
   
    ,
    include :{
+    
+    
     design : {
       select : {
         id:true ,
@@ -25,11 +27,11 @@ export default async function page( {params } :{ params : {categoryId:string , p
       }
     }
    }})
-  
+// console.log(product)
  
   return (
     <>
-      <BannerPage product={product!}  />
+      <BannerPage product={product}  />
       <CustomBannersPage product={product!}/>
     </>
  

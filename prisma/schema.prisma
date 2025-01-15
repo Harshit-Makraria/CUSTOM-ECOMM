@@ -248,7 +248,8 @@ model Cart {
   userId     String   @db.ObjectId
   designId   String   @unique     @db.ObjectId
   categoryId String?  @db.ObjectId
-  
+  unitPrice  Float?
+  productName String?
   isConsent  Boolean  @default(false)
   design     Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -267,7 +268,7 @@ model Order {
   status          OrderStatus  @default(PENDING)
   isConsent       Boolean?
   designId        String         @unique @db.ObjectId
-  design          Design         @relation(fields: [designId], references: [id])
+  design     Design   @relation(fields: [designId], references: [id], onDelete: Cascade)
   quantity        String?
   categoryId      String?        @db.ObjectId
   productId       String?        @db.ObjectId

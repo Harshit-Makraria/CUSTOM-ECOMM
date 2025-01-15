@@ -22,6 +22,7 @@ export default function CreateOrder() {
     quantity: "",
     unitPrice: "",
     totalPrice: "",
+    
   });
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function CreateOrder() {
 
       mutate({
         cartIds:data.map(cart=>cart.id),
-  
+        
       } , 
     {
       onSuccess : ()=>{
@@ -61,7 +62,7 @@ export default function CreateOrder() {
         data.map((item, key) => (
           <div className="border shadow-sm rounded-md bg-black  p-1" key={item.id}>
             <Image src={item.design.json[0].imageUrl!} alt="sdfs" width={400} height={400} />
-            {/* <p>{item.userId}</p> */}
+            <p>{item.isConsent}</p>
           </div>
         ))}
       </div>

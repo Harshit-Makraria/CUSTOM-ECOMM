@@ -14,6 +14,7 @@ import authConfig from "@/auth.config";
 import product from "./product";
 import shiprocket from "./shiprocket";
 import order from "./order";
+import updateStatus from "./updateStatus";
 import { Shield } from "lucide-react";
 // Revert to "edge" if planning on running on the edge
 export const runtime = "nodejs";
@@ -39,6 +40,7 @@ const route = app.route("/users", users)
 .route("/branch", branch)
 .route("/account", account)
 .route("/order", order)
+.route("/updateStatus", updateStatus)
 .route("/shiprocket", shiprocket);
 
  
