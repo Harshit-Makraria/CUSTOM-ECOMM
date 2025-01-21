@@ -39,6 +39,8 @@ export default function BannerPage({
     productId: product.id,
     categoryId: product.categoryId,
     quantity: quantity,
+    unitPrice: product.price[0],
+    productName: product.name,
   });
   
   const handleEdit = () => {
@@ -48,6 +50,8 @@ export default function BannerPage({
         productId: product.id,
     categoryId:product.categoryId,
     quantity:quantity,  
+    unitPrice: product.price[0],
+    productName: product.name,
   },
 
       {
@@ -62,13 +66,13 @@ export default function BannerPage({
     <>
       <div className="">
         {/* Breadcrumb Navigation */}
-        <div className="absolute top-0 left-0 w-full bg-white z-10 p-4 border-b shadow-sm">
+        <div className=" top-0 left-0 w-full bg-white z-10  border-b shadow-sm">
           <span>Home</span> / <span>{product.name.toUpperCase()}</span>
         </div>
         <div className="flex pt-16">
           {/* Image Section */}
           <div
-            className={`w-3/5 sticky top-0 h-[800px] bg-white rounded-lg ml-4`}
+            className={`w-3/5 sticky top-5 h-[800px] bg-white rounded-lg ml-4`}
           >
             {/* Main Image */}
             <img
@@ -150,7 +154,7 @@ export default function BannerPage({
             </div>
 
             {/* Size and Eyelets */}
-            <div className="flex flex-col gap-4 mb-8">
+            {/* <div className="flex flex-col gap-4 mb-8">
               <div className="w-full border-black border-2 rounded-xl p-4 flex justify-between items-center">
                 <label htmlFor="size" className="block mb-2 text-gray-600">
                   Size
@@ -163,7 +167,7 @@ export default function BannerPage({
                   ))}
                 </select>
               </div>
-            </div>
+            </div> */}
 
             {/* Quantity Pricing */}
             

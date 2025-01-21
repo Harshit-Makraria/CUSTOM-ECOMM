@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 
 import "./globals.css";
+import Navbar from "./(dashboard)/(landing)/_components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className={inter.className}>
+          {/* <Navbar /> */}
           <Providers>
             <Toaster />
             <Modals />

@@ -17,6 +17,7 @@ const DesignReviewForm = ({designIds} : {designIds: string}) => {
   const handleCheckboxChange = () => {
     
     mutate({
+      
       designId:designIds,
       isConsent:true,
 

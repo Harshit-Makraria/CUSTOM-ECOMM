@@ -8,18 +8,13 @@ export default async function hero() {
 
   
   const categorys = await db.category.findMany();
-    const items = [
-        { id: 1, img: "/Banner.jpeg", text: "Banner", link: "/admin/create-product/form/banner" },
-        { id: 2, img: "/Flex.webp", text: "Flex", link: "/admin/create-product/form/flex" },
-        { id: 3, img: "/Standee.webp", text: "Standee", link: "/admin/create-product/form/standee" },
-
-      ];
+    
 
   return (
     <div>
       <ImageSlider />
       <PromotionalCards/>
-        <h1 className="text-3xl font-semibold text-center mt-5">Top Product</h1>
+        {/* <h1 className="text-3xl font-semibold text-center mt-5">Top Product</h1>
      
         <div className="flex flex-wrap gap-10 justify-center">
         {categorys.map((item)  => (
@@ -34,7 +29,7 @@ export default async function hero() {
           </p>
         </Link>
       ))}
-    </div>
+    </div> */}
      </div>
   )
 }

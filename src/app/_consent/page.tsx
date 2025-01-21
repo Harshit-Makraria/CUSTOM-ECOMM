@@ -7,7 +7,7 @@ import { useGetProject } from "@/features/projects/api/use-get-project";
 
 const DesignPreviewPage = ({designIds} : {designIds:string}) => {
  
-  const {data } = useGetProject(designIds)
+  const {data} = useGetProject(designIds)
 
 console.log(data)
 

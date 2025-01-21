@@ -9,7 +9,7 @@ import db from "@/db/prisma";
 // Define the schema for OrderItem
 const orderItemSchema = z.object({
   cartIds: z.array(z.string()),
-  
+  status: z.enum(["PENDING","OUTFORDELIVERY", "SHIPPED", "CANCELLED","DELIVERED"]).optional(),
   orderId: z.string(),
   productId: z.string(),
   productName: z.string(),
@@ -142,6 +142,39 @@ const app = new Hono()
       return c.json({ data });
     }
   )
+  .patch(
+    "/:id",
+    verifyAuth(),
+    zValidator("param", z.object({ id: z.string() })), // Validate the `id` parameter
+    zValidator(
+      "json",
+      z.object({
+        status: z.enum(["PENDING", "OUTFORDELIVERY", "SHIPPED", "CANCELLED", "DELIVERED"]).optional(),
+      })
+    ), // Validate that only `status` is provided and it matches the enum
+    async (c) => {
+      const { id } = c.req.valid("param"); // Extract `id` from the parameters
+      const { status } = c.req.valid("json"); // Extract `status` from the request body
+  
+      // Ensure the user is authenticated
+      const auth = c.get("authUser");
+      if (!auth.token?.id) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+  
+      // Update only the `status` field
+      const data = await db.order.update({
+        where: { id },
+        data: {
+          status, // Update the status
+          updatedAt: new Date(), // Update the timestamp
+        },
+      });
+  
+      return c.json({ data }); // Return the updated data
+    }
+  )
+  
   .delete(
     "/:id",
     verifyAuth(),

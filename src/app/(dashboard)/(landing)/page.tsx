@@ -44,13 +44,12 @@ const page = () => {
   
   return (
     <div>
-      <Navbar />
       <Hero/>
       <SwiperSlider/>
       <RectSlider categories={categories}/>
       <RectSlider categories={categories1}/>
       <RectSlider categories={categories2}/>
-      landing page
+
     </div>
   )
 }

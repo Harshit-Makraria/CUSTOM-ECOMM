@@ -85,16 +85,18 @@ return (
               key={el.id || key}
               href={`/${params.categoryname}/${categoryId}/${el.id}`}
             >
-              <div className="bg-orange-50 mx-4 my-2 border border-gray-300
+              <div className="bg-gray-100 h-72 mx-4 my-2 border border-gray-300 ring-1 ring-gray-300
               rounded-[20px]">
-                <div className="p-10">
+                <div className="px-6 pt-5">
                   <img
                     src={el.imageUrl!}
                     alt={el.designId ?? ""}
-                    className="w-[30vw] h-[20vh]"
+                    className="w-[30vw] h-[20vh] rounded-t-[5px]"
                   />
+                  <p className="mt-5 mb-2 font-semibold">{el.size}  cm</p>
+                  <p>1 from ₹{el.price}.00</p>
                 </div>
-                \
+                
                 </div>
             </Link>
           ))

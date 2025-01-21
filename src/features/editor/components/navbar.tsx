@@ -63,6 +63,7 @@ export const Navbar = ({
   const currentStatus = data[data.length - 1];
 
   const [showDesignPreview, setShowDesignPreview] = useState(false);
+  
   const handleClick = () => {
 
     setShowDesignPreview(true);

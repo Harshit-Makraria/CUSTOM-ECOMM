@@ -9,6 +9,7 @@ const productInsertSchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.array(z.number()),
+  
   // imageUrl: z.string(), // Assuming products have an image URL
   categoryId:z.string(),
   canvaNo : z.number(),
@@ -21,6 +22,8 @@ const productInsertSchema = z.object({
   productId:z.string(),
   isConsent:z.boolean(),
   quantity: z.string(),
+  unitPrice: z.number(),
+  productName: z.string(),
 }) ;
 
 const cart = new Hono()
@@ -91,7 +94,7 @@ const cart = new Hono()
 
       const data = await db.cart.updateMany({
         where: { id: {
-          in:cart.map(cart=>cart.id )
+          in:cart.map(cart=>cart.id)
         } },
         data: { ...values, updatedAt: new Date()},
       });
@@ -145,6 +148,7 @@ const cart = new Hono()
         if(cartcheck){
             return c.json({ designId:cartcheck.design.id , jsonId:cartcheck.design.json[0].id});
         }
+        
 
        
       // fetch the design
@@ -196,6 +200,8 @@ const cart = new Hono()
         data: {
           userId:auth.token?.id!,
           quantity:values.quantity,
+          unitPrice:values.unitPrice,
+          productName:values.productName,
           isConsent:values.isConsent,
           ...values,
           // 👇 ye wali line ko upper mt lana overwrite ho jaygi
