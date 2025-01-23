@@ -3,52 +3,18 @@ import Navbar from './_components/navbar'
 import SwiperSlider from './_components/s2'
 import RectSlider from './_components/slider'
 import Hero from './_components/hero'
-const page = () => {
+import db from '@/db/prisma'
+const page = async () => {
 
-  const categories = [
-    { image: "/Visitingcard.webp", name: "Visiting Cards" },
-    { image: "/Polotshirt.webp", name: "Custom Polo T-shirts" },
-    { image: "/WinterWear.webp", name: "Custom Winter Wear" },
-    { image: "/Tshirt.webp", name: "Custom T-shirts" },
-    { image: "/Stamp.webp", name: "Custom Stamps & Ink" },
-    { image: "/picmug.webp", name: "Photo Gifts" },
-    { image: "/label.webp", name: "Labels, Stickers & Packaging" },
-    { image: "/label.webp", name: "Custom Stationery" },
-    { image: "/label.webp", name: "Signs, Posters & Marketing Materials" },
-    { image: "/label.webp", name: "More Categories" },
-  ];
-  const categories1 = [
-    { image: "/Visitingcard.webp", name: "Visiting Cards" },
-    { image: "/Polotshirt.webp", name: "Custom Polo T-shirts" },
-    { image: "/WinterWear.webp", name: "Custom Winter Wear" },
-    { image: "/Tshirt.webp", name: "Custom T-shirts" },
-    { image: "/Stamp.webp", name: "Custom Stamps & Ink" },
-    { image: "/picmug.webp", name: "Photo Gifts" },
-    { image: "/label.webp", name: "Labels, Stickers & Packaging" },
-    { image: "/label.webp", name: "Custom Stationery" },
-    { image: "/label.webp", name: "Signs, Posters & Marketing Materials" },
-    { image: "/label.webp", name: "More Categories" },
-  ];
-  const categories2 = [
-    { image: "/Visitingcard.webp", name: "Visiting Cards" },
-    { image: "/Polotshirt.webp", name: "Custom Polo T-shirts" },
-    { image: "/WinterWear.webp", name: "Custom Winter Wear" },
-    { image: "/Tshirt.webp", name: "Custom T-shirts" },
-    { image: "/Stamp.webp", name: "Custom Stamps & Ink" },
-    { image: "/picmug.webp", name: "Photo Gifts" },
-    { image: "/label.webp", name: "Labels, Stickers & Packaging" },
-    { image: "/label.webp", name: "Custom Stationery" },
-    { image: "/label.webp", name: "Signs, Posters & Marketing Materials" },
-    { image: "/label.webp", name: "More Categories" },
-  ];
-  
+  const Product = await db.product.findMany({})
+  console.log(Product)
   return (
     <div>
       <Hero/>
-      <SwiperSlider/>
-      <RectSlider categories={categories}/>
-      <RectSlider categories={categories1}/>
-      <RectSlider categories={categories2}/>
+      {/* <SwiperSlider/> */}
+      {/* <RectSlider categories={categories}/> */}
+      <RectSlider categories={Product} nm={"banner"}/>
+      <RectSlider categories={Product} nm={"standee"}/>
 
     </div>
   )

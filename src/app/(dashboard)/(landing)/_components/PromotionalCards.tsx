@@ -6,24 +6,25 @@ const PromotionalCards = async () => {
 
   
   const categorys = await db.category.findMany();
-  return (
-    <div className="flex flex-col lg:flex-row items-center justify-center gap-1 mx-8 h-[70vh] p-1">
+  return (<>
+  
+  <h1 className='text-center text-3xl font-semibold mb-2'>Our Top Products</h1>    <div className="flex flex-col lg:flex-row items-center justify-center gap-1 mx-24  p-1">
       {/* Left Card */}
       {categorys.map((item)  => (
 
-      <div className="relative flex flex-col justify-between  shadow-lg  p-1 w-full h-full lg:w-1/2">
+      <div className="relative flex flex-col justify-between  shadow-lg  p-1 w-[600px] h-[280px] mx-3  lg:w-1/2">
         <Image
           src={item.imageUrl}
           alt="Winterwear"
           width={900}
           height={1000}
-          className="rounded-sm object-cover h-full"
+          className="rounded-lg object-cover h-full"
         />
-        <div className="absolute bottom-16 w-72 h-56  left-4 bg-gray-100 p-4 rounded-lg shadow-lg ring-1 ring-gray-300   ">
-          <h2 className="text-2xl font-bold">Get your {item.name} from us</h2>
-          <p className="text-gray-600 mt-2 mb-10">{item.name} starts at Rs 700</p>
+        <div className="absolute bottom-16 w-52 h-36  left-4 bg-gray-100 p-4 rounded-lg shadow-lg ring-1 ring-gray-300   ">
+          <h2 className="text-md font-bold">Get your {item.name} from us</h2>
+          <p className="text-gray-600 text-sm mt-2 mb-3">{item.name} starts at Rs 700</p>
           
-          <Link key={item.id} href={`/${item.name}/${item.id}`} className="mt-24  bg-black text-white px-4 py-2 rounded">
+          <Link key={item.id} href={`/${item.name}/${item.id}`} className="  bg-black text-white px-4 py-2 rounded text-sm ">
        
             Shop Now
           </Link>
@@ -56,6 +57,8 @@ const PromotionalCards = async () => {
         </div>
       </div> */}
     </div>
+    </>
+
   );
 };
 

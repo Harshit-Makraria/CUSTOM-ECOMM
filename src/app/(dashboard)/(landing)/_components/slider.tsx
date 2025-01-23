@@ -1,58 +1,78 @@
 "use client";
+import React, { useState, useEffect } from "react";
 
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
-
-// Types for props
 interface Category {
-  image: string;
   name: string;
+  imageUrl: string;
 }
 
-interface SwiperSliderProps {
+interface RectSliderProps {
   categories: Category[];
+  nm: string;
 }
 
-const RectSlider: React.FC<SwiperSliderProps> = ({ categories }) => {
-  return (
-    <div className="w-full bg-white py-8 ">
-      {/* Title */}
-      <h2 className="text-center text-2xl font-bold mb-8">Explore all categories</h2>
+const RectSlider: React.FC<RectSliderProps> = ({ categories, nm }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-      {/* Swiper Slider */}
-      <Swiper
-        spaceBetween={20} // Space between slides
-        slidesPerView={9} // Number of visible items
-        navigation={true} // Enable navigation arrows
-        modules={[Navigation]} // Swiper module
-        className="w-full"
-        breakpoints={{
-          320: { slidesPerView: 1, spaceBetween: 10 },
-          640: { slidesPerView: 2, spaceBetween: 15 },
-          1024: { slidesPerView: 4, spaceBetween: 20 },
-          1280: { slidesPerView: 6, spaceBetween: 20 },
-        }}
-      >
-        {categories.map((category, index) => (
-          <SwiperSlide key={index} className="flex flex-col  items-center">
-            {/* Rectangular Image */}
-            <div className="w-24 h-16 md:w-52 md:h-52 bg-white shadow-lg flex items-center justify-center border border-gray-700 rounded-3xl overflow-hidden">
-              <img
-                src={category.image}
-                alt={category.name}
-                className="object-contain w-full h-full"
-              />
-            </div>
-            {/* Name */}
-            <p className="mt-4 text-sm md:text-base text-gray-700 font-medium text-center mr-5">
-              {category.name}
-            </p>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+  const filteredCategories = categories.filter(
+    (category) => category.name.toLowerCase() === nm
+  );
+
+  useEffect(() => {
+    if (filteredCategories.length < 6) {
+      // throw new Error("Not enough images to display.");
+    }
+  }, [filteredCategories]);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex >= filteredCategories.length - 6 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? filteredCategories.length - 6 : prevIndex - 1
+    );
+  };
+
+  return (
+    <div className="w-full bg-white py-8">
+      {/* Title */}
+      <h2 className="text-center text-2xl font-bold mb-8">
+        Explore all {filteredCategories[0].name.toLocaleLowerCase()} templates
+      </h2>
+      {/* Slider */}
+      <div className="relative flex items-center  gap-6 mx-8">
+        <button
+          onClick={handlePrev}
+          className="absolute left-0  text-2xl font-bold bg-gray-50 w-12 h-12 rounded-full"
+        >
+          &#8592;
+        </button>
+        <div className="flex overflow-hidden gap-4">
+          {filteredCategories
+            .slice(currentIndex, currentIndex + 6)
+            .map((category, index) => (
+              <div
+                key={index}
+                className="w-24 h-16 md:w-52 md:h-48 bg-white shadow-lg flex items-center justify-center border border-gray-700 rounded-xl overflow-hidden"
+              >
+                <img
+                  src={category.imageUrl}
+                  alt={category.name}
+                  className="object-fit w-full h-full"
+                />
+              </div>
+            ))}
+        </div>
+        <button
+          onClick={handleNext}
+          className="absolute right-0 p-2 text-2xl bg-gray-50 w-12 h-12 font-bold rounded-full"
+        >
+          &#8594;
+        </button>
+      </div>
     </div>
   );
 };
