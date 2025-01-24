@@ -15,7 +15,7 @@ import product from "./product";
 import shiprocket from "./shiprocket";
 import order from "./order";
 import updateStatus from "./updateStatus";
-import { Shield } from "lucide-react";
+import addresss from './address'
 // Revert to "edge" if planning on running on the edge
 export const runtime = "nodejs";
 
@@ -41,7 +41,8 @@ const route = app.route("/users", users)
 .route("/account", account)
 .route("/order", order)
 .route("/updateStatus", updateStatus)
-.route("/shiprocket", shiprocket);
+.route("/shiprocket", shiprocket)
+.route("/address", addresss);
 
  
  

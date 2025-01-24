@@ -7,7 +7,7 @@ import db from '@/db/prisma'
 const page = async () => {
 
   const Product = await db.product.findMany({})
-  console.log(Product)
+  
   return (
     <div>
       <Hero/>

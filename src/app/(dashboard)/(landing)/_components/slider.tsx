@@ -40,7 +40,7 @@ const RectSlider: React.FC<RectSliderProps> = ({ categories, nm }) => {
     <div className="w-full bg-white py-8">
       {/* Title */}
       <h2 className="text-center text-2xl font-bold mb-8">
-        Explore all {filteredCategories[0].name.toLocaleLowerCase()} templates
+        Explore all {filteredCategories[0]?.name.toLocaleLowerCase()} templates
       </h2>
       {/* Slider */}
       <div className="relative flex items-center  gap-6 mx-8">

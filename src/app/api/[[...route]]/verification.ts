@@ -1,12 +1,10 @@
-import { optional, string, z } from "zod";
+import {  z } from "zod";
 import { Hono } from "hono";
-import { eq, and, desc, asc } from "drizzle-orm";
+ 
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 import db from "@/db/prisma";
-import { Post } from "@prisma/client";
 import sendEmail from "../_utils/nodemailer/send-email";
-import { error } from "console";
  
 
 const verificationSchema = z.object({

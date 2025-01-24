@@ -96,7 +96,13 @@ export default {
     strategy: "jwt",
   },
   callbacks: {
-    session({ session, token }) {
+    session: async ({ session, token }) => {
+       
+      
+     
+
+
+
       if (token.id) {
         session.user.id = token.id;
         session.user.role = token.role;

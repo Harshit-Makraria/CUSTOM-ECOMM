@@ -90,3 +90,16 @@ body {
   border-radius: 0.5rem !important;
   overflow: hidden !important;
 }
+
+/* Tailwind custom styles in your global CSS */
+@layer components {
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .no-spinner[type="number"] {
+    -moz-appearance: textfield;
+  }
+}

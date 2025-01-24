@@ -7,12 +7,16 @@ const onest = Onest({
 });
 
 import { ReactNode } from "react";
+import UserProvider from "./_component/user-provider";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <Navbar />
+      <UserProvider>
+     
       <main className={onest.className}>{children}</main>
+      </UserProvider>
       <Footer/>
     </div>
   );
