@@ -39,8 +39,8 @@ const RectSlider: React.FC<RectSliderProps> = ({ categories, nm }) => {
   return (
     <div className="w-full bg-white py-8">
       {/* Title */}
-      <h2 className="text-center text-2xl font-bold mb-8">
-        Explore all {filteredCategories[0]?.name.toLocaleLowerCase()} templates
+      <h2 className="text-center text-2xl font-bold mt-[60px] mb-[40px]">
+        Explore all {filteredCategories[0].name.toLocaleLowerCase()} templates
       </h2>
       {/* Slider */}
       <div className="relative flex items-center  gap-6 mx-8">
@@ -56,12 +56,12 @@ const RectSlider: React.FC<RectSliderProps> = ({ categories, nm }) => {
             .map((category, index) => (
               <div
                 key={index}
-                className="w-[300px] h-[150px]  bg-white shadow-lg flex items-center justify-center border border-gray-700 rounded-xl overflow-hidden"
+                className="w-[300px] h-[200px]  bg-gray-100 shadow-sm flex items-center justify-center border border-gray-300  rounded-xl overflow-hidden"
               >
                 <img
                   src={category.imageUrl}
                   alt={category.name}
-                  className="object-fit w-[300px] h-[150px]"
+                  className="object-fit w-[250px] h-[150px]"
                 />
               </div>
             ))}

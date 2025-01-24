@@ -52,12 +52,29 @@
 import { useGetcart } from "@/features/cart/api/use-get-cart";
 import Link from "next/link";
 import React, { useState } from "react";
-
+import { useUpdateCart } from "@/features/cart/api/use-update-cart";
 
 const CartPage: React.FC = () => {
 
   const  {data } = useGetcart();
  console.log(data)
+ const { mutate: updateCart } = useUpdateCart(); // Access mutation
+
+ const handleQuantityChange = (id: string, newQuantity: number) => {
+   if (newQuantity < 1) return; // Prevent setting quantity less than 1
+
+   updateCart(
+     { designId: id, quantity: newQuantity.toString() },
+     {
+       onSuccess: () => {
+         console.log(`Quantity updated for item ${id}`);
+       },
+       onError: (error) => {
+         console.error(`Error updating quantity for item ${id}:`, error);
+       },
+     }
+   );
+ };
  const totalAmount = data?.reduce((total, item) => {
   const itemTotal =
     parseInt(item.unitPrice?.toString() || "0") *
@@ -94,12 +111,24 @@ const CartPage: React.FC = () => {
               <Link href={`/editor/${item.design.id}/${item.design.json[0].id}`} className="text-sm text-red-500">Edit Design</Link>
             </div>
             <p className="text-gray-500 mt-1">Quantity:{item.quantity}</p>
-            <a
-              href="#"
-              className="text-sm font-semibold text-gray-700 mt-2 inline-block"
-            >
-              Edit quantity 
-            </a>
+          <p>Edit Quantity:<select    
+                        value={parseInt(item.quantity || '0')}
+                        onChange={(e) => {
+                          handleQuantityChange(
+                            item.design.id,
+                            parseInt(e.target.value)
+                          );
+                          window.location.reload();
+                        }}
+                        
+                        className="ml-2 border border-gray-300 rounded px-2 py-1"
+                      >
+                        {[1, 2, 3, 4, 5, 10, 25, 50].map((value) => (
+                          <option key={value} value={value}>
+                            {value}
+                          </option>
+                        ))}
+                      </select></p>
             <p></p>
           </div>
         </div>
