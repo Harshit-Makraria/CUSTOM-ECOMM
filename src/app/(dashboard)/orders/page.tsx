@@ -28,7 +28,7 @@ export default function OrderPage() {
                 </h2>
                 <span
                   className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    order.status === "Delivered"
+                    order.status === OrderStatus.Delivered
                       ? "bg-green-100 text-green-600"
                       : "bg-yellow-100 text-yellow-600"
                   }`}

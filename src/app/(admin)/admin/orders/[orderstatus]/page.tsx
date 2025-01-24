@@ -5,10 +5,20 @@ const StatusUpdateForm = () => {
   const [orderId, setOrderId] = useState("");
   const [status, setStatus] = useState("PENDING");
   const [message, setMessage] = useState("");
+  const [adminDetails] = useState({ name: "Admin123", role: "Admin" }); // Simulated admin details
+  const [notification, setNotification] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Log admin details with timestamp
+    const timestamp = new Date().toLocaleString();
+    console.log(
+      `Status updated by ${adminDetails.name} (${adminDetails.role}) at ${timestamp}:`,
+      { orderId, status }
+    );
+
+    // Send the status update to the server
     const response = await fetch("/api/update-status", {
       method: "POST",
       headers: {
@@ -19,6 +29,10 @@ const StatusUpdateForm = () => {
 
     const data = await response.json();
     setMessage(data.message);
+
+    // Set notification
+    setNotification(`Status for Order ID ${orderId} updated to ${status}.`);
+    setTimeout(() => setNotification(""), 5000); // Clear notification after 5 seconds
   };
 
   return (
@@ -46,6 +60,20 @@ const StatusUpdateForm = () => {
         </label>
         <button type="submit">Update Status</button>
       </form>
+      {notification && (
+        <div
+          style={{
+            marginTop: "10px",
+            padding: "10px",
+            backgroundColor: "#d1e7dd",
+            color: "#0f5132",
+            borderRadius: "4px",
+            border: "1px solid #badbcc",
+          }}
+        >
+          {notification}
+        </div>
+      )}
       {message && <p>{message}</p>}
     </div>
   );

@@ -96,8 +96,8 @@ export default function Sidebar({
   };
 
   return (
-    <div className="sidebar p-6 bg-gray-50 border-r-2 w-64">
-      {/* <h2 className="text-lg font-bold">Filters</h2> */}
+    <div className="sidebar p-6 bg-gray-50 border-r-2 w-64 h-full">
+      <h2 className="text-lg font-bold">All Filters</h2>
       <div className="mt-4">
         <h3 className="font-semibold text-lg mb-2">Sizes</h3>
         <ul>

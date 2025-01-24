@@ -39,24 +39,29 @@ export default function ImageSlider() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="text-[60px] md:text-[48px] font-bold mb-6">
             Meet the new home <br className="hidden lg:block" />
             for your digital goods
           </h1>
 
           {/* Subheading */}
-          <p className="text-lg text-gray-400 mb-8">
+          <p className="text-2xl text-gray-400 mb-8">
             Sell exclusive access to your digital goods <br className="hidden sm:block" />
             all in your Framer CMS site
           </p>
 
           {/* Search Bar */}
           <div className="flex items-center  justify-center lg:justify-start">
-            <input
-              type="text"
-              placeholder="Search templates..."
-              className="w-full  px-4 py-3 rounded-lg text-black placeholder-gray-500 ring-1 ring-gray-300"
-            />
+            
+          <button  className=" font-onest bg-black text-white px-4 py-2 rounded-lg text-sm w-32 h-12">
+       
+       Shop Now
+     </button>
+     
+     <button  className=" font-onest text-black bg-white px-4 py-2 ml-10 rounded-lg  w-32 h-12 border border-black text-sm ">
+       
+       Shop Now
+     </button>
           </div>
         </div>
 
@@ -68,7 +73,7 @@ export default function ImageSlider() {
   loop={true}
   autoplay={{ delay: 5000 }}
 pagination={{ clickable: true }}
-  className="w-full  max-w-[30vw]"
+  className="w-full  max-w-[40vw]"
 >
             <SwiperSlide>
               <img

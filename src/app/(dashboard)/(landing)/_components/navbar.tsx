@@ -128,7 +128,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Category Links */}
-      <div className="bg-gray-50 border-t border-gray-200">
+      {/* <div className="bg-gray-50 border-t border-gray-200">
         <div className="font-sans font-semibold flex space-x-2 text-center py-2  lg:px-8 text-sm text-gray-600">
           <Link href="/" className="hover:text-blue-600 ">
             View All
@@ -167,7 +167,7 @@ const Navbar: React.FC = () => {
             Custom Winter Wear
           </Link>
         </div>
-      </div>
+      </div> */}
     </nav>
   );
 };

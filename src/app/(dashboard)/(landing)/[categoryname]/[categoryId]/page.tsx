@@ -58,9 +58,7 @@ export default async function page({
   return (
     <>
       <div className="flex">
-        <h1 className="text-3xl px-10 p-6 font-bold font-sans">
-          Current Templates
-        </h1>
+        
       </div>
       <div className="flex">
         <div className="">
@@ -72,16 +70,22 @@ export default async function page({
             availableEyelets={availableEyelets} // Derived from the full product dataset
           />
         </div>
+        <div>
+        <h1 className="text-3xl px-10 p-6 font-bold font-sans">
+          Current Templates
+        </h1>
         <div className="grid grid-cols-3 px-8">
+        
           {filteredProducts.map((el, key) => (
             <Link
               key={el.id || key}
               href={`/${params.categoryname}/${categoryId}/${el.id}`}
+
             >
               <div
-                className="h-72 mx-4 my-2 rounded-[20px]"
+                className="h-64 mx-4 my-4 rounded-[20px] border"
               >
-                <div className="px-6 pt-5">
+                <div className="p-3 px-4 ">
                   <img
                     src={el.imageUrl!}
                     alt={el.designId ?? ""}
@@ -91,8 +95,10 @@ export default async function page({
                   <p>1 from ₹{el.price}.00</p>
                 </div>
               </div>
+              
             </Link>
           ))}
+        </div>
         </div>
       </div>
     </>
