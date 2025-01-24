@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white px-6 py-12 ">
+    <footer className="text-black bg-gray-50 px-6 py-12 border-t border-black">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 mb-6">
         {/* Left Section */}
         <div>
@@ -11,13 +11,13 @@ const Footer = () => {
             <span> Raybrand</span>
           </h2>
           <p className="mt-2 text-gray-400">The new home for your digital goods</p>
-          <button className="mt-4 bg-white text-black px-8 py-2 rounded-lg font-semibold">
+          <button className="mt-4 text-white bg-black px-8 py-2 rounded-lg font-semibold">
             Follow
           </button>
         </div>
 
         {/* Middle Section */}
-        <div className="ring-1 ring-gray-50 p-4 rounded-lg">
+        <div className="ring-1 ring-gray-400 p-4 rounded-lg">
           <h3 className="font-bold  text-lg mb-3">Join our waiting list</h3>
           <p className="text-gray-400">
             Get notified about new products as soon as they drop
@@ -26,9 +26,9 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Email Address"
-              className="flex-1 px-4 py-2 rounded-l-md ring-1 bg-black ring-zinc-50 rounded-lg  text-white focus:outline-none"
+              className="flex-1 px-4 py-2 rounded-l-md ring-1 text-black ring-zinc-400 rounded-lg  bg-white focus:outline-none"
             />
-            <button className="px-4 py-2 bg-white ml-5 text-black font-semibold rounded-md">
+            <button className="px-4 py-2 text-white ml-5 bg-black font-semibold rounded-md">
               Subscribe
             </button>
           </div>

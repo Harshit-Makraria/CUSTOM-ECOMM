@@ -2,17 +2,18 @@
 import Image from 'next/image';
 import db from '@/db/prisma';
 import Link from 'next/link';
+import { Onest } from 'next/font/google'; 
 const PromotionalCards = async () => {
-
+  
   
   const categorys = await db.category.findMany();
   return (<>
   
-  <h1 className='text-center text-3xl font-semibold mb-2'>Our Top Products</h1>    <div className="flex flex-col lg:flex-row items-center justify-center gap-1 mx-24  p-1">
+  <h1 className='text-center text-3xl font-semibold mb-2 font-onest'>Our Top Products</h1>    <div className="flex flex-col lg:flex-row items-center justify-center gap-1 mx-24  p-1">
       {/* Left Card */}
       {categorys.map((item)  => (
 
-      <div className="relative flex flex-col justify-between  shadow-lg  p-1 w-[600px] h-[280px] mx-3  lg:w-1/2">
+      <div className="relative flex flex-col justify-between font-onest  shadow-lg  p-1 w-[600px] h-[280px] mx-3  lg:w-1/2">
         <Image
           src={item.imageUrl}
           alt="Winterwear"
@@ -22,9 +23,9 @@ const PromotionalCards = async () => {
         />
         <div className="absolute bottom-16 w-52 h-36  left-4 bg-gray-100 p-4 rounded-lg shadow-lg ring-1 ring-gray-300   ">
           <h2 className="text-md font-bold">Get your {item.name} from us</h2>
-          <p className="text-gray-600 text-sm mt-2 mb-3">{item.name} starts at Rs 700</p>
+          <p className="text-gray-600 text-sm mt-2 mb-3 font-onest">{item.name} starts at Rs 700</p>
           
-          <Link key={item.id} href={`/${item.name}/${item.id}`} className="  bg-black text-white px-4 py-2 rounded text-sm ">
+          <Link key={item.id} href={`/${item.name}/${item.id}`} className=" font-onest bg-black text-white px-4 py-2 rounded text-sm ">
        
             Shop Now
           </Link>

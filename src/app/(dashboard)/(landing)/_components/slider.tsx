@@ -46,7 +46,7 @@ const RectSlider: React.FC<RectSliderProps> = ({ categories, nm }) => {
       <div className="relative flex items-center  gap-6 mx-8">
         <button
           onClick={handlePrev}
-          className="absolute left-0  text-2xl font-bold bg-gray-50 w-12 h-12 rounded-full"
+          className="absolute left-0 text-2xl font-bold bg-gray-50 w-12 h-12 rounded-full"
         >
           &#8592;
         </button>
@@ -56,12 +56,12 @@ const RectSlider: React.FC<RectSliderProps> = ({ categories, nm }) => {
             .map((category, index) => (
               <div
                 key={index}
-                className="w-24 h-16 md:w-52 md:h-48 bg-white shadow-lg flex items-center justify-center border border-gray-700 rounded-xl overflow-hidden"
+                className="w-[300px] h-[150px]  bg-white shadow-lg flex items-center justify-center border border-gray-700 rounded-xl overflow-hidden"
               >
                 <img
                   src={category.imageUrl}
                   alt={category.name}
-                  className="object-fit w-full h-full"
+                  className="object-fit w-[300px] h-[150px]"
                 />
               </div>
             ))}
