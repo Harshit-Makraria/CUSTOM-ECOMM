@@ -3,6 +3,7 @@
 import { useGetOrderByUserId } from '@/features/order/use-get-orderByUserId'
 import React from 'react'
 import { UseUser } from '../_component/user-provider'
+import Image from 'next/image'
 
 export default function OrderPage() {
 
@@ -24,6 +25,9 @@ export default function OrderPage() {
               key={order.id}
               className="bg-white shadow-md rounded-lg p-6 border border-gray-200"
             >
+              <Image alt='kjnjsdv' fill src={order.design.json[0].imageUrl??""}>
+
+              </Image>
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-800">
                   Order ID: {order.id}
