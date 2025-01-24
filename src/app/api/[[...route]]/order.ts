@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { verifyAuth } from "@hono/auth-js";
 import { zValidator } from "@hono/zod-validator";
 import db from "@/db/prisma";
+import { TbRulerMeasure } from "react-icons/tb";
 // import generateUniqueUUID from "../_utils/uuid";
 
 // Define the schema for OrderItem
@@ -29,9 +30,21 @@ const app = new Hono()
 
       // Ensure the user is authenticated
       const auth = c.get("authUser");
-      if (!auth.token?.id) {
+      const user = await db.user.findUnique({
+        where :{
+          id : auth.token?.id
+        } , 
+        select :{
+          defaultBilling:true,
+          defaultShipping:true
+        }
+      })
+      if (!auth.token?.id || !user) {
         return c.json({ error: "Unauthorized" }, 401);
       }
+
+       
+
 
       //fetch the cart
 
@@ -49,10 +62,14 @@ const app = new Hono()
       // Create a new Order
       const data = await db.order.createMany({
         data: carts.map((cart) => {
+          
           const { id, ...cartdata } = cart;
           // const orderId = generateUniqueUUID()
           return {
+            
             ...cartdata,
+            shippingAddress : JSON.stringify(user.defaultBilling),
+            billingAddress : JSON.stringify(user.defaultShipping),
             userId: auth.token!.id!,
             // orderId,
           
@@ -118,6 +135,7 @@ const app = new Hono()
       return c.json({ data });
     }
   )
+
   .put(
     "/:id",
     verifyAuth(),
