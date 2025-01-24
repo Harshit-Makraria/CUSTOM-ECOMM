@@ -13,7 +13,7 @@ const PromotionalCards = async () => {
       {/* Left Card */}
       {categorys.map((item)  => (
 
-      <div className="relative flex flex-col justify-between font-onest  shadow-lg   w-[600px] h-[380px] mx-6  lg:w-1/2">
+      <div key={item.id} className="relative flex flex-col justify-between font-onest  shadow-lg   w-[600px] h-[380px] mx-6  lg:w-1/2">
         <Image
           src={item.imageUrl}
           alt="Winterwear"

@@ -81,6 +81,7 @@ const FlexForm = ({ categoryId }: { categoryId: string }) => {
           size: [formData.size],
           eyelets: formData.eyelets ? "Yes" : "No",
           cod: formData.cod ? "Yes" : "No",
+          min_quantity:1
         });
 
     console.log("Form Data:", formData);

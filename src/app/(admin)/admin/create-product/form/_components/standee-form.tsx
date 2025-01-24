@@ -27,7 +27,7 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
     size: "",
     height: "",
     width: "",
-   min_quantity: "",
+    min_quantity: "",
     price: "",
     cod: "",
   });
@@ -276,7 +276,7 @@ const StandeeForm = ({categoryId} :{categoryId:string}) => {
               type="checkbox"
               id="cod"
               name="cod"
-              checked={formData.cod}
+              checked={formData.cod == "Yes" ? true :false}
               onChange={handleInputChange}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
