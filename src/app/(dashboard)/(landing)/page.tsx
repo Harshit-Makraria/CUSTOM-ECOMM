@@ -6,15 +6,20 @@ import Hero from './_components/hero'
 import db from '@/db/prisma'
 const page = async () => {
 
+  
   const Product = await db.product.findMany({})
+  const formattedProduct = Product.map(p => ({
+    ...p,
+    imageUrl: p.imageUrl || ''
+  }))
   
   return (
     <div>
       <Hero/>
       {/* <SwiperSlider/> */}
       {/* <RectSlider categories={categories}/> */}
-      <RectSlider categories={Product} nm={"banner"}/>
-      <RectSlider categories={Product} nm={"standee"}/>
+      <RectSlider categories={formattedProduct} nm={"banner"}/>
+      <RectSlider categories={formattedProduct} nm={"standee"}/>
 
     </div>
   )

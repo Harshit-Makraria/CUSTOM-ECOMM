@@ -15,18 +15,23 @@ export default function Page() {
 
   // State for confirmation modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<{ id: string; productName: string } | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedStatus, setSelectedStatus] = useState('');
 
-  interface Order {
-    id: string;
-    productName: string;
-    orderId: string;
-    status: string;
-    updatedAt: string;
-    unitPrice: number;
-  }
+    type OrderStatus = 'PENDING' | 'OUTFORDELIVERY' | 'SHIPPED' | 'CANCELLED' | 'DELIVERED';
 
+    type Order = {
+      userId: string;
+      quantity: string | null;
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      status: OrderStatus;
+      designId: string;
+      categoryId: string | null;
+      unitPrice: number | null; // Allow null values here
+      productName: string | null;
+    };
   const openModal = (order: Order, status: string) => {
     setSelectedOrder(order);
     setSelectedStatus(status);
@@ -78,7 +83,7 @@ export default function Page() {
           <option value="">Filter by Product</option>
           {orders &&
             [...new Set(orders.map((order) => order.productName))].map((name) => (
-              <option key={name} value={name}>
+              <option key={name} value={name || ''}>
                 {name}
               </option>
             ))}

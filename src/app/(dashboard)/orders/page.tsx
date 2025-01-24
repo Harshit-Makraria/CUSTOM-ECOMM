@@ -4,6 +4,7 @@ import { useGetOrderByUserId } from '@/features/order/use-get-orderByUserId'
 import React from 'react'
 import { UseUser } from '../_component/user-provider'
 import Image from 'next/image'
+import { OrderStatus } from '@prisma/client' // Adjust the import path as necessary
 
 export default function OrderPage() {
 
@@ -34,7 +35,7 @@ export default function OrderPage() {
                 </h2>
                 <span
                   className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    order.status === OrderStatus.Delivered
+                    order.status === OrderStatus.DELIVERED
                       ? "bg-green-100 text-green-600"
                       : "bg-yellow-100 text-yellow-600"
                   }`}
