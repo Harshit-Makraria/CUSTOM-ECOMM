@@ -21,7 +21,7 @@ console.log(data)
               <img
                 src={data?.data.json[0].imageUrl??"/bg.jpg"}
                 alt="Design Preview"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
               <div className="absolute inset-0 flex items-center justify-center border-dashed border-2 border-gray-400 pointer-events-none"></div>
             </div>
