@@ -100,10 +100,10 @@ export const Navbar = ({
       <div className="w-full flex items-center gap-x-1 h-full">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <Button size="sm" variant="ghost">
+            {/* <Button size="sm" variant="ghost">
               File
               <ChevronDown className="size-4 ml-2" />
-            </Button>
+            </Button> */}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-60">
             <DropdownMenuItem

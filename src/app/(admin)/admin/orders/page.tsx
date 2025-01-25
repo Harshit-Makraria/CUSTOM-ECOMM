@@ -107,13 +107,13 @@ export default function Page() {
       {filteredOrders &&
         filteredOrders.map((order) => (
           <div
-            key={order.orderId}
+            key={order.id}
             className="border rounded-lg shadow-sm p-4 bg-white flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="flex flex-col gap-2">
               <p className="text-sm text-gray-600">
                 Order ID:{' '}
-                <span className="font-medium text-gray-900">{order.orderId}</span>
+                <span className="font-medium text-gray-900">{order.id}</span>
               </p>
               <p className="text-sm text-gray-600">
                 Product:{' '}

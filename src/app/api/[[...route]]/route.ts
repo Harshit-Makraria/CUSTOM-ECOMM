@@ -20,17 +20,9 @@ import addresss from './address'
 export const runtime = "nodejs";
 
 function getAuthConfig(c: Context): AuthConfig {
+  // @ts-ignore
   return {
     ...authConfig,
-    callbacks: {
-      ...authConfig.callbacks,
-      session: async ({ session, token }) => {
-        if (session.user) {
-          session.user.name = token.role ;
-        }
-        return session;
-      },
-    },
   };
 }
 

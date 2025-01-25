@@ -42,18 +42,21 @@ export default function BannerPage({
     unitPrice: product.price[0],
     productName: product.name,
   });
-  
   const handleEdit = () => {
+    if (!quantity) {
+      toast.error("Please select a quantity before proceeding.");
+      return;
+    }
+  
     mutate(
       {
         designId: product.design.id,
         productId: product.id,
-    categoryId:product.categoryId,
-    quantity:quantity,  
-    unitPrice: product.price[0],
-    productName: product.name,
-  },
-
+        categoryId: product.categoryId,
+        quantity: quantity,
+        unitPrice: product.price[0],
+        productName: product.name,
+      },
       {
         onSuccess: (data) => {
           window.location.href = `/editor/${data.designId}/${data.jsonId}`;
@@ -61,6 +64,7 @@ export default function BannerPage({
       }
     );
   };
+  
   console.log(quantity);
   return (
     <>

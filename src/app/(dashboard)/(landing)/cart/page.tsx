@@ -97,11 +97,11 @@ const CartPage: React.FC = () => {
              return <>
         <div className="flex gap-4  border-b border-gray-200 pb-4">
           {/* Image Section */}
-          <div className="w-48 h-48 rounded-lg  flex  justify-center">
+          <div className="w-48 h-48 rounded-lg  flex  justify-center ">
             <img
               src={item.design.json[0].imageUrl || '' }
               alt="Your product pic"
-              className="rounded-lg object-cover"
+              className="rounded-lg w-full h-full object-contain"
             />
           </div>
           {/* Details Section */}
@@ -156,9 +156,10 @@ const CartPage: React.FC = () => {
         >
           Have a code?
         </a>
+        <Link href={"/cart/checkout"}> 
         <button className="w-full bg-blue-400 text-white py-3 rounded-lg font-semibold hover:bg-blue-500 transition">
-         <Link href={"/cart/checkout"}> Checkout</Link>
-        </button>
+         Checkout
+        </button></Link>
       </div>
     </div>
     

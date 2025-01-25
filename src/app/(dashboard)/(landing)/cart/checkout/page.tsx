@@ -250,8 +250,8 @@ const SavedAddress = ({
 }) => (
   <div className="border border-gray-200 rounded-lg p-6">
      
-     <Button onClick={()=>{onEdit(true)}}>
-      Add New Address
+     <Button className="ml-[37vw] text-[12px] w-28 h-8 mb-4" onClick={()=>{onEdit(true)}}>
+      +Add New Address
      </Button>
      
     {/* Render defaultShipping if it exists */}

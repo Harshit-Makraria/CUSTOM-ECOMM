@@ -26,9 +26,9 @@ export default function OrderPage() {
               key={order.id}
               className="bg-white shadow-md rounded-lg p-6 border border-gray-200"
             >
-              <Image alt='kjnjsdv' fill src={order.design.json[0].imageUrl??""}>
+              {/* <Image alt='kjnjsdv' fill src={order.design.json[0].imageUrl??""}> */}
 
-              </Image>
+              {/* </Image> */}
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-800">
                   Order ID: {order.id}

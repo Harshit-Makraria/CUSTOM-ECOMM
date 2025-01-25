@@ -17,7 +17,7 @@ console.log(data)
         {/* Design Preview */}
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-200 p-4 rounded">
-            <div className="relative w-full h-full border">
+            <div className="relative w-full h-full border p-10">
               <img
                 src={data?.data.json[0].imageUrl??"/bg.jpg"}
                 alt="Design Preview"
