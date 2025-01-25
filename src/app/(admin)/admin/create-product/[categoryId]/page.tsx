@@ -61,14 +61,14 @@ export default async function page({
      <div className="grid grid-cols-3  px-2"> 
       {category?.product.map((el,key) => {
         return (
-          <div  key={el.designId || key} className="bg-orange-50 mx-4 my-2 border border-gray-300 rounded-[20px]">
-          <div className="  p-10  ">
+          <div  key={el.designId || key} className=" mx-2 my-2 border border-gray-200 rounded-[20px]">
+          <div className="  p-4  ">
             
-            <img  src={el.imageUrl!} alt={el.design?.json[0].name??""} className="w-[30vw] h-[20vh]" />
+            <img  src={el.imageUrl!} alt={el.design?.json[0].name??""} className="w-[30vw] h-[20vh] rounded-2xl" />
             
             
           </div>
-          <div className="text-center hover:bg-orange-200 border hover:border-black border-gray-300  rounded-xl py-1 transition-all duration-1000 cursor-pointer bg-orange-50 ">
+          <div className="text-center hover:bg-orange-200 border hover:border-black border-gray-100  rounded-xl py-1 transition-all duration-1000 cursor-pointer ">
           <Link href={`/editor/${el.designId}/${el.design?.json[0].id}` }>Edit Designs</Link>
           </div>
           </div>

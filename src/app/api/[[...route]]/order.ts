@@ -99,9 +99,14 @@ const app = new Hono()
 
     // Fetch all OrderItems
     const data = await db.order.findMany({
-      where: {
-        // put the condtion according to the status of the order
-      },
+      where: { userId: auth.token?.id! }, 
+        include :{
+          design : {
+            include :{
+              json :true
+            }
+          }
+        },
     });
 
     return c.json({ data });

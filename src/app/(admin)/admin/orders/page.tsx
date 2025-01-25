@@ -110,6 +110,7 @@ export default function Page() {
             key={order.id}
             className="border rounded-lg shadow-sm p-4 bg-white flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
           >
+            <div className=''><img src={order.design.json[0].imageUrl || ""} alt=""  className='w-52  h-32 border rounded-xl'/></div>
             <div className="flex flex-col gap-2">
               <p className="text-sm text-gray-600">
                 Order ID:{' '}
