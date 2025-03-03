@@ -5,7 +5,7 @@ import { UploadButton } from "@uploadthing/react";
 import { useCreateproduct } from "@/features/product/api/use-create-product";
 import { useParams, useRouter } from "next/navigation";
 
-const StandeeForm = ({ categoryId }: { categoryId: string }) => {
+const Tabletopstandee = ({ categoryId }: { categoryId: string }) => {
   const router = useRouter();
 
   console.log(categoryId)
@@ -14,17 +14,17 @@ const StandeeForm = ({ categoryId }: { categoryId: string }) => {
   const mutation = useCreateproduct();
   const [imageUrl, setImageUrl] = useState("");
   const [formData, setFormData] = useState({
-    name: "Standee ",
-    h1: "Promote your brand with durable, lightweight Standee",
+    name: "Tabletop Standee",
+    h1: "Promote your brand with durable, lightweight Banner",
     description: [
-      "Select your own custom size from the size drop down and design your Standee or choose one of the 9 standard sizes available!",
-      "Pre-designed Standee templates available for occasions like Birthday, Promotional Events etc.",
-      "Vertical or horizontal designed Standee layouts available (both Indoor & outdoor options).",
+      "Select your own custom size from the size drop down and design your banner or choose one of the 9 standard sizes available!",
+      "Pre-designed Banner templates available for occasions like Birthday, Promotional Events etc.",
+      "Vertical or horizontal designed banner layouts available (both Indoor & outdoor options).",
     ],
     description1: [
       "Sharp, full-colour printing.",
-      "Durable material (Vinyl Standee).",
-      "Hang your Standee easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
+      "Durable material (Vinyl Banner).",
+      "Hang your Banner easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
     ],
     size: "",
     eyelets: false,
@@ -35,8 +35,8 @@ const StandeeForm = ({ categoryId }: { categoryId: string }) => {
     min_quantity: "",
   });
   const sizeOptions: Record<string, { height: string; width: string }> = {
-    "2 feet × 5 feet": { height: "2", width: "5" },
-    "2.5 feet × 6 feet": { height: "2.5", width: "6" },
+    "29.7 cm × 42 cm (A3)": { height: "29.7", width: "42" },
+    "21 cm × 29.7 cm (A4)": { height: "21", width: "29.7" },
   };
   
 
@@ -90,17 +90,17 @@ const StandeeForm = ({ categoryId }: { categoryId: string }) => {
 
     // Update the form data with selected size and price
     setFormData({
-      name: "Standee",
-      h1: "Promote your brand with durable, lightweight Standee",
+      name: "Banner",
+      h1: "Promote your brand with durable, lightweight Banner",
       description: [
-        "Select your own custom size from the size drop down and design your Standee or choose one of the 9 standard sizes available!",
-        "Pre-designed Standee templates available for occasions like Birthday, Promotional Events etc.",
-        "Vertical or horizontal designed Standee layouts available (both Indoor & outdoor options).",
+        "Select your own custom size from the size drop down and design your banner or choose one of the 9 standard sizes available!",
+        "Pre-designed Banner templates available for occasions like Birthday, Promotional Events etc.",
+        "Vertical or horizontal designed banner layouts available (both Indoor & outdoor options).",
       ],
       description1: [
         "Sharp, full-colour printing.",
-        "Durable material (Vinyl Standee).",
-        "Hang your Standee easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
+        "Durable material (Vinyl Banner).",
+        "Hang your Banner easily with optional metal eyelets (strongly recommended – they make it a lot easier!).",
       ],
       size: `${formData.height}x${formData.width}`, // Concatenate height and width
       price: formData.price,
@@ -281,7 +281,7 @@ const StandeeForm = ({ categoryId }: { categoryId: string }) => {
         <div className="mb-4">
           <label
             htmlFor="cod"
-            className="Standee items-center space-x-2"
+            className="Banner items-center space-x-2"
           >
             <input
               type="checkbox"
@@ -308,4 +308,4 @@ const StandeeForm = ({ categoryId }: { categoryId: string }) => {
   );
 };
 
-export default StandeeForm;
+export default Tabletopstandee;

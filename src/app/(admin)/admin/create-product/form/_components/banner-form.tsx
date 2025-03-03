@@ -34,7 +34,17 @@ const BannerForm = ({ categoryId }: { categoryId: string }) => {
     cod: false,
     min_quantity: "",
   });
-
+  const sizeOptions: Record<string, { height: string; width: string }> = {
+    "91 cm × 52 cm": { height: "91", width: "52" },
+    "122 cm × 76 cm": { height: "122", width: "76" },
+    "183 cm × 76 cm": { height: "183", width: "76" },
+    "244 cm × 76 cm": { height: "244", width: "76" },
+    "122 cm × 122 cm": { height: "122", width: "122" },
+    "183 cm × 122 cm": { height: "183", width: "122" },
+    "244 cm × 122 cm": { height: "244", width: "122" },
+    "305 cm × 76 cm": { height: "305", width: "76" },
+    "366 cm × 76 cm": { height: "366", width: "76" },
+  };
 
 
 
@@ -71,6 +81,17 @@ const BannerForm = ({ categoryId }: { categoryId: string }) => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+  const handleSizeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedSize = event.target.value;
+    if (sizeOptions[selectedSize]) {
+      setFormData((prev) => ({
+        ...prev,
+        size: selectedSize,
+        height: sizeOptions[selectedSize].height,
+        width: sizeOptions[selectedSize].width,
+      }));
+    }
+  };
   const handleInputChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
   
 
@@ -96,6 +117,7 @@ const BannerForm = ({ categoryId }: { categoryId: string }) => {
       eyelets: formData.eyelets,
       min_quantity: formData.min_quantity,
     });
+    
     
   };
   const handleSubmit = (e: FormEvent) => {
@@ -209,43 +231,34 @@ const BannerForm = ({ categoryId }: { categoryId: string }) => {
             placeholder="Description"
             className="w-full border min-h-40 border-gray-300 font-normal rounded-md p-2"
           />
+           {/* Size Selection Dropdown */}
+        <div className="mb-4">
+          <label>Size:</label>
+          <select
+            name="size"
+            value={formData.size}
+            onChange={handleSizeChange}
+            className="w-full border border-gray-300 rounded-md p-2 mt-2 text-black"
+          >
+            <option value="">Select a size</option>
+            {Object.keys(sizeOptions).map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
         </div>
-      
 
-        
-        <div className="mb-4 font-bold">
-          Height
-          <input
-            type="text"
-            id="height"
-            name="height"
-            value={formData.height}
-            onChange={handleInputChange}
-            placeholder="Height"
-            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
-          />
+        {/* Auto-filled Height & Width */}
+        <div className="mb-4">
+          <label>Height:</label>
+          <input type="text" name="height" value={formData.height} disabled className="w-full border border-gray-300 rounded-md p-2 mt-2 text-black bg-gray-100"/>
         </div>
-        <div className="mb-4 font-bold">
-          Width
-          <input
-            type="text"
-            id="width"
-            name="width"
-            value={formData.width}
-            onChange={handleInputChange}
-            placeholder="Width"
-            className="w-full border border-gray-300 rounded-md p-2 mt-4 font-normal text-black "
-          />
+        <div className="mb-4">
+          <label>Width:</label>
+          <input type="text" name="width" value={formData.width} disabled className="w-full border border-gray-300 rounded-md p-2 mt-2 text-black bg-gray-100"/>
         </div>
-        <div className="mb-4 font-bold">
-          Size:
-          <input
-            type="text"
-            id="size"
-            name="size" value={formData.height && formData.width ? `${formData.height}x${formData.width}` : ""} // Concatenate height and width
-            readOnly // Make the input read-only
-            className="w-full border border-gray-800 font-normal bg-gray-200 rounded-md p-2 mt-1"
-          />
+
         </div>
         <div className="mb-4 font-bold">
           Price per unit

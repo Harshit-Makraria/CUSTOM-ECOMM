@@ -9,12 +9,6 @@ export default async function page() {
 
    
    
-    const items = [
-        { id: 1, img: "/bg.jpg", text: "Banner", link: "/admin/create-product/banner" },
-        { id: 2, img: "/bg.jpg", text: "Flex", link: "/admin/create-product/flex" },
-        { id: 3, img: "/bg.jpg", text: "Standee", link: "/admin/create-product/standee" },
-
-      ];
 
   return (
     <div>
